@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "658477509030",
+    "project_id": "connect-plus-student",
+    "storage_bucket": "connect-plus-student.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:658477509030:android:e84efcf7d879b48fccc767",
+        "android_client_info": {
+          "package_name": "com.example.connect_plus_student"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "658477509030-5ooq9kqo6p4ddi08g6sit4ttvi026mke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB21J9bRDXwPOt2zzM-TjGlnFdkijOtv1c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "658477509030-5ooq9kqo6p4ddi08g6sit4ttvi026mke.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
