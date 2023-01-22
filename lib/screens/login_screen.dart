@@ -12,8 +12,6 @@ class LoginScreen extends StatefulWidget {
   State<LoginScreen> createState() => _LoginScreenState();
 }
 class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController phoneno =TextEditingController();
-  TextEditingController otp=TextEditingController();
   TextEditingController mycontroller= TextEditingController();
   TextEditingController otpController=TextEditingController();
   bool isOTPSend = false;
@@ -57,7 +55,6 @@ class _LoginScreenState extends State<LoginScreen> {
            controller: mycontroller,
            keyboardType: TextInputType.phone,
            decoration: InputDecoration(
-             prefixIcon: Icon(Icons.phone),
              border:  OutlineInputBorder(
                borderSide: BorderSide(
                  color: Colors.black,
@@ -114,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
              child: Text('Send OTP')),
        ),
        Visibility(
-         visible: isOTPSend,
+         visible: !isOTPSend,
          child: ElevatedButton(
              onPressed: () async {
                PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -127,7 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                if(userCred.user?.phoneNumber !=null){
                  //FirebaseFirestore.instance.collection("${userCred.user?.phoneNumber.toString().replaceAll("+", "")}");
                }
-
                Navigator.pushAndRemoveUntil(
                  context,
                  MaterialPageRoute(builder: (context) {
@@ -156,15 +152,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.account_circle_rounded),
                       SizedBox(width: 10,),
                       Text("Continue With Google"),
                     ],
                   ),
             ),
        )
-
-
         ],
       ),
     );
