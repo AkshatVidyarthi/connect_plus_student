@@ -22,10 +22,10 @@ class _StudentdetailsState extends State<Studentdetails> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        centerTitle: true,
+
 
         backgroundColor: Colors.deepPurpleAccent,
-        title: Text('Student Registration',style:GoogleFonts.poppins(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,wordSpacing: 2.0,letterSpacing: 1.0) ),
+        title: Text('Student Registration',style:GoogleFonts.arsenal(color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold,wordSpacing: 2.0,letterSpacing: 1.0) ),
         surfaceTintColor: Colors.black,
       ),
       body: Card(
@@ -33,12 +33,6 @@ class _StudentdetailsState extends State<Studentdetails> {
         child: Container(
             height: double.infinity,
             decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [
-                      Colors.white38,
-                      Colors.purpleAccent,
-                    ]
-                )
             ),
             child: Form(
               key: _formKey,
@@ -124,13 +118,23 @@ class _StudentdetailsState extends State<Studentdetails> {
                     iconSize: 30,
                   ),*/
 
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurpleAccent),
-                      onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return ConfirmationScreen();
-                        },));
-                      }, child: Text('Submit',style: GoogleFonts.arsenal(fontWeight: FontWeight.bold),)),
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurpleAccent),
+                        onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) {
+                            return ConfirmationScreen();
+                          },));
+                        }, child:
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container
+                        (
+                          width: double.infinity,
+                          child: Center(child: Text('Submit',style: GoogleFonts.arsenal(fontWeight: FontWeight.bold),))),
+                    )),
+                  ),
                 ],
               ),
             )

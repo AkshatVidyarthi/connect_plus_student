@@ -33,7 +33,7 @@ class _Login_optionsState extends State<Login_options> {
              mainAxisAlignment: MainAxisAlignment.center,
              children: [
                CircleAvatar(
-                 backgroundColor: Colors.transparent,radius: 80,
+                 backgroundColor: Colors.transparent,radius: 120,
                    child: Image.asset('Assets/connect-student-logo.png')),
              ],
            ),
@@ -68,7 +68,7 @@ class _Login_optionsState extends State<Login_options> {
              padding: const EdgeInsets.all(8.0),
              child: Container(
                decoration: BoxDecoration(
-                 border: Border.all(color: Colors.deepPurpleAccent,width: 10),
+                 border: Border.all(color: Colors.deepPurpleAccent,width: 3),
                  borderRadius: BorderRadius.all(Radius.circular(20))
                ),
                child: ListTile(
@@ -87,7 +87,7 @@ class _Login_optionsState extends State<Login_options> {
              padding: const EdgeInsets.all(8.0),
              child: Container(
                decoration: BoxDecoration(
-                   border: Border.all(color: Colors.black54,width: 10),
+                   border: Border.all(color: Colors.black54,width: 3),
                    borderRadius: BorderRadius.all(Radius.circular(20))
                ),
                child: ListTile(

@@ -32,6 +32,8 @@ dependencies:
   google_fonts: ^3.0.1
   cached_network_image: ^3.2.3
   country_picker: ^2.0.19
+  circular_bottom_navigation: ^2.3.0
+
 
 dev_dependencies:
   flutter_test:
