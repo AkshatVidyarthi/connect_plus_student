@@ -33,7 +33,7 @@ class _Login_optionsState extends State<Login_options> {
              mainAxisAlignment: MainAxisAlignment.center,
              children: [
                CircleAvatar(
-                 backgroundColor: Colors.transparent,radius: 120,
+                 backgroundColor: Colors.transparent,radius: 80,
                    child: Image.asset('Assets/connect-student-logo.png')),
              ],
            ),
