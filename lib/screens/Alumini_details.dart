@@ -92,9 +92,9 @@ class _AluminidetailsState extends State<Aluminidetails> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurpleAccent),
                       onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) {
+                      /*Navigator.push(context, MaterialPageRoute(builder: (context) {
                         return ConfirmationScreen();
-                      },));
+                      },));*/
                       },
                       child: Container
                         (

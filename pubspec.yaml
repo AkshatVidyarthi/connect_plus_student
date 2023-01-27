@@ -34,6 +34,7 @@ dependencies:
   country_picker: ^2.0.19
   circular_bottom_navigation: ^2.3.0
   firebase_database: ^10.0.9
+  cloud_firestore: ^4.3.1
 
 
 dev_dependencies:

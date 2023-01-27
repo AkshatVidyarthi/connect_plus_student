@@ -1,4 +1,6 @@
+import 'package:connect_plus_student/screens/Student_details.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: LoginScreen(),
+      home:FirebaseAuth.instance.currentUser != null ? StudentDetails():LoginScreen(),
     );
   }
 }

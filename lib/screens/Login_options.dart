@@ -74,7 +74,7 @@ class _Login_optionsState extends State<Login_options> {
                      leading: Image.network('https://cdn-icons-png.flaticon.com/512/201/201818.png'),
                      onTap: (){
                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                         return Studentdetails();
+                         return StudentDetails();
                        },));
                      },
                    ),
