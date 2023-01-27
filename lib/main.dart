@@ -21,10 +21,9 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Connect Plus Student',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
-      home: LoginScreen(
-      ),
+      home: LoginScreen(),
     );
   }
 }
