@@ -1,3 +1,4 @@
+import 'package:connect_plus_student/screens/Alumini_details.dart';
 import 'package:connect_plus_student/screens/Student_details.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home:FirebaseAuth.instance.currentUser != null ? StudentDetails():LoginScreen(),
+      home:FirebaseAuth.instance.currentUser != null ? Aluminidetails():LoginScreen(),
     );
   }
 }

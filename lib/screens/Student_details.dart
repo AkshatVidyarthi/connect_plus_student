@@ -145,22 +145,6 @@ class _StudentDetailsState extends State<StudentDetails> {
                   },
                 ),
               ),
-              /*DropdownButtonFormField(
-                      value: selval,
-                      items: courseslist
-                          .map((e) => DropdownMenuItem(
-                        child: Text(e),
-                        value: e,
-                      ))
-                          .toList(),
-                      onChanged: (val) {
-                        setState(() {
-                          selval = val;
-                        });
-                      },
-                      icon: Icon(Icons.select_all_sharp),
-                      iconSize: 30,
-                    ),*/
 
               Padding(
                 padding: const EdgeInsets.all(24.0),
