@@ -115,6 +115,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                     labelText: 'Passing Year',
                     hintText: 'Year of Passing',
                   ),
+                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Your Passing Year";
@@ -135,17 +136,27 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
                           await FirebaseFirestore.instance
-                              .collection("Alumini Data")
+                              .collection("AluminiData")
                               .doc(user.uid)
                               .set({
                             "fullName": _fullName,
                              "stream":_stream,
                             "passingYear": _passingYear,
                             "course": _course,
-                          });
-                           Navigator.push(context, MaterialPageRoute(builder: (context) {
-                             return ConfirmationScreen();
-                           },));
+                            "isVerified":false,
+                          }).onError((error, stackTrace) =>
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content:
+                                  Text("${error}"),
+                                ),
+                              ))
+                              .then((value) =>
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return ConfirmationScreen();
+                                },
+                              )));
                         }
                       }
                     },

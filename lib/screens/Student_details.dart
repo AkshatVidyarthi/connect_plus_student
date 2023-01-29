@@ -59,7 +59,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                   onSaved: (value) {
                     _fullName = value;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Full Name',
                     hintText: 'Enter Full Name',
@@ -79,7 +79,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                   onSaved: (value) {
                     _id = value;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Id',
                     hintText: 'Enter your ID number',
@@ -99,11 +99,12 @@ class _StudentDetailsState extends State<StudentDetails> {
                   onSaved: (value) {
                     _passingYear = value;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Passing Year',
                     hintText: 'Year of Passing',
                   ),
+                  keyboardType: TextInputType.number,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Your Passing Year";
@@ -130,7 +131,7 @@ class _StudentDetailsState extends State<StudentDetails> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: DropdownButton(
-                  hint: Text('Select Course'),
+                  hint: const Text('Select Course'),
                   value: _selectedCourse,
                   items: _coursesList
                       .map((e) => DropdownMenuItem(
@@ -145,7 +146,6 @@ class _StudentDetailsState extends State<StudentDetails> {
                   },
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: ElevatedButton(
@@ -164,7 +164,6 @@ class _StudentDetailsState extends State<StudentDetails> {
                         }
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
-
                           await FirebaseFirestore.instance
                               .collection("studentData")
                               .doc(user.uid)
@@ -173,18 +172,18 @@ class _StudentDetailsState extends State<StudentDetails> {
                                 "id": _id,
                                 "passingYear": _passingYear,
                                 "course": _selectedCourse,
+                                "isVerified": false,
                               })
                               .onError((error, stackTrace) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content:
-                                          Text("${error}"),
+                                      content: Text("${error}"),
                                     ),
                                   ))
                               .then((value) =>
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) {
-                                      return ConfirmationScreen();
+                                      return const ConfirmationScreen();
                                     },
                                   )));
                         }
