@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
+     //it will go according to the screen
      home: firstScreen,
      // home:FirebaseAuth.instance.currentUser != null ? ConfirmationScreen():LoginScreen(),
     );
