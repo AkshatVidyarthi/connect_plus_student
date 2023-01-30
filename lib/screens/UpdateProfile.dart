@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class updateprofile extends StatefulWidget {
   const updateprofile({Key? key}) : super(key: key);
-
   @override
   State<updateprofile> createState() => _updateprofileState();
 }

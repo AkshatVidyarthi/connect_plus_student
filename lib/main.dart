@@ -7,7 +7,6 @@ import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -29,7 +28,7 @@ Future<Widget> checkUserVerification() async {
   }
   else if(data.exists)
   {
-  return const ConfirmationScreen();
+  return HomeScreen();
   }
   else if (data.get("isVerified")) {
     return HomeScreen();
@@ -37,12 +36,10 @@ Future<Widget> checkUserVerification() async {
     return const ConfirmationScreen();
   }
 }
-//class
+
 class MyApp extends StatelessWidget {
   final Widget firstScreen;
-
   const MyApp(this.firstScreen, {super.key});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -51,7 +48,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: firstScreen,
+     home: firstScreen,
+     // home:FirebaseAuth.instance.currentUser != null ? ConfirmationScreen():LoginScreen(),
     );
   }
 }
