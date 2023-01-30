@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/Alumini_details.dart';
+import 'package:connect_plus_student/screens/Confirmation_Screen.dart';
+import 'package:connect_plus_student/screens/HomeScreen.dart';
 import 'package:connect_plus_student/screens/Student_details.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,11 +15,28 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  final Widget firstScreen = await checkUserVerification();
+  runApp(MyApp(firstScreen));
+}
+
+Future<Widget> checkUserVerification() async {
+  final data = await FirebaseFirestore.instance
+      .collection("users")
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .get();
+  if (!data.exists) {
+    return const LoginScreen();
+  } else if (data.get("isVerified")) {
+    return HomeScreen();
+  } else {
+    return const ConfirmationScreen();
+  }
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final Widget firstScreen;
+
+  const MyApp(this.firstScreen, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +46,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home:FirebaseAuth.instance.currentUser != null ? Aluminidetails():LoginScreen(),
+      home: firstScreen,
     );
   }
 }

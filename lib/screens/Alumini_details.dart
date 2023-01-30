@@ -136,7 +136,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
                           await FirebaseFirestore.instance
-                              .collection("AluminiData")
+                              .collection("users")
                               .doc(user.uid)
                               .set({
                             "fullName": _fullName,
@@ -144,6 +144,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                             "passingYear": _passingYear,
                             "course": _course,
                             "isVerified":false,
+                            "type": "alumni"
                           }).onError((error, stackTrace) =>
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
@@ -152,11 +153,11 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                                 ),
                               ))
                               .then((value) =>
-                              Navigator.push(context, MaterialPageRoute(
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                                 builder: (context) {
                                   return ConfirmationScreen();
                                 },
-                              )));
+                              ),(route) => false,));
                         }
                       }
                     },

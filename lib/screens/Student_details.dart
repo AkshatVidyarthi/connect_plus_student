@@ -165,7 +165,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
                           await FirebaseFirestore.instance
-                              .collection("studentData")
+                              .collection("users")
                               .doc(user.uid)
                               .set({
                                 "fullName": _fullName,
@@ -173,6 +173,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                                 "passingYear": _passingYear,
                                 "course": _selectedCourse,
                                 "isVerified": false,
+                                "type": "student"
                               })
                               .onError((error, stackTrace) =>
                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -180,12 +181,15 @@ class _StudentDetailsState extends State<StudentDetails> {
                                       content: Text("${error}"),
                                     ),
                                   ))
-                              .then((value) =>
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) {
-                                      return const ConfirmationScreen();
-                                    },
-                                  )));
+                              .then((value) => Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return const ConfirmationScreen();
+                                      },
+                                    ),
+                                    (route) => false,
+                                  ));
                         }
                       }
 
