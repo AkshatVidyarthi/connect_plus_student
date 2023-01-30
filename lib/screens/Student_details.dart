@@ -3,6 +3,7 @@ import 'package:connect_plus_student/screens/Confirmation_Screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StudentDetails extends StatefulWidget {
@@ -84,6 +85,8 @@ class _StudentDetailsState extends State<StudentDetails> {
                     labelText: 'Id',
                     hintText: 'Enter your ID number',
                   ),
+                  maxLength: 6,
+                  inputFormatters: <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly],
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Your Id";
@@ -99,12 +102,16 @@ class _StudentDetailsState extends State<StudentDetails> {
                   onSaved: (value) {
                     _passingYear = value;
                   },
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Passing Year',
                     hintText: 'Year of Passing',
                   ),
                   keyboardType: TextInputType.number,
+                  maxLength: 4,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Your Passing Year";
@@ -192,9 +199,6 @@ class _StudentDetailsState extends State<StudentDetails> {
                                   ));
                         }
                       }
-
-                      /**/
-                      /**/
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),

@@ -3,6 +3,7 @@ import 'package:connect_plus_student/screens/Confirmation_Screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Aluminidetails extends StatefulWidget {
@@ -67,6 +68,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+
                   onSaved: (value) {
                     _stream = value;
                   },
@@ -90,6 +92,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                   onSaved: (value) {
                     _course = value;
                   },
+
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter your Course',
@@ -107,6 +110,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+
                   onSaved: (value) {
                     _passingYear = value;
                   },
@@ -114,12 +118,22 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                     border: OutlineInputBorder(),
                     labelText: 'Passing Year',
                     hintText: 'Year of Passing',
+
                   ),
+
                   keyboardType: TextInputType.number,
+                  inputFormatters: <TextInputFormatter>[
+                    FilteringTextInputFormatter.digitsOnly
+
+                  ],
+                  maxLength: 4,
+
+
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Your Passing Year";
-                    } else {
+                    }
+                    else {
                       return null;
                     }
                   },

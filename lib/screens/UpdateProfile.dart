@@ -30,7 +30,6 @@ class _updateprofileState extends State<updateprofile> {
                     child: Icon(Icons.person,size: 50,)),
               ),
             ),
-
             Text('Akshat Vidyarthi',style: GoogleFonts.arsenal(
               fontWeight: FontWeight.bold,
               fontSize: 18,
