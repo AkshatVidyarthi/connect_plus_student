@@ -37,7 +37,7 @@ Future<Widget> checkUserVerification() async {
     return const ConfirmationScreen();
   }
 }
-
+//class
 class MyApp extends StatelessWidget {
   final Widget firstScreen;
 
