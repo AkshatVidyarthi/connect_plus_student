@@ -26,7 +26,12 @@ Future<Widget> checkUserVerification() async {
       .get();
   if (!data.exists) {
     return const LoginScreen();
-  } else if (data.get("isVerified")) {
+  }
+  else if(data.exists)
+  {
+  return const ConfirmationScreen();
+  }
+  else if (data.get("isVerified")) {
     return HomeScreen();
   } else {
     return const ConfirmationScreen();
