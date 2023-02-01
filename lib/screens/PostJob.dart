@@ -236,6 +236,7 @@ class _PostJobState extends State<PostJob> {
                         }
                       }
                     },
+                    //child is this
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
@@ -248,6 +249,7 @@ class _PostJobState extends State<PostJob> {
                               ))),
                     )),
               ),
+
              ],
           ),
         ),
