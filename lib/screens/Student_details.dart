@@ -121,17 +121,6 @@ class _StudentDetailsState extends State<StudentDetails> {
                   },
                 ),
               ),
-              /* Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: TextFormField(
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                          ),
-                          labelText: 'Course Enrolled',
-                          hintText: 'Enrolled Course',
-                        ),
-                      ),
-                    ),*/
               Text('Enter Your Course',
                   style: GoogleFonts.arsenal(
                       fontWeight: FontWeight.bold, fontSize: 20)),

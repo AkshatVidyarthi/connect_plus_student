@@ -1,3 +1,5 @@
+import 'package:connect_plus_student/screens/PostInternship.dart';
+import 'package:connect_plus_student/screens/PostJob.dart';
 import 'package:connect_plus_student/screens/UpdateProfile.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +27,14 @@ class _MainScreenState extends State<MainScreen> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-
-
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
               InkWell(
-                onDoubleTap: (){},
+                onDoubleTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return PostJob();
+                  },));
+                },
                 child: Container(
                 width: 70,
                 height: 70,
@@ -98,7 +101,11 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 SizedBox(width: 10,),
                 InkWell(
-                  onDoubleTap: (){},
+                  onDoubleTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return PostInternships();
+                    }));
+                  },
                   child: Container(
                     width: 70,
                     height: 70,

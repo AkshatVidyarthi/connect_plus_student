@@ -29,7 +29,6 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
       _selectedIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
