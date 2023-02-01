@@ -5,11 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 class PostInternships extends StatefulWidget {
   const PostInternships({Key? key}) : super(key: key);
-
   @override
   State<PostInternships> createState() => _PostInternshipsState();
 }
-
 class _PostInternshipsState extends State<PostInternships> {
   final _formKey = GlobalKey<FormState>();
   String? _CompanyName;
@@ -25,7 +23,7 @@ class _PostInternshipsState extends State<PostInternships> {
         backgroundColor: Colors.deepPurpleAccent,
         title: Text('POST INTERNSHIPS'),
       ),
-
+//body
       body: SingleChildScrollView(
         child: Form(
           key: _formKey,
