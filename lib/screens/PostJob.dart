@@ -241,6 +241,7 @@ class _PostJobState extends State<PostJob> {
                       padding: const EdgeInsets.all(8.0),
                       //this is the child
                       child: Container(
+                        //width
                           width: double.infinity,
                           child: Center(
                               child: Text(
