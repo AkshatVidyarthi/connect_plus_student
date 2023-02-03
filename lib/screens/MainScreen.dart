@@ -16,15 +16,19 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          SizedBox(height: 10,),
-          Center
-            (child: Text('What you would Like to do?',style: GoogleFonts.arsenal(
-            fontWeight: FontWeight.bold
-          ),)),
-          SizedBox(height: 20,),
-          SingleChildScrollView(
+        child: Column(children: [
+      const SizedBox(
+        height: 10,
+      ),
+      Center(
+          child: Text(
+        'What you would Like to do?',
+        style: GoogleFonts.arsenal(fontWeight: FontWeight.bold),
+      )),
+      const SizedBox(
+        height: 20,
+      ),
+      SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -211,8 +215,72 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
           ),
-      ]
-      )
+      SizedBox(
+        height: 64,
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          itemExtent: 104,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          children: [
+            CardWithIcon(
+              text: "Post Job",
+              icon: const Icon(Icons.post_add),
+              onTap: () {},
+            ),
+            CardWithIcon(
+              text: "Job cdsj dcd",
+              icon: const Icon(Icons.post_add),
+              onTap: () {},
+            )
+          ],
+        ),
+      ),
+    ]));
+  }
+}
+
+class CardWithIcon extends StatelessWidget {
+  final String text;
+  final Icon icon;
+  final void Function()? onTap;
+
+  const CardWithIcon({
+    Key? key,
+    required this.text,
+    required this.icon,
+    this.onTap,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 8),
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.grey,
+            ),
+            borderRadius: const BorderRadius.all(Radius.circular(16))),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon,
+            const SizedBox(height: 4),
+            FittedBox(
+              child: Text(
+                text,
+                style: const TextStyle(
+                  color: Colors.deepPurple,
+                  fontSize: 10,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

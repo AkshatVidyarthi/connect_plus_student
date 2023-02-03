@@ -19,6 +19,7 @@ class _MoreoptionsState extends State<Moreoptions> {
     Widget cancelButton = TextButton(
       child: Text("Cancel"),
       onPressed:  () {
+        Navigator.pop(context);
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return HomeScreen();
         },));
@@ -26,6 +27,7 @@ class _MoreoptionsState extends State<Moreoptions> {
     );
     Widget continueButton =  ElevatedButton(
       child: Text('LOGOUT'),onPressed: ()async {
+      Navigator.pop(context);
       await FirebaseAuth.instance.signOut();
       Navigator.pushAndRemoveUntil(
           context, MaterialPageRoute(builder: (context) {
@@ -36,7 +38,7 @@ class _MoreoptionsState extends State<Moreoptions> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      content: Text("Are You Sure You Want to Logout from the Screen"),
+      content: Text("Are You Sure You Want to Logout"),
       actions: [
         cancelButton,
         continueButton,
