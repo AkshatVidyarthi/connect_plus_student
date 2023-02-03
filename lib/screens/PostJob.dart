@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/HomeScreen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -135,7 +134,6 @@ class _PostJobState extends State<PostJob> {
                   onSaved: (value) {
                     _Location = value;
                   },
-
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Location',
@@ -156,7 +154,6 @@ class _PostJobState extends State<PostJob> {
                   onSaved: (value) {
                     _Email = value;
                   },
-
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Enter Email',
@@ -209,15 +206,19 @@ class _PostJobState extends State<PostJob> {
                               .collection("JOB POSTED")
                               .doc(user.uid)
                               .set({
-                            "Companyname": _CompanyName,
-                            "jobtitle":_Title,
-                            "minexp":_MinExp,
-                            "maxexp":_MaxExp,
-                            "Location":_Location,
-                             "email": _Email,
-                            "jobdescription":_JobDescribe,
-                            "isVerified": false,
-                          })
+                            "data":[
+                              {
+                                "Companyname": _CompanyName,
+                                "jobtitle":_Title,
+                                "minexp":_MinExp,
+                                "maxexp":_MaxExp,
+                                "Location":_Location,
+                                "email": _Email,
+                                "jobdescription":_JobDescribe,
+                                "isVerified": false,
+                              }
+                            ]
+                          },SetOptions(merge: true))
                               .onError((error, stackTrace) =>
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

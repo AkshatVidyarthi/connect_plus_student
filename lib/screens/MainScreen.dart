@@ -35,33 +35,36 @@ class _MainScreenState extends State<MainScreen> {
                     return PostJob();
                   },));
                 },
-                child: Container(
-                width: 70,
-                height: 70,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.grey,
-                  ),
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                ),
                 child: Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Column(
-                    children: <Widget>[
-                      FittedBox(
-                        child: Text(
-                          'Post Jobs',
-                          style: TextStyle(
-                              color: Colors.deepPurple,
-                              fontSize: 10,
-                          fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Icon(Icons.search),
-                    ],
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                  width: 90,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.grey,
+                    ),
+                      borderRadius: BorderRadius.all(Radius.circular(20))
                   ),
-                ),
+                  child: Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Column(
+                      children: <Widget>[
+                        FittedBox(
+                          child: Text(
+                            'Post Jobs',
+                            style: TextStyle(
+                                color: Colors.deepPurple,
+                                fontSize: 10,
+                            fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Icon(Icons.post_add),
+                      ],
+                    ),
+                  ),
             ),
+                ),
               ),
                 SizedBox(width: 10,),
                 InkWell(
@@ -70,31 +73,33 @@ class _MainScreenState extends State<MainScreen> {
                       return updateprofile();
                     },));
                   },
-                  child: Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Column(
-                        children: <Widget>[
-                         
-                          FittedBox(
-                            child: Text(
-                              'Update Profile',
-                              style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
-                            ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 90,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
                           ),
-                          Icon(Icons.search),
-                        ],
+                          borderRadius: BorderRadius.all(Radius.circular(20))
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            FittedBox(
+                              child: Text(
+                                'Update Profile',
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Icon(Icons.update_sharp),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -106,32 +111,35 @@ class _MainScreenState extends State<MainScreen> {
                       return PostInternships();
                     }));
                   },
-                  child: Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Column(
-                        children: <Widget>[
-                          Center(
-                            child: FittedBox(
-                              child: Text(
-                                'Post Internship',
-                                style: TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 90,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(20))
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            Center(
+                              child: FittedBox(
+                                child: Text(
+                                  'Post Internship',
+                                  style: TextStyle(
+                                      color: Colors.deepPurple,
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold),
+                                ),
                               ),
                             ),
-                          ),
-                          Icon(Icons.search),
-                        ],
+                            Icon(Icons.post_add),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -139,28 +147,31 @@ class _MainScreenState extends State<MainScreen> {
                 SizedBox(width: 10,),
                 InkWell(
                   onDoubleTap: (){},
-                  child: Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'View Jobs',
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 90,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
                           ),
-                          Icon(Icons.search),
-                        ],
+                          borderRadius: BorderRadius.all(Radius.circular(20))
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'View Jobs',
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(Icons.view_comfy_sharp),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -168,28 +179,31 @@ class _MainScreenState extends State<MainScreen> {
                 SizedBox(width: 10,),
                 InkWell(
                   onDoubleTap: (){},
-                  child: Container(
-                    width: 70,
-                    height: 70,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.grey,
-                        ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Column(
-                        children: <Widget>[
-                          Text(
-                            'Payments',
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 90,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
                           ),
-                          Icon(Icons.search),
-                        ],
+                          borderRadius: BorderRadius.all(Radius.circular(20))
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Column(
+                          children: <Widget>[
+                            Text(
+                              'Payments',
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Icon(Icons.payment_outlined),
+                          ],
+                        ),
                       ),
                     ),
                   ),

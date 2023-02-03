@@ -1,3 +1,4 @@
+import 'package:connect_plus_student/screens/HomeScreen.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
@@ -12,6 +13,43 @@ class Moreoptions extends StatefulWidget {
 }
 
 class _MoreoptionsState extends State<Moreoptions> {
+  showAlertDialog(BuildContext context) {
+
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
+          return HomeScreen();
+        },));
+      },
+    );
+    Widget continueButton =  ElevatedButton(
+      child: Text('LOGOUT'),onPressed: ()async {
+      await FirebaseAuth.instance.signOut();
+      Navigator.pushAndRemoveUntil(
+          context, MaterialPageRoute(builder: (context) {
+        return LoginScreen();
+      }), (route) => false);
+    },
+    );
+
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      content: Text("Are You Sure You Want to Logout from the Screen"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -57,11 +95,8 @@ class _MoreoptionsState extends State<Moreoptions> {
                             Icons.account_circle, color: Colors.deepPurple,)),
                       IconButton(onPressed: () {},
                           icon: Icon(Icons.adb, color: Colors.deepPurple,)),
-
                     ],
                   ),
-
-
                 ],
               ),
             ),
@@ -91,17 +126,13 @@ class _MoreoptionsState extends State<Moreoptions> {
                       (
                         radius: 30,
                         child: Icon(Icons.person, size: 40,)),
-                    onTap: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.pushAndRemoveUntil(
-                          context, MaterialPageRoute(builder: (conext) {
-                        return LoginScreen();
-                      }), (route) => false);
-                    },
                     subtitle: Text('View And Edit Profile', style: TextStyle(
                       color: Colors.grey,
                     )),
                     trailing: Icon(Icons.arrow_back, color: Colors.black),
+                    onTap: (){
+                      showAlertDialog(context);
+                    },
                   ),
                   ListTile(
                     onTap: () {},
