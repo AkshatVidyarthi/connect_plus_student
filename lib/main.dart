@@ -50,6 +50,7 @@ class MyApp extends StatelessWidget {
       ),
      //it will go according to the screen
      home: firstScreen,
+     //SQSKO
      // home:FirebaseAuth.instance.currentUser != null ? ConfirmationScreen():LoginScreen(),
     );
   }
