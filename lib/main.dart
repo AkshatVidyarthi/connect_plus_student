@@ -41,6 +41,7 @@ class MyApp extends StatelessWidget {
   final Widget firstScreen;
   const MyApp(this.firstScreen, {super.key});
   @override
+  //WIDGET
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
