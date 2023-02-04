@@ -7,11 +7,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({Key? key}) : super(key: key);
-
   @override
   State<MainScreen> createState() => _MainScreenState();
 }
-
 class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
@@ -54,6 +52,8 @@ class _MainScreenState extends State<MainScreen> {
                     padding: EdgeInsets.all(10.0),
                     child: Column(
                       children: <Widget>[
+                        Icon(Icons.post_add),
+                        SizedBox(height: 7,),
                         FittedBox(
                           child: Text(
                             'Post Jobs',
@@ -63,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
                             fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Icon(Icons.post_add),
+
                       ],
                     ),
                   ),
@@ -92,6 +92,8 @@ class _MainScreenState extends State<MainScreen> {
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
+                            Icon(Icons.update_sharp),
+                            SizedBox(height: 7,),
                             FittedBox(
                               child: Text(
                                 'Update Profile',
@@ -101,7 +103,7 @@ class _MainScreenState extends State<MainScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-                            Icon(Icons.update_sharp),
+
                           ],
                         ),
                       ),
@@ -130,6 +132,8 @@ class _MainScreenState extends State<MainScreen> {
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
+                            Icon(Icons.post_add),
+                            SizedBox(height: 7,),
                             Center(
                               child: FittedBox(
                                 child: Text(
@@ -141,7 +145,7 @@ class _MainScreenState extends State<MainScreen> {
                                 ),
                               ),
                             ),
-                            Icon(Icons.post_add),
+
                           ],
                         ),
                       ),
@@ -166,6 +170,8 @@ class _MainScreenState extends State<MainScreen> {
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
+                            Icon(Icons.view_comfy_sharp),
+                            SizedBox(height: 7,),
                             Text(
                               'View Jobs',
                               style: TextStyle(
@@ -173,7 +179,7 @@ class _MainScreenState extends State<MainScreen> {
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Icon(Icons.view_comfy_sharp),
+
                           ],
                         ),
                       ),
@@ -198,6 +204,8 @@ class _MainScreenState extends State<MainScreen> {
                         padding: EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
+                            Icon(Icons.payment_outlined),
+                            SizedBox(height: 7,),
                             Text(
                               'Payments',
                               style: TextStyle(
@@ -205,7 +213,7 @@ class _MainScreenState extends State<MainScreen> {
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
-                            Icon(Icons.payment_outlined),
+
                           ],
                         ),
                       ),
@@ -215,7 +223,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
           ),
-      SizedBox(
+      /*SizedBox(
         height: 64,
         child: ListView(
           scrollDirection: Axis.horizontal,
@@ -234,11 +242,12 @@ class _MainScreenState extends State<MainScreen> {
             )
           ],
         ),
-      ),
+      ),*/
     ]));
   }
 }
 
+/*
 class CardWithIcon extends StatelessWidget {
   final String text;
   final Icon icon;
@@ -284,3 +293,4 @@ class CardWithIcon extends StatelessWidget {
     );
   }
 }
+*/

@@ -203,11 +203,9 @@ class _PostJobState extends State<PostJob> {
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
                           await FirebaseFirestore.instance
-                              .collection("JOB POSTED")
+                              .collection("jobposted")
                               .doc(user.uid)
                               .set({
-                            "data":[
-                              {
                                 "Companyname": _CompanyName,
                                 "jobtitle":_Title,
                                 "minexp":_MinExp,
@@ -216,8 +214,6 @@ class _PostJobState extends State<PostJob> {
                                 "email": _Email,
                                 "jobdescription":_JobDescribe,
                                 "isVerified": false,
-                              }
-                            ]
                           },SetOptions(merge: true))
                               .onError((error, stackTrace) =>
                               ScaffoldMessenger.of(context).showSnackBar(

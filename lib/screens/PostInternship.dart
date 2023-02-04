@@ -149,7 +149,7 @@ class _PostInternshipsState extends State<PostInternships> {
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
                           await FirebaseFirestore.instance
-                              .collection("INTERNSHIPS POSTED")
+                              .collection("InternshipsPosted")
                               .doc(user.uid)
                               .set({
                             "Companyname": _CompanyName,
