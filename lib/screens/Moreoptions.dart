@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/HomeScreen.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +14,8 @@ class Moreoptions extends StatefulWidget {
 }
 
 class _MoreoptionsState extends State<Moreoptions> {
+  final TextEditingController _controller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
   showAlertDialog(BuildContext context) {
 
     // set up the buttons
@@ -55,10 +58,11 @@ class _MoreoptionsState extends State<Moreoptions> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+
       child: Column(
         children: [
           SizedBox(
-            height: 14,
+            height: 8,
           ),
           Material(
             elevation: 5.0,
@@ -87,28 +91,24 @@ class _MoreoptionsState extends State<Moreoptions> {
                         )),
                   ),
                   SizedBox(height: 20,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      IconButton(onPressed: () {},
-                          icon: Icon(Icons.add, color: Colors.deepPurple)),
-                      IconButton(onPressed: () {},
-                          icon: Icon(
-                            Icons.account_circle, color: Colors.deepPurple,)),
-                      IconButton(onPressed: () {},
-                          icon: Icon(Icons.adb, color: Colors.deepPurple,)),
-                    ],
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurpleAccent),
+                    child: const Text('Open form',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)),
+                    onPressed: () {
+                      showDialog(
+                          context: context, builder: (context) => const FeedbackDialog());
+                    },
                   ),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 100,),
+          SizedBox(height: 80,),
           Material(
             elevation: 5.0,
             color: Colors.white70,
             child: Container(
-              height: 330,
+              height: 250,
               width: 360,
               child: Column(
                 children: [
@@ -141,27 +141,101 @@ class _MoreoptionsState extends State<Moreoptions> {
                     title: Text('Add Work Details'),
                     leading: Icon(Icons.work, color: Colors.deepPurple),
                     trailing: Icon(Icons.arrow_back, color: Colors.black),
-
                   ),
-                  ListTile(
-                    onTap: () {},
-                    title: Text('Change Picture'),
-                    leading: Icon(Icons.photo_camera, color: Colors.deepPurple),
-                    trailing: Icon(Icons.arrow_back, color: Colors.black),
 
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    title: Text('Update Location'),
-                    leading: Icon(
-                        Icons.location_on_rounded, color: Colors.deepPurple),
-                    trailing: Icon(Icons.arrow_back, color: Colors.black),
 
-                  ),
 
                 ],
               ),
             ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class FeedbackDialog extends StatefulWidget {
+  const FeedbackDialog({Key? key}) : super(key: key);
+
+  @override
+  State<FeedbackDialog> createState() => _FeedbackDialogState();
+}
+
+class _FeedbackDialogState extends State<FeedbackDialog> {
+  final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+  GlobalKey<ScaffoldMessengerState>();
+
+  final TextEditingController _controller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      body: AlertDialog(
+        content: Form(
+          key: _formKey,
+          child: TextFormField(
+            controller: _controller,
+            keyboardType: TextInputType.multiline,
+            decoration: const InputDecoration(
+              hintText: 'Enter your feedback here',
+              filled: true,
+            ),
+            maxLines: 5,
+            maxLength: 4096,
+            textInputAction: TextInputAction.done,
+            validator: (String? text) {
+              if (text == null || text.isEmpty) {
+                return 'Please enter a value';
+              }
+              return null;
+            },
+          ),
+        ),
+        actions: [
+          TextButton(
+            child: const Text('Cancel'),
+            onPressed: () => Navigator.pop(context),
+          ),
+          TextButton(
+            child: const Text('Send'),
+            onPressed: () async {
+              // Only if the input form is valid (the user has entered text)
+              if (_formKey.currentState!.validate()) {
+                // We will use this var to show the result
+                // of this operation to the user
+                String message;
+
+                try {
+                  // Get a reference to the `feedback` collection
+                  final collection =
+                  FirebaseFirestore.instance.collection('feedback');
+
+                  // Write the server's timestamp and the user's feedback
+                  await collection.doc().set({
+                    'timestamp': FieldValue.serverTimestamp(),
+                    'feedback': _controller.text,
+                  });
+
+                  message = 'Feedback sent successfully';
+                } catch (e) {
+                  message = 'Error when sending feedback';
+                }
+
+                // Show a snackbar with the result
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(message)));
+                Navigator.pop(context);
+              }
+            },
           )
         ],
       ),
