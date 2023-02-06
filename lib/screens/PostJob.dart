@@ -206,15 +206,19 @@ class _PostJobState extends State<PostJob> {
                               .collection("jobposted")
                               .doc(user.uid)
                               .set({
-                                "Companyname": _CompanyName,
-                                "jobtitle":_Title,
-                                "minexp":_MinExp,
-                                "maxexp":_MaxExp,
-                                "Location":_Location,
-                                "email": _Email,
-                                "jobdescription":_JobDescribe,
-                                "isVerified": false,
-                          },SetOptions(merge: true))
+                                "data":
+                                  FieldValue.arrayUnion([{
+    "Companyname": _CompanyName,
+    "jobtitle": _Title,
+    "minexp": _MinExp,
+    "maxexp": _MaxExp,
+    "Location": _Location,
+    "email": _Email,
+    "jobdescription": _JobDescribe,
+    "isVeri)fied": false,
+    }])
+
+                              },SetOptions(merge: true))
                               .onError((error, stackTrace) =>
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
