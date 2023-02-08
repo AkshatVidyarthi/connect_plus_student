@@ -215,7 +215,7 @@ class _PostJobState extends State<PostJob> {
     "Location": _Location,
     "email": _Email,
     "jobdescription": _JobDescribe,
-    "isVeri)fied": false,
+    "isVerified": false,
     }])
 
                               },SetOptions(merge: true))
