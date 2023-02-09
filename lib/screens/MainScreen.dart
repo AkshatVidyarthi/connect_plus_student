@@ -1,3 +1,4 @@
+import 'package:connect_plus_student/main.dart';
 import 'package:connect_plus_student/screens/PostInternship.dart';
 import 'package:connect_plus_student/screens/PostJob.dart';
 import 'package:connect_plus_student/screens/UpdateProfile.dart';
@@ -31,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              InkWell(
+            isStudent ? SizedBox() :  InkWell(
                 onDoubleTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return PostJob();
