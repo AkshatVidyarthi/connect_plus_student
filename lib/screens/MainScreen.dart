@@ -180,7 +180,6 @@ class _MainScreenState extends State<MainScreen> {
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
-
                           ],
                         ),
                       ),
@@ -214,7 +213,6 @@ class _MainScreenState extends State<MainScreen> {
                                   fontSize: 10,
                                   fontWeight: FontWeight.bold),
                             ),
-
                           ],
                         ),
                       ),
@@ -224,6 +222,7 @@ class _MainScreenState extends State<MainScreen> {
         ],
       ),
           ),
+
       /*SizedBox(
         height: 64,
         child: ListView(

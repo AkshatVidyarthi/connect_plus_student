@@ -16,42 +16,32 @@ class Moreoptions extends StatefulWidget {
 class _MoreoptionsState extends State<Moreoptions> {
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
-  showAlertDialog(BuildContext context) {
-
-    // set up the buttons
-    Widget cancelButton = TextButton(
-      child: Text("Cancel"),
-      onPressed:  () {
-        Navigator.pop(context);
-        Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return HomeScreen();
-        },));
-      },
-    );
-    Widget continueButton =  ElevatedButton(
-      child: Text('LOGOUT'),onPressed: ()async {
-      Navigator.pop(context);
-      await FirebaseAuth.instance.signOut();
-      Navigator.pushAndRemoveUntil(
-          context, MaterialPageRoute(builder: (context) {
-        return LoginScreen();
-      }), (route) => false);
-    },
-    );
-
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      content: Text("Are You Sure You Want to Logout"),
-      actions: [
-        cancelButton,
-        continueButton,
-      ],
-    );
-    // show the dialog
+  showAlertDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return alert;
+        return AlertDialog(
+          content: Text("Are You Sure You Want to Logout"),
+          actions: [
+            TextButton(
+              child: Text("Cancel"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            ElevatedButton(
+              child: Text('LOGOUT'),
+              onPressed: () async {
+                Navigator.pop(context);
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushAndRemoveUntil(context,
+                    MaterialPageRoute(builder: (context) {
+                      return LoginScreen();
+                    }), (route) => false);
+              },
+            ),
+          ],
+        );
       },
     );
   }
@@ -133,7 +123,7 @@ class _MoreoptionsState extends State<Moreoptions> {
                     )),
                     trailing: Icon(Icons.arrow_back, color: Colors.black),
                     onTap: (){
-                      showAlertDialog(context);
+                      showAlertDialog();
                     },
                   ),
                   ListTile(

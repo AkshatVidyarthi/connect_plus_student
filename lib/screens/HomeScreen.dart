@@ -3,6 +3,7 @@ import 'package:connect_plus_student/screens/Members.Dart.dart';
 import 'package:connect_plus_student/screens/Messages.dart';
 import 'package:connect_plus_student/screens/Moreoptions.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,10 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Connect+ Student'),
+          title:  Text('Connect+ Student',style: GoogleFonts.arsenal(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          )),
           backgroundColor: Colors.deepPurpleAccent,
       ),
       body: Center(
@@ -44,12 +48,12 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
             BottomNavigationBarItem(
                 icon: Icon(Icons.home),
                 label: 'Home',
-                backgroundColor: Colors.green
+                backgroundColor: Colors.deepPurpleAccent
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.people_alt_sharp),
                 label: 'Members',
-                backgroundColor: Colors.yellow
+                backgroundColor: Colors.deepPurpleAccent
             ),
             BottomNavigationBarItem(
                 icon: Icon(Icons.chat),
@@ -59,7 +63,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
             BottomNavigationBarItem(
               icon: Icon(Icons.more),
               label: 'More',
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.deepPurpleAccent,
             ),
           ],
           type: BottomNavigationBarType.shifting,
