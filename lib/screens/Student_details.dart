@@ -169,7 +169,10 @@ class _StudentDetailsState extends State<StudentDetails> {
                                 "passingYear": _passingYear,
                                 "course": _selectedCourse,
                                 "isVerified": false,
-                                "type": "student"
+                                "type": "student",
+                                "photo":"${user.photoURL}",
+                                "email":"${user.email}",
+                                "phone":"${user.phoneNumber}",
                               })
                               .onError((error, stackTrace) =>
                                   ScaffoldMessenger.of(context).showSnackBar(

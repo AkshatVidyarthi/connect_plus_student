@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/HomeScreen.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
@@ -117,7 +118,14 @@ class _MoreoptionsState extends State<Moreoptions> {
                     leading: CircleAvatar
                       (
                         radius: 30,
-                        child: Icon(Icons.person, size: 40,)),
+                        child: CachedNetworkImage(
+                          imageUrl:
+                          "${FirebaseAuth.instance.currentUser?.photoURL}",
+                          errorWidget: (context, error, stack) {
+                            return Icon(Icons.person, size: 40,);
+                          },
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                        )),
                     subtitle: Text('View And Edit Profile', style: TextStyle(
                       color: Colors.grey,
                     )),

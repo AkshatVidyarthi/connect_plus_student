@@ -158,7 +158,10 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                             "passingYear": _passingYear,
                             "course": _course,
                             "isVerified":false,
-                            "type": "alumni"
+                            "type": "alumni",
+                            "photo":"${user.photoURL}",
+                            "email":"${user.email}",
+                            "phone":"${user.phoneNumber}",
                           }).onError((error, stackTrace) =>
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
