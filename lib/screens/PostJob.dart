@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class PostJob extends StatefulWidget {
   const PostJob({Key? key}) : super(key: key);
 
@@ -20,15 +21,14 @@ class _PostJobState extends State<PostJob> {
   String? _Email;
   String? _JobDescribe;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
         backgroundColor: Colors.deepPurpleAccent,
         title: Text('POST JOB'),
-
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -83,7 +83,6 @@ class _PostJobState extends State<PostJob> {
                   onSaved: (value) {
                     _MinExp = value;
                   },
-
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Minimum Experience',
@@ -91,9 +90,8 @@ class _PostJobState extends State<PostJob> {
                   ),
                   maxLength: 4,
                   inputFormatters: <TextInputFormatter>[
-                   FilteringTextInputFormatter.digitsOnly
+                    FilteringTextInputFormatter.digitsOnly
                   ],
-
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Minimum Years";
@@ -109,7 +107,6 @@ class _PostJobState extends State<PostJob> {
                   onSaved: (value) {
                     _MaxExp = value;
                   },
-
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Maximum  Experience',
@@ -165,8 +162,7 @@ class _PostJobState extends State<PostJob> {
                     }
                     if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
                       return "Please enter a valid email address";
-                    }
-                    else {
+                    } else {
                       return null;
                     }
                   },
@@ -176,7 +172,7 @@ class _PostJobState extends State<PostJob> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
                   onSaved: (value) {
-                     _JobDescribe= value;
+                    _JobDescribe = value;
                   },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -206,34 +202,34 @@ class _PostJobState extends State<PostJob> {
                               .collection("jobposted")
                               .doc(user.uid)
                               .set({
-                                "data":
-                                  FieldValue.arrayUnion([{
-    "Companyname": _CompanyName,
-    "jobtitle": _Title,
-    "minexp": _MinExp,
-    "maxexp": _MaxExp,
-    "Location": _Location,
-    "email": _Email,
-    "jobdescription": _JobDescribe,
-    "isVerified": false,
-    }])
-
-                              },SetOptions(merge: true))
+                                "data": FieldValue.arrayUnion([
+                                  {
+                                    "Companyname": _CompanyName,
+                                    "jobtitle": _Title,
+                                    "minexp": _MinExp,
+                                    "maxexp": _MaxExp,
+                                    "Location": _Location,
+                                    "email": _Email,
+                                    "jobdescription": _JobDescribe,
+                                    "isVerified": false,
+                                  }
+                                ])
+                              }, SetOptions(merge: true))
                               .onError((error, stackTrace) =>
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text("${error}"),
-                                ),
-                              ))
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("${error}"),
+                                    ),
+                                  ))
                               .then((value) => Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return  HomeScreen();
-                              },
-                            ),
-                                (route) => false,
-                          ));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return HomeScreen();
+                                      },
+                                    ),
+                                    (route) => false,
+                                  ));
                         }
                       }
                     },
@@ -242,18 +238,17 @@ class _PostJobState extends State<PostJob> {
                       padding: const EdgeInsets.all(8.0),
                       //this is the child
                       child: Container(
-                        //width
+                          //width
                           width: double.infinity,
                           child: Center(
                               child: Text(
-                                'Submit',
-                                style: GoogleFonts.arsenal(
-                                    fontWeight: FontWeight.bold),
-                              ))),
+                            'Submit',
+                            style: GoogleFonts.arsenal(
+                                fontWeight: FontWeight.bold),
+                          ))),
                     )),
               ),
-
-             ],
+            ],
           ),
         ),
       ),

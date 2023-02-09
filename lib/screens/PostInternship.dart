@@ -152,13 +152,17 @@ class _PostInternshipsState extends State<PostInternships> {
                               .collection("InternshipsPosted")
                               .doc(user.uid)
                               .set({
-                            "Companyname": _CompanyName,
-                            "jobtitle":_Title,
-                            "Location":_Location,
-                            "email": _Email,
-                            "jobdescription":_Describe,
-                            "isVerified": false,
-                          })
+                            "data": FieldValue.arrayUnion([
+                              {
+                                "Companyname": _CompanyName,
+                                "jobtitle": _Title,
+                                "Location": _Location,
+                                "email": _Email,
+                                "jobdescription": _Describe,
+                                "isVerified": false,
+                              }
+                            ])
+                          }, SetOptions(merge: true))
                               .onError((error, stackTrace) =>
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
