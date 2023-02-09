@@ -41,18 +41,26 @@ class _updateprofileState extends State<updateprofile> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CircleAvatar(
-                    radius: 50,
+                child: ClipRRect(
+                  borderRadius:
+                  BorderRadius.circular(50),
+                  child: CircleAvatar(
+                    radius: 40,
+                    backgroundColor: Colors.white,
                     child: CachedNetworkImage(
+                      fit: BoxFit.fill,
                       imageUrl:
                       "${FirebaseAuth.instance.currentUser?.photoURL}",
                       errorWidget: (context, error, stack) {
-                        return Icon(Icons.person, size: 40,);
+                        return Icon(Icons.person,
+                        size: MediaQuery.of(context).size.width *0.20  ,);
                       },
                       placeholder: (context, url) => CircularProgressIndicator(),
-                    )),
+                    ),
+                  ),
+                )),
               ),
-            ),
+            
             Text(
               'Akshat Vidyarthi',
               style: GoogleFonts.arsenal(
@@ -100,6 +108,9 @@ class _updateprofileState extends State<updateprofile> {
                                     if (image != null) {
                                       uploadProfile(image);
                                     }
+                                    setState(() {
+
+                                    });
                                   },
                                   icon: Icon(Icons.camera),
                                 ),
@@ -116,6 +127,9 @@ class _updateprofileState extends State<updateprofile> {
                                     if (image != null) {
                                       uploadProfile(image);
                                     }
+                                    setState(() {
+
+                                    });
                                   },
                                   icon: Icon(Icons.image),
                                 ),
@@ -342,9 +356,7 @@ class _updateprofileState extends State<updateprofile> {
               .set({
             "photo": "${url}",
           },SetOptions(merge: true));
-          setState(() {
 
-          });
           //ref.getDownloadURL();
           // Handle successful uploads on complete
           // ...

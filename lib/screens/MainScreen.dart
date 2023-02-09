@@ -33,7 +33,7 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
             isStudent ? SizedBox() :  InkWell(
-                onDoubleTap: (){
+                onTap: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return PostJob();
                   },));
@@ -73,7 +73,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
                 SizedBox(width: 10,),
                 InkWell(
-                  onDoubleTap: (){
+                   onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
                       return updateprofile();
                     },));
@@ -104,7 +104,6 @@ class _MainScreenState extends State<MainScreen> {
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
-
                           ],
                         ),
                       ),
@@ -112,8 +111,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 SizedBox(width: 10,),
-                InkWell(
-                  onDoubleTap: (){
+                isStudent ? SizedBox() : InkWell(
+                  onTap: (){
                     Navigator.push(context, MaterialPageRoute(builder: (context){
                       return PostInternships();
                     }));
@@ -155,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
                 ),
                 SizedBox(width: 10,),
                 InkWell(
-                  onDoubleTap: (){},
+                  onTap: (){},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -173,12 +172,14 @@ class _MainScreenState extends State<MainScreen> {
                           children: <Widget>[
                             Icon(Icons.view_comfy_sharp),
                             SizedBox(height: 7,),
-                            Text(
-                              'View Jobs',
-                              style: TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.bold),
+                            FittedBox(
+                              child: Text(
+                                'View Internships',
+                                style: TextStyle(
+                                    color: Colors.deepPurple,
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
                           ],
                         ),
@@ -187,8 +188,8 @@ class _MainScreenState extends State<MainScreen> {
                   ),
                 ),
                 SizedBox(width: 10,),
-                InkWell(
-                  onDoubleTap: (){},
+                isStudent ? SizedBox() : InkWell(
+                  onTap: (){},
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
@@ -247,50 +248,4 @@ class _MainScreenState extends State<MainScreen> {
   }
 }
 
-/*
-class CardWithIcon extends StatelessWidget {
-  final String text;
-  final Icon icon;
-  final void Function()? onTap;
 
-  const CardWithIcon({
-    Key? key,
-    required this.text,
-    required this.icon,
-    this.onTap,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.grey,
-            ),
-            borderRadius: const BorderRadius.all(Radius.circular(16))),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            icon,
-            const SizedBox(height: 4),
-            FittedBox(
-              child: Text(
-                text,
-                style: const TextStyle(
-                  color: Colors.deepPurple,
-                  fontSize: 10,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-*/

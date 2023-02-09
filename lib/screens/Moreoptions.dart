@@ -99,7 +99,7 @@ class _MoreoptionsState extends State<Moreoptions> {
             elevation: 5.0,
             color: Colors.white70,
             child: Container(
-              height: 250,
+              height: 270,
               width: 360,
               child: Column(
                 children: [
@@ -129,16 +129,27 @@ class _MoreoptionsState extends State<Moreoptions> {
                     subtitle: Text('View And Edit Profile', style: TextStyle(
                       color: Colors.grey,
                     )),
-                    trailing: Icon(Icons.arrow_back, color: Colors.black),
+
                     onTap: (){
-                      showAlertDialog();
+
                     },
                   ),
                   ListTile(
                     onTap: () {},
-                    title: Text('Add Work Details'),
+                    title: Text('Add Work Details',style: GoogleFonts.arsenal(
+                      fontWeight: FontWeight.bold
+                    )),
                     leading: Icon(Icons.work, color: Colors.deepPurple),
-                    trailing: Icon(Icons.arrow_back, color: Colors.black),
+                  ),
+                  ListTile(
+                    onTap: () {
+                      showAlertDialog();
+                    },
+                    title: Text('Logout',style: GoogleFonts.arsenal(
+                      fontWeight: FontWeight.bold,
+                    )),
+                    leading: Icon(Icons.logout, color: Colors.deepPurple),
+
                   ),
 
 
