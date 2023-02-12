@@ -78,7 +78,6 @@ class _PostInternshipsState extends State<PostInternships> {
                   onSaved: (value) {
                     _Location = value;
                   },
-
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Location',
@@ -129,6 +128,7 @@ class _PostInternshipsState extends State<PostInternships> {
                     labelText: 'Internship Description',
                     hintText: 'Enter Internship Description',
                   ),
+                  maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Information About the Internship";

@@ -21,7 +21,6 @@ class _PostJobState extends State<PostJob> {
   String? _Email;
   String? _JobDescribe;
   final _formKey = GlobalKey<FormState>();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -179,6 +178,7 @@ class _PostJobState extends State<PostJob> {
                     labelText: 'Job Description',
                     hintText: 'Enter Job Description',
                   ),
+                  maxLines: 5,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Information About the Job";
@@ -245,8 +245,11 @@ class _PostJobState extends State<PostJob> {
                             'Submit',
                             style: GoogleFonts.arsenal(
                                 fontWeight: FontWeight.bold),
-                          ))),
-                    )),
+                          )
+                          )
+                      ),
+                    )
+                ),
               ),
             ],
           ),

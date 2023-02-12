@@ -49,7 +49,6 @@ class _MoreoptionsState extends State<Moreoptions> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-
       child: Column(
         children: [
           SizedBox(

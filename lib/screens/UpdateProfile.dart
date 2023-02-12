@@ -58,7 +58,8 @@ class _updateprofileState extends State<updateprofile> {
                       placeholder: (context, url) => CircularProgressIndicator(),
                     ),
                   ),
-                )),
+                )
+              ),
               ),
             
             Text(
@@ -324,7 +325,6 @@ class _updateprofileState extends State<updateprofile> {
       ),
     );
   }
-
   void uploadProfile(XFile image) async {
     final user = FirebaseAuth.instance.currentUser;
     final ref = FirebaseStorage.instance.ref("profilePhotos/${user?.uid}");
