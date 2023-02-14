@@ -31,82 +31,92 @@ class InternshipScreen extends StatelessWidget {
             );
           }
           final document = snapShot2.data?.docs;
+
           return ListView.builder(
             itemBuilder: (context, index) {
-              final data = document?[index].get("data");
+              final List<dynamic> data =
+                  document?[index].get("data") as List<dynamic>;
               return Column(
                 children: <Widget>[
                   for (int i = 0; i < data.length; i++)
                     data[i]["isVerified"]
                         ? InkWell(
-                      onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) {
-                          return MoreOptionsInternship();
-                        },
-                        )
-                        );
-                      },
-                          child: Card(
-                      elevation: 3.0,
-                          color: Colors.white,
-                            child: Container(
-                              padding: EdgeInsets.all(16.0),
-                            child: Column(
-                              children: [
-                                SizedBox(height: 20,),
-                                Row(
-                                  children: [
-                                    Text("${data[i]["jobtitle"]}",
-                                  style: GoogleFonts.arsenal(
-                                    color:Colors.black,
-                                    fontWeight:FontWeight.bold,
-                                    fontSize: 20,
-                                  ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("${data[i]["Companyname"]}",style: GoogleFonts.arsenal(
-                                      fontSize: 18,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text("${data[i]["Location"]}",
-                                      style: GoogleFonts.arsenal(
-                                        color: Colors.grey,
-                                        fontSize: 15,
-                                        fontWeight:FontWeight.w900,
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return MoreOptionsInternship(data[i],document?[index].id);
+                                },
+                              ));
+                            },
+                            child: Card(
+                              elevation: 3.0,
+                              color: Colors.white,
+                              child: Container(
+                                  padding: EdgeInsets.all(16.0),
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        height: 20,
                                       ),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
                                       Row(
                                         children: [
-                                          TextButton(
-                                            style: TextButton.styleFrom(
+                                          Text(
+                                            "${data[i]["jobtitle"]}",
+                                            style: GoogleFonts.arsenal(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20,
                                             ),
-                                              onPressed: (){}, child: Text('View More',style: TextStyle(
-                                            color: Colors.black
-                                          ),)),
-                                          Icon(Icons.login),
+                                          ),
                                         ],
                                       ),
-                                  ],
-                                )
-                              ],
-                            )
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${data[i]["Companyname"]}",
+                                            style: GoogleFonts.arsenal(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${data[i]["Location"]}",
+                                            style: GoogleFonts.arsenal(
+                                              color: Colors.grey,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.end,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              TextButton(
+                                                  style: TextButton.styleFrom(),
+                                                  onPressed: () {},
+                                                  child: Text(
+                                                    'View More',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  )),
+                                              Icon(Icons.login),
+                                            ],
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  )),
                             ),
-                          ),
-                        )
+                          )
                         : SizedBox(),
                 ],
               );

@@ -1,4 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connect_plus_student/main.dart';
 import 'package:connect_plus_student/screens/Login_options.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -7,6 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'Confirmation_Screen.dart';
+import 'HomeScreen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -158,11 +163,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         .signInWithCredential(credential);
 
                     if (userCred.user != null) {
+                      final widget = await checkUserVerification();
                       if (!mounted) return;
                       Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(builder: (context) {
-                          return Login_options();
+                          return widget;
                         }),
                         (route) => false,
                       );
@@ -179,10 +185,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: () async {
                   final user = await signInWithGoogle();
                   if (user.user != null) {
+                    final widget = await checkUserVerification();
                     if (!mounted) return;
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return Login_options();
+                        return widget;
                       },
                     ));
                   }
@@ -221,4 +228,27 @@ class _LoginScreenState extends State<LoginScreen> {
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
+
+
+  Future<Widget> checkUserVerification() async {
+    final data = await FirebaseFirestore.instance
+        .collection("users")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .get();
+    if (!data.exists) {
+      return const Login_options();
+    } else {
+      if (data.get("type") == "student") {
+        isStudent = true;
+      } else {
+        isStudent = false;
+      }
+      if (data.get("isVerified")) {
+        return HomeScreen();
+      } else {
+        return const ConfirmationScreen();
+      }
+    }
+  }
+
 }
