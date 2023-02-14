@@ -10,7 +10,6 @@ class MoreOptionsInternship extends StatefulWidget {
   @override
   State<MoreOptionsInternship> createState() => _MoreOptionsInternshipState();
 }
-
 class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
   @override
   Widget build(BuildContext context) {
@@ -32,12 +31,13 @@ class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
           }
           final document = snapShot2.data?.docs;
           return ListView.builder(
+            shrinkWrap: true,
             itemBuilder: (context, index) {
               final data = document?[index].get("data");
               return Column(
                 children: <Widget>[
                   for (int i = 0; i < data.length; i++)
-                    data[index]["isVerified"]
+                    data[i]["isVerified"]
                         ? InkWell(
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(
@@ -59,7 +59,7 @@ class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
                                       Row(
                                         children: [
                                           Text(
-                                            "${data[index]["jobtitle"]}",
+                                            "${data[i]["jobtitle"]}",
                                             style: GoogleFonts.arsenal(
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold,
@@ -79,7 +79,7 @@ class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
                                                 fontWeight: FontWeight.w400,
                                               )),
                                           Text(
-                                            "${data[index]["Companyname"]}",
+                                            "${data[i]["Companyname"]}",
                                             style: GoogleFonts.arsenal(
                                               fontSize: 18,
                                               color: Colors.black,
@@ -95,7 +95,7 @@ class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
                                                 fontWeight: FontWeight.w400,
                                               )),
                                           Text(
-                                            "${data[index]["Location"]}",
+                                            "${data[i]["Location"]}",
                                             style: GoogleFonts.arsenal(
                                               color: Colors.grey,
                                               fontSize: 15,
@@ -122,7 +122,7 @@ class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
                                       Row(
                                         children: [
                                           Text(
-                                            "${data[index]["jobdescription"]}",
+                                            "${data[i]["jobdescription"]}",
                                             style: GoogleFonts.arsenal(
                                               color: Colors.black,
                                               fontSize: 15,
@@ -173,7 +173,6 @@ class _MoreOptionsInternshipState extends State<MoreOptionsInternship> {
                                                 return SizedBox(
                                                   child: ListView(
                                                     shrinkWrap: true,
-                                                    
                                                     children: allUserDocs
                                                         .map((document) {
                                                       return Column(

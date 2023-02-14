@@ -37,12 +37,14 @@ class InternshipScreen extends StatelessWidget {
               return Column(
                 children: <Widget>[
                   for (int i = 0; i < data.length; i++)
-                    data[index]["isVerified"]
+                    data[i]["isVerified"]
                         ? InkWell(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context) {
                           return MoreOptionsInternship();
-                        },));
+                        },
+                        )
+                        );
                       },
                           child: Card(
                       elevation: 3.0,
@@ -54,7 +56,7 @@ class InternshipScreen extends StatelessWidget {
                                 SizedBox(height: 20,),
                                 Row(
                                   children: [
-                                    Text("${data[index]["jobtitle"]}",
+                                    Text("${data[i]["jobtitle"]}",
                                   style: GoogleFonts.arsenal(
                                     color:Colors.black,
                                     fontWeight:FontWeight.bold,
@@ -65,7 +67,7 @@ class InternshipScreen extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    Text("${data[index]["Companyname"]}",style: GoogleFonts.arsenal(
+                                    Text("${data[i]["Companyname"]}",style: GoogleFonts.arsenal(
                                       fontSize: 18,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
@@ -75,7 +77,7 @@ class InternshipScreen extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    Text("${data[index]["Location"]}",
+                                    Text("${data[i]["Location"]}",
                                       style: GoogleFonts.arsenal(
                                         color: Colors.grey,
                                         fontSize: 15,
@@ -101,7 +103,8 @@ class InternshipScreen extends StatelessWidget {
                                   ],
                                 )
                               ],
-                            )),
+                            )
+                            ),
                           ),
                         )
                         : SizedBox(),

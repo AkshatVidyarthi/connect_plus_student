@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/main.dart';
+import 'package:connect_plus_student/screens/MoreJobsOptions.dart';
 import 'package:connect_plus_student/screens/MoreOptionsInternship.dart';
 import 'package:connect_plus_student/screens/PostInternship.dart';
 import 'package:connect_plus_student/screens/PostJob.dart';
@@ -266,11 +267,11 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(5.0),
             child: Container(
               decoration: BoxDecoration(
-                border: Border.all(color: Colors.deepPurpleAccent, width: 3),
-                borderRadius: BorderRadius.all(Radius.circular(20)),
+                border: Border.all(color: Colors.deepPurpleAccent, width: 1),
+                borderRadius: BorderRadius.all(Radius.circular(14)),
               ),
               width: double.infinity,
               child: Row(
@@ -326,7 +327,7 @@ class _MainScreenState extends State<MainScreen> {
                                   onTap: () {
                                     Navigator.push(context, MaterialPageRoute(
                                       builder: (context) {
-                                        return MoreOptionsInternship();
+                                        return MoreJobsOptions();
                                       },
                                     ));
                                   },
