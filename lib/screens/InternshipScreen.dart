@@ -31,7 +31,6 @@ class InternshipScreen extends StatelessWidget {
             );
           }
           final document = snapShot2.data?.docs;
-
           return ListView.builder(
             itemBuilder: (context, index) {
               final List<dynamic> data =
@@ -46,7 +45,8 @@ class InternshipScreen extends StatelessWidget {
                                 builder: (context) {
                                   return MoreOptionsInternship(data[i],document?[index].id);
                                 },
-                              ));
+                              )
+                              );
                             },
                             child: Card(
                               elevation: 3.0,

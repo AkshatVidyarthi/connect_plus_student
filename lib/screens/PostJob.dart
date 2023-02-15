@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/HomeScreen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,8 +23,10 @@ class _PostJobState extends State<PostJob> {
   String? _MaxExp;
   String? _Location;
   String? _Email;
-  String? _JobDescribe;
+  String? _Describe;
+  File? file;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -171,7 +177,7 @@ class _PostJobState extends State<PostJob> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
                   onSaved: (value) {
-                    _JobDescribe = value;
+                    _Describe = value;
                   },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -188,8 +194,40 @@ class _PostJobState extends State<PostJob> {
                   },
                 ),
               ),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurpleAccent),
+                  onPressed: () async {
+                    FilePickerResult? result =
+                    await FilePicker.platform.pickFiles();
+                    if (result != null) {
+                      file = File("${result.files.single.path}");
+                      setState(() {});
+                    }
+                  },
+                  child: Text(
+                    'Upload File',
+                    style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.bold),
+                  )),
+              file != null
+                  ? Row(
+                children: [
+                  Expanded(child: Text("${file?.path
+                      .split("/")
+                      .last}")),
+                  IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      file = null;
+                      setState(() {});
+                    },
+                  ),
+                ],
+              )
+                  : SizedBox(),
               Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurpleAccent),
@@ -198,63 +236,102 @@ class _PostJobState extends State<PostJob> {
                       if (_formKey.currentState?.validate() ?? false) {
                         final user = FirebaseAuth.instance.currentUser;
                         if (user != null) {
-                          await FirebaseFirestore.instance
-                              .collection("jobposted")
-                              .doc(user.uid)
-                              .set({
-                                "data": FieldValue.arrayUnion([
-                                  {
-                                    "Companyname": _CompanyName,
-                                    "jobtitle": _Title,
-                                    "minexp": _MinExp,
-                                    "maxexp": _MaxExp,
-                                    "Location": _Location,
-                                    "email": _Email,
-                                    "jobdescription": _JobDescribe,
-                                    "isVerified": false,
-                                  }
-                                ])
-                              }, SetOptions(merge: true))
-                              .onError((error, stackTrace) =>
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("${error}"),
-                                    ),
-                                  ))
-                              .then((value) => Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return HomeScreen();
-                                      },
-                                    ),
-                                    (route) => false,
-                                  ));
+                          final jobId =
+                          DateTime
+                              .now()
+                              .millisecond
+                              .toString();
+                          final userId = user.uid;
+                          if (file != null) {
+                            uploadProfile(jobId, userId);
+                          } else {
+                            saveData(jobId, "", userId);
+                          }
                         }
                       }
                     },
-                    //child is this
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      //this is the child
                       child: Container(
-                          //width
                           width: double.infinity,
                           child: Center(
                               child: Text(
-                            'Submit',
-                            style: GoogleFonts.arsenal(
-                                fontWeight: FontWeight.bold),
-                          )
-                          )
-                      ),
-                    )
-                ),
+                                'Submit',
+                                style: GoogleFonts.arsenal(
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                    )),
               ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  void uploadProfile(String id, String userId) async {
+    final ref = FirebaseStorage.instance.ref("JobJDs/$id");
+    final uploadTask = ref.putFile(file!);
+    uploadTask.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
+      switch (taskSnapshot.state) {
+        case TaskState.running:
+          final progress =
+              100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
+          print("Upload is $progress% complete.");
+          break;
+        case TaskState.paused:
+          print("Upload is paused.");
+          break;
+        case TaskState.canceled:
+          print("Upload was canceled");
+          break;
+        case TaskState.error:
+          print("Upload was error");
+          // Handle unsuccessful uploads
+          break;
+        case TaskState.success:
+          final url = await ref.getDownloadURL();
+          print("Upload was success $url");
+          saveData(id, url, userId);
+          break;
+      }
+    });
+  }
+
+  void saveData(String id, String url, String userId) async {
+    await FirebaseFirestore.instance
+        .collection("jobposted")
+        .doc(userId)
+        .set({
+      "data": FieldValue.arrayUnion([
+        {
+          "id": id,
+          "Companyname": _CompanyName,
+          "jobtitle": _Title,
+          "Location": _Location,
+          "email": _Email,
+          "jobdescription": _Describe,
+          "isVerified": false,
+          "attachment": url,
+        }
+      ])
+    }, SetOptions(merge: true))
+        .onError(
+            (error, stackTrace) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("$error"),
+              ),
+            ))
+        .then((value) =>
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return HomeScreen();
+            },
+          ),
+              (route) => false,
+        ));
   }
 }

@@ -50,110 +50,137 @@ class _MoreoptionsState extends State<Moreoptions> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
             height: 8,
           ),
-          Material(
-            elevation: 5.0,
-            child: Container(
-              height: 180,
-              width: 360,
-              color: Colors.white70,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.insert_invitation),
-                      SizedBox(width: 10,),
-                      Text('Share and Invite', style: GoogleFonts.arsenal(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 15,
-                          color: Colors.deepPurple),),
-                    ],
-                  ),
-                  SizedBox(height: 20,),
-                  Center(
-                    child: Text(
-                        'Share about your Connect+ Student on social media and help to grow the feedback.',
-                        style: GoogleFonts.arsenal(
-                          color: Colors.grey, fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                  SizedBox(height: 20,),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurpleAccent),
-                    child: const Text('Open form',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)),
-                    onPressed: () {
-                      showDialog(
-                          context: context, builder: (context) => const FeedbackDialog());
-                    },
-                  ),
-                ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Material(
+              elevation: 2.0,
+              color: Colors.white54,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side:  BorderSide(color: Colors.black, width: 1
+                ),),
+              child: Container(
+                height: 200,
+                width: 360,
+                color: Colors.white,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        children: [
+                          Icon(Icons.insert_invitation),
+                          SizedBox(width: 10,),
+                          Text('Share and Invite', style: GoogleFonts.arsenal(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                              color: Colors.deepPurple),),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                            'Share about your Connect+ Student on social media and help to grow the feedback.',
+                            style: GoogleFonts.arsenal(
+                              color: Colors.grey, fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(backgroundColor: Colors.deepPurpleAccent),
+                      child: const Text('Open form',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black)),
+                      onPressed: () {
+                        showDialog(
+                            context: context, builder: (context) => const FeedbackDialog());
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
-          SizedBox(height: 80,),
-          Material(
-            elevation: 5.0,
-            color: Colors.white70,
-            child: Container(
-              height: 270,
-              width: 360,
-              child: Column(
-                children: [
-                  ListTile(
-                    leading: Icon(
-                        Icons.person, color: Colors.deepPurple, size: 30),
-                    title: Text('My Profile', style: GoogleFonts.arsenal(
-                        color: Colors.black,
+          SizedBox(height: 30,),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Material(
+              elevation: 2.0,
+              color: Colors.white54,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+                side:  BorderSide(color: Colors.black, width: 1
+                ),),
+                child: Container(
+                height: 300,
+                width: 360,
+                child: Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(
+                          Icons.account_circle, color: Colors.deepPurple, size: 35),
+                      title: Text('My Profile', style: GoogleFonts.arsenal(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16)),
+                    ),
+                    SizedBox(height: 20,),
+                    ListTile(
+                      title: Text('Akshat Vidyarthi',
+                          style: TextStyle(fontWeight: FontWeight.bold)),
+                      leading: ClipRRect(
+                        borderRadius:
+                        BorderRadius.circular(50),
+                        child: CircleAvatar
+                          (
+                            radius: 40,
+                            backgroundColor: Colors.white,
+                            child: CachedNetworkImage(
+                              fit: BoxFit.fill,
+                              imageUrl:
+                              "${FirebaseAuth.instance.currentUser?.photoURL}",
+                              errorWidget: (context, error, stack) {
+                                return Icon(Icons.person, size: 40,);
+                              },
+                              placeholder: (context, url) => CircularProgressIndicator(),
+                            )
+                        ),
+                      ),
+                      subtitle: Text('View And Edit Profile', style: TextStyle(
+                        color: Colors.grey,
+                      )),
+                      onTap: (){
+                      },
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      title: Text('Add Work Details',style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.bold
+                      )),
+                      leading: Icon(Icons.work, color: Colors.deepPurple),
+                    ),
+                    ListTile(
+                      onTap: () {
+                        showAlertDialog();
+                      },
+                      title: Text('Logout',style: GoogleFonts.arsenal(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16)),
-                  ),
-                  SizedBox(height: 20,),
-                  ListTile(
-                    title: Text('Akshat Vidyarthi',
-                        style: TextStyle(fontWeight: FontWeight.bold)),
-                    leading: CircleAvatar
-                      (
-                        radius: 30,
-                        child: CachedNetworkImage(
-                          imageUrl:
-                          "${FirebaseAuth.instance.currentUser?.photoURL}",
-                          errorWidget: (context, error, stack) {
-                            return Icon(Icons.person, size: 40,);
-                          },
-                          placeholder: (context, url) => CircularProgressIndicator(),
-                        )),
-                    subtitle: Text('View And Edit Profile', style: TextStyle(
-                      color: Colors.grey,
-                    )),
+                      )),
+                      leading: Icon(Icons.logout, color: Colors.deepPurple),
 
-                    onTap: (){
-
-                    },
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    title: Text('Add Work Details',style: GoogleFonts.arsenal(
-                      fontWeight: FontWeight.bold
-                    )),
-                    leading: Icon(Icons.work, color: Colors.deepPurple),
-                  ),
-                  ListTile(
-                    onTap: () {
-                      showAlertDialog();
-                    },
-                    title: Text('Logout',style: GoogleFonts.arsenal(
-                      fontWeight: FontWeight.bold,
-                    )),
-                    leading: Icon(Icons.logout, color: Colors.deepPurple),
-
-                  ),
+                    ),
 
 
 
-                ],
+                  ],
+                ),
               ),
             ),
           )

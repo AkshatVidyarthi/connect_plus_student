@@ -18,9 +18,9 @@ class MyNavigationBar extends StatefulWidget {
 }
 class _MyNavigationBarState extends State<MyNavigationBar > {
   int _selectedIndex = 0;
-  static const List<Widget> _widgetOptions = <Widget>[
+  static  List<Widget> _widgetOptions = <Widget>[
     MainScreen(),
-    Members(),
+    Members(data[i],document?[index].id),
     Messages(),
     Moreoptions(),
   ];
@@ -66,7 +66,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.black,
+          selectedItemColor: Colors.deepPurple,
           iconSize: 20,
           onTap: _onItemTapped,
           elevation: 5

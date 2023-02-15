@@ -197,46 +197,4 @@ class MoreOptionsInternship extends StatelessWidget {
   }
 }
 
-/*StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-        builder: (context, snapShot2) {
-          if (snapShot2.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (snapShot2.hasError) {
-            return Center(
-              child: Text("${snapShot2.error}"),
-            );
-          }
-          final document = snapShot2.data?.docs;
-          return ListView.builder(
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              final data = document?[index].get("data");
-              return Column(
-                children: <Widget>[
-                  for (int i = 0; i < data.length; i++)
-                    data[i]["isVerified"]
-                        ? InkWell(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return MoreOptionsInternship(data[i]);
-                                },
-                              ));
-                            },
-                            child:
-                          )
-                        : SizedBox(),
-                ],
-              );
-            },
-            itemCount: document?.length,
-          );
-        },
-        stream: FirebaseFirestore.instance
-            .collection("InternshipsPosted")
-            .snapshots(),
-      )*/
 
-/**/

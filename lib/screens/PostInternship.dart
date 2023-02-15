@@ -146,33 +146,23 @@ class _PostInternshipsState extends State<PostInternships> {
                   },
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.all(24.0),
-                child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepPurpleAccent),
-                    onPressed: () async {
-                      FilePickerResult? result =
-                          await FilePicker.platform.pickFiles();
-                      if (result != null) {
-                        file = File("${result.files.single.path}");
-                        setState(() {});
-                      }
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        width: double.infinity,
-                        child: Center(
-                          child: Text(
-                            'Upload File',
-                            style: GoogleFonts.arsenal(
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    )),
-              ),
+
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurpleAccent),
+                  onPressed: () async {
+                    FilePickerResult? result =
+                        await FilePicker.platform.pickFiles();
+                    if (result != null) {
+                      file = File("${result.files.single.path}");
+                      setState(() {});
+                    }
+                  },
+                  child: Text(
+                    'Upload File',
+                    style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.bold),
+                  )),
               file != null
                   ? Row(
                       children: [
@@ -188,7 +178,7 @@ class _PostInternshipsState extends State<PostInternships> {
                     )
                   : SizedBox(),
               Padding(
-                padding: const EdgeInsets.all(24.0),
+                padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurpleAccent),

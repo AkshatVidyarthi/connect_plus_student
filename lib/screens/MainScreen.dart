@@ -301,7 +301,7 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ),
           ),
-          StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        /*  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             builder: (context, snapShot1) {
               if (snapShot1.connectionState == ConnectionState.waiting) {
                 return Center(
@@ -313,25 +313,29 @@ class _MainScreenState extends State<MainScreen> {
                 );
               }
               final document = snapShot1.data?.docs;
-              return SizedBox(
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final data = document?[index].get("data");
-                    return Column(
-                      children: <Widget>[
-                        for (int i = 0; i < data.length; i++)
-                          data[i]["isVerified"]
-                              ? InkWell(
-                                  onTap: () {
-                                    Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) {
-                                        return MoreJobsOptions();
-                                      },
-                                    ));
-                                  },
-                                  child: Card(
+              return ListView.builder(
+                itemBuilder: (context, index) {
+                  final List<dynamic> data =
+                  document?[index].get("data") as List<dynamic>;
+                  return Column(
+                    children: <Widget>[
+                      for (int i = 0; i < data.length; i++)
+                        data[i]["isVerified"]
+                            ? InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                              builder: (context) {
+                                return MoreJobsOptions(data[i],document?[index].id);
+                              },
+                            ));
+                          },
+                          child: SizedBox(
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                                itemBuilder: (context,index)
+                                {
+                                 return Card(
                                     elevation: 3.0,
                                     color: Colors.white,
                                     child: Container(
@@ -379,7 +383,7 @@ class _MainScreenState extends State<MainScreen> {
                                             ),
                                             Row(
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.end,
+                                              MainAxisAlignment.end,
                                               children: [
                                                 Row(
                                                   children: [
@@ -390,8 +394,8 @@ class _MainScreenState extends State<MainScreen> {
                                                         child: Text(
                                                           'View More',
                                                           style: TextStyle(
-                                                              color:
-                                                                  Colors.black),
+                                                              color: Colors
+                                                                  .black),
                                                         )),
                                                     Icon(Icons.login),
                                                   ],
@@ -400,19 +404,24 @@ class _MainScreenState extends State<MainScreen> {
                                             )
                                           ],
                                         )),
-                                  ),
-                                )
-                              : SizedBox(),
-                      ],
-                    );
-                  },
-                  itemCount: document?.length,
-                ),
+                                  );
+
+                                }
+                          ),
+
+                        ),
+                        )
+                            : SizedBox(),
+                    ],
+                  );
+                },
+                itemCount: document?.length,
               );
             },
-            stream:
-                FirebaseFirestore.instance.collection("jobposted").snapshots(),
-          ),
+            stream: FirebaseFirestore.instance
+                .collection("jobposted")
+                .snapshots(),
+          ),*/
         ],
       ),
     );

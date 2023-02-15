@@ -58,7 +58,7 @@ class _updateprofileState extends State<updateprofile> {
                       placeholder: (context, url) => CircularProgressIndicator(),
                     ),
                   ),
-                )
+                ),
               ),
               ),
             
@@ -85,7 +85,7 @@ class _updateprofileState extends State<updateprofile> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 InkWell(
-                  onDoubleTap: () {
+                  onTap: () {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
