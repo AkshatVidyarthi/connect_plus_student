@@ -28,6 +28,7 @@ class _MainScreenState extends State<MainScreen> {
       padding: EdgeInsets.zero,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
             height: 10,
@@ -42,6 +43,7 @@ class _MainScreenState extends State<MainScreen> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -65,16 +67,16 @@ class _MainScreenState extends State<MainScreen> {
                                   color: Colors.grey,
                                 ),
                                 borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
+                                    Radius.circular(14))),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
-                                children: <Widget>[
-                                  const Icon(Icons.post_add),
-                                  const SizedBox(
+                                children: const <Widget>[
+                                  Icon(Icons.post_add),
+                                  SizedBox(
                                     height: 7,
                                   ),
-                                  const FittedBox(
+                                  FittedBox(
                                     child: Text(
                                       'Post Jobs',
                                       style: TextStyle(
@@ -89,9 +91,6 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                const SizedBox(
-                  width: 10,
-                ),
                 InkWell(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
@@ -110,16 +109,16 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.grey,
                           ),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
+                              const BorderRadius.all(Radius.circular(14))),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
-                          children: <Widget>[
-                            const Icon(Icons.update_sharp),
-                            const SizedBox(
+                          children: const <Widget>[
+                            Icon(Icons.update_sharp),
+                            SizedBox(
                               height: 7,
                             ),
-                            const FittedBox(
+                            FittedBox(
                               child: Text(
                                 'Update Profile',
                                 style: TextStyle(
@@ -133,9 +132,6 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
                 ),
                 isStudent
                     ? const SizedBox()
@@ -156,16 +152,16 @@ class _MainScreenState extends State<MainScreen> {
                                   color: Colors.grey,
                                 ),
                                 borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
+                                    Radius.circular(14))),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
-                                children: <Widget>[
-                                  const Icon(Icons.post_add),
-                                  const SizedBox(
+                                children: const <Widget>[
+                                  Icon(Icons.post_add),
+                                  SizedBox(
                                     height: 7,
                                   ),
-                                  const Center(
+                                  Center(
                                     child: FittedBox(
                                       child: Text(
                                         'Post Internship',
@@ -182,9 +178,6 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                const SizedBox(
-                  width: 10,
-                ),
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
@@ -202,16 +195,16 @@ class _MainScreenState extends State<MainScreen> {
                             color: Colors.grey,
                           ),
                           borderRadius:
-                              const BorderRadius.all(Radius.circular(20))),
+                              const BorderRadius.all(Radius.circular(14))),
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
                         child: Column(
-                          children: <Widget>[
-                            const Icon(Icons.view_comfy_sharp),
-                            const SizedBox(
+                          children: const <Widget>[
+                            Icon(Icons.view_comfy_sharp),
+                            SizedBox(
                               height: 7,
                             ),
-                            const FittedBox(
+                            FittedBox(
                               child: Text(
                                 'View Internships',
                                 style: TextStyle(
@@ -225,9 +218,6 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                     ),
                   ),
-                ),
-                const SizedBox(
-                  width: 10,
                 ),
                 isStudent
                     ? const SizedBox()
@@ -243,16 +233,16 @@ class _MainScreenState extends State<MainScreen> {
                                   color: Colors.grey,
                                 ),
                                 borderRadius: const BorderRadius.all(
-                                    Radius.circular(20))),
+                                    Radius.circular(14))),
                             child: Padding(
                               padding: const EdgeInsets.all(10.0),
                               child: Column(
-                                children: <Widget>[
-                                  const Icon(Icons.payment_outlined),
-                                  const SizedBox(
+                                children: const <Widget>[
+                                  Icon(Icons.payment_outlined),
+                                  SizedBox(
                                     height: 7,
                                   ),
-                                  const Text(
+                                  Text(
                                     'Payments',
                                     style: TextStyle(
                                         color: Colors.deepPurple,
@@ -269,7 +259,7 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.deepPurpleAccent, width: 1),
@@ -340,6 +330,10 @@ class _MainScreenState extends State<MainScreen> {
                                 child: Card(
                                   elevation: 3.0,
                                   color: Colors.white,
+                                  margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(14)
+                                  ),
                                   child: Container(
                                     padding: const EdgeInsets.all(16.0),
                                     child: Column(

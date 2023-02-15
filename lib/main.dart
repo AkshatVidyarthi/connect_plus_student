@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/Alumini_details.dart';
 import 'package:connect_plus_student/screens/Confirmation_Screen.dart';
-import 'package:connect_plus_student/screens/HomeScreen.dart';
+import 'package:connect_plus_student/screens/dashboard_screen.dart';
 import 'package:connect_plus_student/screens/Student_details.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,7 +34,7 @@ Future<Widget> checkUserVerification() async {
       isStudent = false;
     }
     if (data.get("isVerified")) {
-      return HomeScreen();
+      return DashBoardScreen();
     } else {
       return const ConfirmationScreen();
     }

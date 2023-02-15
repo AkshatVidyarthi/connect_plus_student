@@ -11,7 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'Confirmation_Screen.dart';
-import 'HomeScreen.dart';
+import 'dashboard_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -33,12 +33,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
-        title: Text('Login Screen'),
+        title: const Text('Login Screen'),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Padding(
@@ -47,16 +47,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   imageUrl:
                       "https://firebasestorage.googleapis.com/v0/b/connect-plus-student.appspot.com/o/CollegeLogo.png?alt=media&token=8df9cb78-64d7-4999-8fad-1fc202454e83",
                   errorWidget: (context, error, stack) {
-                    return Icon(Icons.error);
+                    return const Icon(Icons.error);
                   },
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => const CircularProgressIndicator(),
                 )),
-            Text(
+            const Text(
               'PRESENTS',
               style: TextStyle(
                   fontWeight: FontWeight.bold, color: Colors.deepPurpleAccent),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Text(
@@ -68,10 +68,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 letterSpacing: 0.5,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            CircleAvatar(
+            const CircleAvatar(
               radius: 80,
               backgroundColor: Colors.black,
               backgroundImage: AssetImage("Assets/connect-student-logo.png"),
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     icon: FittedBox(child: Text("+$_countryCode")),
                   ),
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(
                       color: Colors.black,
                     ),
@@ -104,8 +104,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Text(
                   '*A One Time Password (OTP) would be sent to your Phone Number which will be required to verify your identity.',
                   style: TextStyle(
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: TextField(
                   controller: otpController,
                   keyboardType: TextInputType.phone,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       hintText: 'ENTER OTP',
                       border: OutlineInputBorder(
                         borderSide: BorderSide(width: 5),
@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       codeAutoRetrievalTimeout: (String verificationId) {},
                     );
                   },
-                  child: Text('Send OTP')),
+                  child: const Text('Send OTP')),
             ),
             Visibility(
               visible: isOTPSend,
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     }
                   },
-                  child: Text('Verify OTP')),
+                  child: const Text('Verify OTP')),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -196,7 +196,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
+                  children: const [
                     SizedBox(
                       width: 10,
                     ),
@@ -244,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
         isStudent = false;
       }
       if (data.get("isVerified")) {
-        return HomeScreen();
+        return const DashBoardScreen();
       } else {
         return const ConfirmationScreen();
       }

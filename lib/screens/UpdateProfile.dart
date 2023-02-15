@@ -18,10 +18,19 @@ class updateprofile extends StatefulWidget {
 class _updateprofileState extends State<updateprofile> {
   final ImagePicker _picker = ImagePicker();
 
+  final emailController =
+      TextEditingController(text: FirebaseAuth.instance.currentUser?.email);
+  final mobileController = TextEditingController(
+      text: FirebaseAuth.instance.currentUser?.phoneNumber);
+  final otpController = TextEditingController();
+
+  bool isOTPSend = false;
+
+  String verificationID = "";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         elevation: 2.0,
         title: Text('Update Profile',
@@ -35,33 +44,34 @@ class _updateprofileState extends State<updateprofile> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ClipRRect(
-                  borderRadius:
-                  BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(50),
                   child: CircleAvatar(
                     radius: 40,
                     backgroundColor: Colors.white,
                     child: CachedNetworkImage(
                       fit: BoxFit.fill,
                       imageUrl:
-                      "${FirebaseAuth.instance.currentUser?.photoURL}",
+                          "${FirebaseAuth.instance.currentUser?.photoURL}",
                       errorWidget: (context, error, stack) {
-                        return Icon(Icons.person,
-                        size: MediaQuery.of(context).size.width *0.20  ,);
+                        return Icon(
+                          Icons.person,
+                          size: MediaQuery.of(context).size.width * 0.20,
+                        );
                       },
-                      placeholder: (context, url) => CircularProgressIndicator(),
+                      placeholder: (context, url) =>
+                          const CircularProgressIndicator(),
                     ),
                   ),
                 ),
               ),
-              ),
-            
+            ),
             Text(
               'Akshat Vidyarthi',
               style: GoogleFonts.arsenal(
@@ -69,7 +79,7 @@ class _updateprofileState extends State<updateprofile> {
                 fontSize: 18,
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             Text(
               'BCA',
               style: GoogleFonts.arsenal(
@@ -78,7 +88,7 @@ class _updateprofileState extends State<updateprofile> {
                 fontSize: 18,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -109,11 +119,9 @@ class _updateprofileState extends State<updateprofile> {
                                     if (image != null) {
                                       uploadProfile(image);
                                     }
-                                    setState(() {
-
-                                    });
+                                    setState(() {});
                                   },
-                                  icon: Icon(Icons.camera),
+                                  icon: const Icon(Icons.camera),
                                 ),
                                 IconButton(
                                   onPressed: () async {
@@ -128,11 +136,9 @@ class _updateprofileState extends State<updateprofile> {
                                     if (image != null) {
                                       uploadProfile(image);
                                     }
-                                    setState(() {
-
-                                    });
+                                    setState(() {});
                                   },
-                                  icon: Icon(Icons.image),
+                                  icon: const Icon(Icons.image),
                                 ),
                               ],
                             ),
@@ -148,13 +154,14 @@ class _updateprofileState extends State<updateprofile> {
                         border: Border.all(
                           color: Colors.black,
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     child: Padding(
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.person),
-                          Text(
+                          const Icon(Icons.person),
+                          const Text(
                             'Change Picture',
                             style: TextStyle(
                                 color: Colors.deepPurple,
@@ -175,13 +182,14 @@ class _updateprofileState extends State<updateprofile> {
                         border: Border.all(
                           color: Colors.black,
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     child: Padding(
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.work),
-                          Text(
+                          const Icon(Icons.work),
+                          const Text(
                             'Add Work',
                             style: TextStyle(
                                 color: Colors.deepPurple,
@@ -202,13 +210,14 @@ class _updateprofileState extends State<updateprofile> {
                         border: Border.all(
                           color: Colors.black,
                         ),
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(20))),
                     child: Padding(
-                      padding: EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(5.0),
                       child: Column(
                         children: <Widget>[
-                          Icon(Icons.location_on_rounded),
-                          Text(
+                          const Icon(Icons.location_on_rounded),
+                          const Text(
                             'Update Location',
                             style: TextStyle(
                                 color: Colors.deepPurple,
@@ -222,11 +231,11 @@ class _updateprofileState extends State<updateprofile> {
                 ),
               ],
             ),
-            SizedBox(
+            /*const SizedBox(
               height: 20,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -234,18 +243,18 @@ class _updateprofileState extends State<updateprofile> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Material(
               elevation: 5.0,
               color: Colors.white70,
-              child: Container(
+              child: SizedBox(
                 height: 80,
                 width: 320,
                 child: Column(
                   children: [
-                    ListTile(
+                    const ListTile(
                       title: Text('National P.G. College',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       subtitle: FittedBox(
@@ -258,8 +267,8 @@ class _updateprofileState extends State<updateprofile> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -267,24 +276,24 @@ class _updateprofileState extends State<updateprofile> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Material(
               elevation: 5.0,
               color: Colors.white70,
-              child: Container(
+              child: SizedBox(
                 height: 30,
                 width: 320,
                 child: Column(
                   children: [
-                    Text('No Personal Information Found For this User.'),
+                    const Text('No Personal Information Found For this User.'),
                   ],
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
+            const Padding(
+              padding: EdgeInsets.all(8.0),
               child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
@@ -292,32 +301,88 @@ class _updateprofileState extends State<updateprofile> {
                     style: TextStyle(fontWeight: FontWeight.bold),
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
+            ),*/
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
+              child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Contact Details',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  )),
             ),
-            Material(
+            Card(
               elevation: 5.0,
-              color: Colors.white70,
-              child: Container(
-                width: 320,
-                child: Column(
-                  children: [
-                    ListTile(
-                      title: Text('Email Address'),
-                      subtitle: Text('akshatvidyarthi91@gmail.com'),
-                    ),
-                    Divider(),
-                    ListTile(
-                      title: Text('Contact No'),
-                      subtitle: Text('6387509445'),
-                    ),
-                    Divider(),
-                    ListTile(
-                      title: Text('Lives in:'),
-                      subtitle: Text('Lucknow,India'),
-                    ),
-                  ],
-                ),
+              color: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8)),
+              margin: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: TextField(
+                            controller: emailController,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Please Enter Your Email"),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                          onPressed: updateEmail,
+                          child: const Text("Update Email"))
+                    ],
+                  ),
+                  const Divider(),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: TextField(
+                            controller: mobileController,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none,
+                                hintText: "Please Enter Your Phone Number"),
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: isOTPSend ? null : updateMobile,
+                        child: const Text("Update Mobile"),
+                      )
+                    ],
+                  ),
+                  isOTPSend
+                      ? Row(
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 16.0),
+                                child: TextField(
+                                  controller: otpController,
+                                  decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText:
+                                          "Please Enter Your Phone Number"),
+                                ),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: verifyMobile,
+                              child: const Text("Verify"),
+                            )
+                          ],
+                        )
+                      : const SizedBox(),
+                ],
               ),
             ),
           ],
@@ -325,6 +390,7 @@ class _updateprofileState extends State<updateprofile> {
       ),
     );
   }
+
   void uploadProfile(XFile image) async {
     final user = FirebaseAuth.instance.currentUser;
     final ref = FirebaseStorage.instance.ref("profilePhotos/${user?.uid}");
@@ -348,14 +414,14 @@ class _updateprofileState extends State<updateprofile> {
           break;
         case TaskState.success:
           final url = await ref.getDownloadURL();
-          print("Upload was success ${url}");
+          print("Upload was success $url");
           user?.updatePhotoURL(url);
           await FirebaseFirestore.instance
               .collection("users")
               .doc(user?.uid)
               .set({
-            "photo": "${url}",
-          },SetOptions(merge: true));
+            "photo": url,
+          }, SetOptions(merge: true));
 
           //ref.getDownloadURL();
           // Handle successful uploads on complete
@@ -363,5 +429,72 @@ class _updateprofileState extends State<updateprofile> {
           break;
       }
     });
+  }
+
+  void updateEmail() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      if (emailController.text.contains(".") &&
+          emailController.text.contains("@")) {
+        await user.updateEmail(emailController.text);
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(user.uid)
+            .set({
+              "email": emailController.text,
+            }, SetOptions(merge: true))
+            .onError(
+              (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("$error"),
+                ),
+              ),
+            )
+            .then(
+              (value) => ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("Update Success"),
+                ),
+              ),
+            );
+      }
+    }
+  }
+
+  void updateMobile() async {
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: "+${mobileController.text}",
+        verificationCompleted: (cred) async {
+          await FirebaseAuth.instance.currentUser?.updatePhoneNumber(cred);
+        },
+        verificationFailed: (error) {},
+        codeSent: (String id, int? token) {
+          verificationID = id;
+          setState(() {
+            isOTPSend = true;
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+    }
+  }
+
+  void verifyMobile() async {
+    final user = FirebaseAuth.instance.currentUser;
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+        verificationId: verificationID, smsCode: otpController.text);
+
+    await FirebaseAuth.instance.currentUser?.updatePhoneNumber(credential);
+
+    if (user != null) {
+      await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
+        "phone": mobileController.text,
+      }, SetOptions(merge: true)).then((value) {
+        isOTPSend = false;
+        setState(() {});
+      });
+    }
   }
 }

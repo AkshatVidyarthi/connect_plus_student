@@ -1,4 +1,4 @@
-import 'package:connect_plus_student/screens/HomeScreen.dart';
+import 'package:connect_plus_student/screens/dashboard_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 

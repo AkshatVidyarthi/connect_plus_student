@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connect_plus_student/screens/HomeScreen.dart';
+import 'package:connect_plus_student/screens/dashboard_screen.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Moreoptions extends StatefulWidget {
   const Moreoptions({Key? key}) : super(key: key);
@@ -23,22 +24,24 @@ class _MoreoptionsState extends State<Moreoptions> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          content: Text("Are You Sure You Want to Logout"),
+          content: const Text("Are You Sure You Want to Logout"),
           actions: [
             TextButton(
-              child: Text("Cancel"),
+              child: const Text("Cancel"),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             ElevatedButton(
-              child: Text('LOGOUT'),
+              child: const Text('LOGOUT'),
               onPressed: () async {
                 Navigator.pop(context);
                 await FirebaseAuth.instance.signOut();
+                await GoogleSignIn().signOut();
+                if (!mounted) return;
                 Navigator.pushAndRemoveUntil(context,
                     MaterialPageRoute(builder: (context) {
-                  return LoginScreen();
+                  return const LoginScreen();
                 }), (route) => false);
               },
             ),
@@ -54,7 +57,7 @@ class _MoreoptionsState extends State<Moreoptions> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Padding(
@@ -64,7 +67,7 @@ class _MoreoptionsState extends State<Moreoptions> {
               color: Colors.white54,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: Colors.black, width: 1),
+                side: const BorderSide(color: Colors.black, width: 1),
               ),
               child: Container(
                 height: 200,
@@ -76,8 +79,8 @@ class _MoreoptionsState extends State<Moreoptions> {
                       padding: const EdgeInsets.all(8.0),
                       child: Row(
                         children: [
-                          Icon(Icons.insert_invitation),
-                          SizedBox(
+                          const Icon(Icons.insert_invitation),
+                          const SizedBox(
                             width: 10,
                           ),
                           Text(
@@ -90,7 +93,7 @@ class _MoreoptionsState extends State<Moreoptions> {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Center(
@@ -104,7 +107,7 @@ class _MoreoptionsState extends State<Moreoptions> {
                             )),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ElevatedButton(
@@ -125,7 +128,7 @@ class _MoreoptionsState extends State<Moreoptions> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
           Padding(
@@ -135,7 +138,7 @@ class _MoreoptionsState extends State<Moreoptions> {
               color: Colors.white54,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
-                side: BorderSide(color: Colors.black, width: 1),
+                side: const BorderSide(color: Colors.black, width: 1),
               ),
               child: Container(
                 height: 300,
@@ -143,7 +146,7 @@ class _MoreoptionsState extends State<Moreoptions> {
                 child: Column(
                   children: [
                     ListTile(
-                      leading: Icon(Icons.account_circle,
+                      leading: const Icon(Icons.account_circle,
                           color: Colors.deepPurple, size: 35),
                       title: Text('My Profile',
                           style: GoogleFonts.arsenal(
@@ -151,11 +154,11 @@ class _MoreoptionsState extends State<Moreoptions> {
                               fontWeight: FontWeight.bold,
                               fontSize: 16)),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     ListTile(
-                      title: Text('Akshat Vidyarthi',
+                      title: const Text('Akshat Vidyarthi',
                           style: TextStyle(fontWeight: FontWeight.bold)),
                       leading: SizedBox(
                         height: 56,
@@ -164,7 +167,7 @@ class _MoreoptionsState extends State<Moreoptions> {
                           child: CachedNetworkImage(
                             fit: BoxFit.fill,
                             imageUrl:
-                            "${FirebaseAuth.instance.currentUser?.photoURL}",
+                                "${FirebaseAuth.instance.currentUser?.photoURL}",
                             errorWidget: (context, error, stack) {
                               return const Icon(
                                 Icons.person,
@@ -172,11 +175,11 @@ class _MoreoptionsState extends State<Moreoptions> {
                               );
                             },
                             placeholder: (context, url) =>
-                                CircularProgressIndicator(),
+                                const CircularProgressIndicator(),
                           ),
                         ),
                       ),
-                      subtitle: Text('View And Edit Profile',
+                      subtitle: const Text('View And Edit Profile',
                           style: TextStyle(
                             color: Colors.grey,
                           )),
@@ -187,7 +190,7 @@ class _MoreoptionsState extends State<Moreoptions> {
                       title: Text('Add Work Details',
                           style:
                               GoogleFonts.arsenal(fontWeight: FontWeight.bold)),
-                      leading: Icon(Icons.work, color: Colors.deepPurple),
+                      leading: const Icon(Icons.work, color: Colors.deepPurple),
                     ),
                     ListTile(
                       onTap: () {
@@ -197,7 +200,8 @@ class _MoreoptionsState extends State<Moreoptions> {
                           style: GoogleFonts.arsenal(
                             fontWeight: FontWeight.bold,
                           )),
-                      leading: Icon(Icons.logout, color: Colors.deepPurple),
+                      leading:
+                          const Icon(Icons.logout, color: Colors.deepPurple),
                     ),
                   ],
                 ),
