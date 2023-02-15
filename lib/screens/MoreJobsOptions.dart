@@ -3,20 +3,19 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
 class MoreJobsOptions extends StatelessWidget {
   final Map<String, dynamic> data;
   final String? id;
 
   const MoreJobsOptions(this.data, this.id, {Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'VIEW JOBS'
-        ),
+        title: Text('VIEW JOBS'),
       ),
       body: Card(
         elevation: 3.0,
@@ -133,7 +132,7 @@ class MoreJobsOptions extends StatelessWidget {
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                    snapshot) {
+                        snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -169,8 +168,8 @@ class MoreJobsOptions extends StatelessWidget {
                                           return Icon(
                                             Icons.person,
                                             size: MediaQuery.of(context)
-                                                .size
-                                                .width *
+                                                    .size
+                                                    .width *
                                                 0.20,
                                           );
                                         },
@@ -204,6 +203,20 @@ class MoreJobsOptions extends StatelessWidget {
                   }
                 },
               ),
+              data["attachment"] != null ||
+                      data["attachment"].toString().toLowerCase() != "null"
+                  ? IconButton(
+                      onPressed: () async {
+                        final url = data["attachment"];
+                        if (await canLaunchUrlString(url)) {
+                          launchUrlString(
+                            url,
+                            mode: LaunchMode.externalApplication,
+                          );
+                        }
+                      },
+                      icon: Icon(Icons.download))
+                  : SizedBox(),
             ],
           ),
         ),

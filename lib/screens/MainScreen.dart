@@ -29,7 +29,7 @@ class _MainScreenState extends State<MainScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Center(
@@ -46,12 +46,12 @@ class _MainScreenState extends State<MainScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 isStudent
-                    ? SizedBox()
+                    ? const SizedBox()
                     : InkWell(
                         onTap: () {
                           Navigator.push(context, MaterialPageRoute(
                             builder: (context) {
-                              return PostJob();
+                              return const PostJob();
                             },
                           ));
                         },
@@ -64,17 +64,17 @@ class _MainScreenState extends State<MainScreen> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
                             child: Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 children: <Widget>[
-                                  Icon(Icons.post_add),
-                                  SizedBox(
+                                  const Icon(Icons.post_add),
+                                  const SizedBox(
                                     height: 7,
                                   ),
-                                  FittedBox(
+                                  const FittedBox(
                                     child: Text(
                                       'Post Jobs',
                                       style: TextStyle(
@@ -89,14 +89,14 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 InkWell(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
-                        return updateprofile();
+                        return const updateprofile();
                       },
                     ));
                   },
@@ -109,16 +109,17 @@ class _MainScreenState extends State<MainScreen> {
                           border: Border.all(
                             color: Colors.grey,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
-                            Icon(Icons.update_sharp),
-                            SizedBox(
+                            const Icon(Icons.update_sharp),
+                            const SizedBox(
                               height: 7,
                             ),
-                            FittedBox(
+                            const FittedBox(
                               child: Text(
                                 'Update Profile',
                                 style: TextStyle(
@@ -133,16 +134,16 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 isStudent
-                    ? SizedBox()
+                    ? const SizedBox()
                     : InkWell(
                         onTap: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return PostInternships();
+                            return const PostInternships();
                           }));
                         },
                         child: Padding(
@@ -154,17 +155,17 @@ class _MainScreenState extends State<MainScreen> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
                             child: Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 children: <Widget>[
-                                  Icon(Icons.post_add),
-                                  SizedBox(
+                                  const Icon(Icons.post_add),
+                                  const SizedBox(
                                     height: 7,
                                   ),
-                                  Center(
+                                  const Center(
                                     child: FittedBox(
                                       child: Text(
                                         'Post Internship',
@@ -181,14 +182,14 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 InkWell(
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: ((context) {
-                      return InternshipScreen();
+                      return const InternshipScreen();
                     })));
                   },
                   child: Padding(
@@ -200,16 +201,17 @@ class _MainScreenState extends State<MainScreen> {
                           border: Border.all(
                             color: Colors.grey,
                           ),
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(20))),
                       child: Padding(
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         child: Column(
                           children: <Widget>[
-                            Icon(Icons.view_comfy_sharp),
-                            SizedBox(
+                            const Icon(Icons.view_comfy_sharp),
+                            const SizedBox(
                               height: 7,
                             ),
-                            FittedBox(
+                            const FittedBox(
                               child: Text(
                                 'View Internships',
                                 style: TextStyle(
@@ -224,11 +226,11 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 10,
                 ),
                 isStudent
-                    ? SizedBox()
+                    ? const SizedBox()
                     : InkWell(
                         onTap: () {},
                         child: Padding(
@@ -240,17 +242,17 @@ class _MainScreenState extends State<MainScreen> {
                                 border: Border.all(
                                   color: Colors.grey,
                                 ),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20))),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(20))),
                             child: Padding(
-                              padding: EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(10.0),
                               child: Column(
                                 children: <Widget>[
-                                  Icon(Icons.payment_outlined),
-                                  SizedBox(
+                                  const Icon(Icons.payment_outlined),
+                                  const SizedBox(
                                     height: 7,
                                   ),
-                                  Text(
+                                  const Text(
                                     'Payments',
                                     style: TextStyle(
                                         color: Colors.deepPurple,
@@ -271,7 +273,7 @@ class _MainScreenState extends State<MainScreen> {
             child: Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.deepPurpleAccent, width: 1),
-                borderRadius: BorderRadius.all(Radius.circular(14)),
+                borderRadius: const BorderRadius.all(Radius.circular(14)),
               ),
               width: double.infinity,
               child: Row(
@@ -296,15 +298,130 @@ class _MainScreenState extends State<MainScreen> {
                         'COURSE',
                         style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
                       )),
-                  TextButton(onPressed: () {}, child: Text('NATURE')),
+                  TextButton(onPressed: () {}, child: const Text('NATURE')),
                 ],
               ),
             ),
           ),
-        /*  StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            builder: (context, snapShot2) {
+              if (snapShot2.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (snapShot2.hasError) {
+                return Center(
+                  child: Text("${snapShot2.error}"),
+                );
+              }
+              final document = snapShot2.data?.docs;
+              return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  final List<dynamic> data =
+                      document?[index].get("data") as List<dynamic>;
+                  return Column(
+                    children: <Widget>[
+                      for (int i = 0; i < data.length; i++)
+                        data[i]["isVerified"]
+                            ? InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return MoreJobsOptions(
+                                            data[i], document?[index].id);
+                                      },
+                                    ),
+                                  );
+                                },
+                                child: Card(
+                                  elevation: 3.0,
+                                  color: Colors.white,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        const SizedBox(
+                                          height: 20,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${data[i]["jobtitle"]}",
+                                              style: GoogleFonts.arsenal(
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${data[i]["Companyname"]}",
+                                              style: GoogleFonts.arsenal(
+                                                fontSize: 18,
+                                                color: Colors.black,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              "${data[i]["Location"]}",
+                                              style: GoogleFonts.arsenal(
+                                                color: Colors.grey,
+                                                fontSize: 15,
+                                                fontWeight: FontWeight.w900,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                TextButton(
+                                                  style: TextButton.styleFrom(),
+                                                  onPressed: () {},
+                                                  child: const Text(
+                                                    'View More',
+                                                    style: TextStyle(
+                                                        color: Colors.black),
+                                                  ),
+                                                ),
+                                                const Icon(Icons.login),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              )
+                            : const SizedBox(),
+                    ],
+                  );
+                },
+                itemCount: document?.length,
+              );
+            },
+            stream:
+                FirebaseFirestore.instance.collection("jobposted").snapshots(),
+          ),
+          /*StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             builder: (context, snapShot1) {
               if (snapShot1.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapShot1.hasError) {
@@ -314,113 +431,117 @@ class _MainScreenState extends State<MainScreen> {
               }
               final document = snapShot1.data?.docs;
               return ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final List<dynamic> data =
-                  document?[index].get("data") as List<dynamic>;
+                      document?[index].get("data") as List<dynamic>;
                   return Column(
                     children: <Widget>[
                       for (int i = 0; i < data.length; i++)
                         data[i]["isVerified"]
                             ? InkWell(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(
-                              builder: (context) {
-                                return MoreJobsOptions(data[i],document?[index].id);
-                              },
-                            ));
-                          },
-                          child: SizedBox(
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                                itemBuilder: (context,index)
-                                {
-                                 return Card(
-                                    elevation: 3.0,
-                                    color: Colors.white,
-                                    child: Container(
-                                        padding: EdgeInsets.all(16.0),
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 20,
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "${data[i]["jobtitle"]}",
-                                                  style: GoogleFonts.arsenal(
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 20,
+                                onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return MoreJobsOptions(
+                                          data[i], document?[index].id);
+                                    },
+                                  ));
+                                },
+                                child: SizedBox(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      physics: const NeverScrollableScrollPhysics(),
+                                      itemBuilder: (context, index) {
+                                        return Card(
+                                          elevation: 3.0,
+                                          color: Colors.white,
+                                          child: Container(
+                                              padding: const EdgeInsets.all(16.0),
+                                              child: Column(
+                                                children: [
+                                                  const SizedBox(
+                                                    height: 20,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "${data[i]["Companyname"]}",
-                                                  style: GoogleFonts.arsenal(
-                                                    fontSize: 18,
-                                                    color: Colors.black,
-                                                    fontWeight: FontWeight.bold,
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "${data[i]["jobtitle"]}",
+                                                        style:
+                                                            GoogleFonts.arsenal(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          fontSize: 20,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  "${data[i]["Location"]}",
-                                                  style: GoogleFonts.arsenal(
-                                                    color: Colors.grey,
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w900,
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "${data[i]["Companyname"]}",
+                                                        style:
+                                                            GoogleFonts.arsenal(
+                                                          fontSize: 18,
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    TextButton(
-                                                        style: TextButton
-                                                            .styleFrom(),
-                                                        onPressed: () {},
-                                                        child: Text(
-                                                          'View More',
-                                                          style: TextStyle(
-                                                              color: Colors
-                                                                  .black),
-                                                        )),
-                                                    Icon(Icons.login),
-                                                  ],
-                                                ),
-                                              ],
-                                            )
-                                          ],
-                                        )),
-                                  );
-
-                                }
-                          ),
-
-                        ),
-                        )
-                            : SizedBox(),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        "${data[i]["Location"]}",
+                                                        style:
+                                                            GoogleFonts.arsenal(
+                                                          color: Colors.grey,
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.w900,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Row(
+                                                        children: [
+                                                          TextButton(
+                                                              style: TextButton
+                                                                  .styleFrom(),
+                                                              onPressed: () {},
+                                                              child: const Text(
+                                                                'View More',
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                              )),
+                                                          const Icon(Icons.login),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  )
+                                                ],
+                                              )),
+                                        );
+                                      }),
+                                ),
+                              )
+                            : const SizedBox(),
                     ],
                   );
                 },
                 itemCount: document?.length,
               );
             },
-            stream: FirebaseFirestore.instance
-                .collection("jobposted")
-                .snapshots(),
+            stream:
+                FirebaseFirestore.instance.collection("jobposted").snapshots(),
           ),*/
         ],
       ),

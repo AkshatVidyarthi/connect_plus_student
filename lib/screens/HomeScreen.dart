@@ -20,7 +20,7 @@ class _MyNavigationBarState extends State<MyNavigationBar > {
   int _selectedIndex = 0;
   static  List<Widget> _widgetOptions = <Widget>[
     MainScreen(),
-    Members(data[i],document?[index].id),
+    Members(),
     Messages(),
     Moreoptions(),
   ];
