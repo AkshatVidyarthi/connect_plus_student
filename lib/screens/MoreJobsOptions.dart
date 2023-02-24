@@ -116,9 +116,28 @@ class MoreJobsOptions extends StatelessWidget {
                 color: Colors.grey,
                 thickness: 0.5,
               ),
+              Text('Job Description',style: GoogleFonts.arsenal(
+                fontWeight: FontWeight.w400,
+              )),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                "${data["jobdescription"]}",
+                style: GoogleFonts.arsenal(
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Divider(
+                color: Colors.grey,
+                thickness: 0.5,
+              ),
               SizedBox(
                 height: 10,
               ),
+
               Text(
                 'Posted By:',
                 style: GoogleFonts.arsenal(
@@ -205,17 +224,28 @@ class MoreJobsOptions extends StatelessWidget {
               ),
               data["attachment"] != null ||
                       data["attachment"].toString().toLowerCase() != "null"
-                  ? IconButton(
-                      onPressed: () async {
-                        final url = data["attachment"];
-                        if (await canLaunchUrlString(url)) {
-                          launchUrlString(
-                            url,
-                            mode: LaunchMode.externalApplication,
-                          );
-                        }
-                      },
-                      icon: Icon(Icons.download))
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('DOWNLOAD JOB DESCRIPTION',style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.bold,
+                      ),),
+                      SizedBox(width: 10,),
+                      CircleAvatar(
+                        child: IconButton(
+                            onPressed: () async {
+                              final url = data["attachment"];
+                              if (await canLaunchUrlString(url)) {
+                                launchUrlString(
+                                  url,
+                                  mode: LaunchMode.externalApplication,
+                                );
+                              }
+                            },
+                            icon: Icon(Icons.download)),
+                      ),
+                    ],
+                  )
                   : SizedBox(),
             ],
           ),

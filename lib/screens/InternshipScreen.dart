@@ -48,9 +48,14 @@ class InternshipScreen extends StatelessWidget {
                               )
                               );
                             },
+
                             child: Card(
                               elevation: 3.0,
                               color: Colors.white,
+                              margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(14)
+                              ),
                               child: Container(
                                   padding: EdgeInsets.all(16.0),
                                   child: Column(

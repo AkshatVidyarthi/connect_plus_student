@@ -8,7 +8,6 @@ class ConfirmationScreen extends StatefulWidget {
   @override
   State<ConfirmationScreen> createState() => _ConfirmationScreenState();
 }
-
 class _ConfirmationScreenState extends State<ConfirmationScreen> {
   @override
   Widget build(BuildContext context) {
@@ -20,7 +19,8 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             style: GoogleFonts.alegreyaSans(
               fontSize: 25,
               fontWeight: FontWeight.bold,
-            )),
+            )
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

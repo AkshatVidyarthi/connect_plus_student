@@ -13,6 +13,7 @@ class Aluminidetails extends StatefulWidget {
   State<Aluminidetails> createState() => _AluminidetailsState();
 }
 
+
 class _AluminidetailsState  extends State<Aluminidetails> {
 
   String? _fullName;
@@ -187,8 +188,11 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                                 'Submit',
                                 style: GoogleFonts.arsenal(
                                     fontWeight: FontWeight.bold),
-                              ))),
-                    )),
+                              )
+                          )
+                      ),
+                    )
+                ),
               ),
             ],
           ),

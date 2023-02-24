@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/dashboard_screen.dart';
 import 'package:connect_plus_student/screens/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +17,8 @@ class Moreoptions extends StatefulWidget {
 }
 
 class _MoreoptionsState extends State<Moreoptions> {
+
+
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -53,6 +56,7 @@ class _MoreoptionsState extends State<Moreoptions> {
 
   @override
   Widget build(BuildContext context) {
+
     return SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -141,25 +145,17 @@ class _MoreoptionsState extends State<Moreoptions> {
                 side: const BorderSide(color: Colors.black, width: 1),
               ),
               child: Container(
-                height: 300,
+                height: 100,
                 width: 360,
                 child: Column(
                   children: [
-                    ListTile(
-                      leading: const Icon(Icons.account_circle,
-                          color: Colors.deepPurple, size: 35),
-                      title: Text('My Profile',
-                          style: GoogleFonts.arsenal(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
-                    ),
+
                     const SizedBox(
                       height: 20,
                     ),
-                    ListTile(
-                      title: const Text('Akshat Vidyarthi',
-                          style: TextStyle(fontWeight: FontWeight.bold)),
+
+                    /*ListTile(
+                      title: Text("fullName"),
                       leading: SizedBox(
                         height: 56,
                         width: 56,
@@ -184,14 +180,8 @@ class _MoreoptionsState extends State<Moreoptions> {
                             color: Colors.grey,
                           )),
                       onTap: () {},
-                    ),
-                    ListTile(
-                      onTap: () {},
-                      title: Text('Add Work Details',
-                          style:
-                              GoogleFonts.arsenal(fontWeight: FontWeight.bold)),
-                      leading: const Icon(Icons.work, color: Colors.deepPurple),
-                    ),
+                    ),*/
+
                     ListTile(
                       onTap: () {
                         showAlertDialog();
@@ -254,6 +244,7 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
               if (text == null || text.isEmpty) {
                 return 'Please enter a value';
               }
+
               return null;
             },
           ),

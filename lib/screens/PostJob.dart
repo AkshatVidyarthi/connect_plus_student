@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/dashboard_screen.dart';
 import 'package:file_picker/file_picker.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+
 class PostJob extends StatefulWidget {
   const PostJob({Key? key}) : super(key: key);
 
@@ -17,14 +17,28 @@ class PostJob extends StatefulWidget {
 }
 
 class _PostJobState extends State<PostJob> {
+  final _coursesList = [
+    'B.COM',
+    'BBA',
+    'BA',
+    'BCA',
+    'BVOC',
+    'MVOC',
+    'B.COM(H)',
+    'BBA(MS)'
+  ];
+  final _nature=['public','private'];
+  String? _selectedNature;
+  String? _selectedCourse;
   String? _CompanyName;
   String? _Title;
-  String? _MinExp;
-  String? _MaxExp;
+  String? _MinEx;
+  String? _MaxEx;
   String? _Location;
   String? _Email;
   String? _Describe;
   File? file;
+
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -86,14 +100,14 @@ class _PostJobState extends State<PostJob> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
                   onSaved: (value) {
-                    _MinExp = value;
+                    _MinEx = value;
                   },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Minimum Experience',
                     hintText: 'Minimum Experience(years)',
                   ),
-                  maxLength: 4,
+                  maxLength: 1,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
@@ -106,18 +120,20 @@ class _PostJobState extends State<PostJob> {
                   },
                 ),
               ),
+
+
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
                   onSaved: (value) {
-                    _MaxExp = value;
+                    _MaxEx = value;
                   },
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Maximum  Experience',
                     hintText: 'Minimum Experience(years)',
                   ),
-                  maxLength: 4,
+                  maxLength: 1,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
                   ],
@@ -194,6 +210,8 @@ class _PostJobState extends State<PostJob> {
                   },
                 ),
               ),
+
+
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurpleAccent),
@@ -211,20 +229,23 @@ class _PostJobState extends State<PostJob> {
                         fontWeight: FontWeight.bold),
                   )),
               file != null
-                  ? Row(
+                  ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
                 children: [
-                  Expanded(child: Text("${file?.path
-                      .split("/")
-                      .last}")),
-                  IconButton(
-                    icon: Icon(Icons.close),
-                    onPressed: () {
-                      file = null;
-                      setState(() {});
-                    },
-                  ),
+                    Expanded(child: Text("${file?.path
+                        .split("/")
+                        .last}")),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        file = null;
+                        setState(() {});
+                      },
+                    ),
                 ],
-              )
+              ),
+                  )
                   : SizedBox(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -313,6 +334,8 @@ class _PostJobState extends State<PostJob> {
           "jobdescription": _Describe,
           "isVerified": false,
           "attachment": url,
+          "minexp":_MinEx,
+          "maxexp":_MaxEx,
         }
       ])
     }, SetOptions(merge: true))

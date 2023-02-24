@@ -55,7 +55,8 @@ class _MainScreenState extends State<MainScreen> {
                             builder: (context) {
                               return const PostJob();
                             },
-                          ));
+                          )
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -386,13 +387,14 @@ class _MainScreenState extends State<MainScreen> {
                                                 TextButton(
                                                   style: TextButton.styleFrom(),
                                                   onPressed: () {},
-                                                  child: const Text(
-                                                    'View More',
-                                                    style: TextStyle(
-                                                        color: Colors.black),
+                                                  child:  Text(
+                                                    'View More',style: GoogleFonts.cairo(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 14,
+                                                  ),
                                                   ),
                                                 ),
-                                                const Icon(Icons.login),
+                                                const Icon(Icons.login,color: Colors.black,size: 15),
                                               ],
                                             ),
                                           ],
@@ -538,6 +540,10 @@ class _MainScreenState extends State<MainScreen> {
                 FirebaseFirestore.instance.collection("jobposted").snapshots(),
           ),*/
         ],
+
+
+
+
       ),
     );
   }

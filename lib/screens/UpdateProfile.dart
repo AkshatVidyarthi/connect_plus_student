@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +13,6 @@ class updateprofile extends StatefulWidget {
   @override
   State<updateprofile> createState() => _updateprofileState();
 }
-
 class _updateprofileState extends State<updateprofile> {
   final ImagePicker _picker = ImagePicker();
 
@@ -23,6 +21,8 @@ class _updateprofileState extends State<updateprofile> {
   final mobileController = TextEditingController(
       text: FirebaseAuth.instance.currentUser?.phoneNumber);
   final otpController = TextEditingController();
+  final nameController=
+  TextEditingController(text: FirebaseAuth.instance.currentUser?.displayName);
 
   bool isOTPSend = false;
 
@@ -72,25 +72,21 @@ class _updateprofileState extends State<updateprofile> {
                 ),
               ),
             ),
-            Text(
-              'Akshat Vidyarthi',
-              style: GoogleFonts.arsenal(
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
+            Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: TextField(
+                textAlign: TextAlign.center,
+                enabled: false,
+                decoration: InputDecoration.collapsed(hintText: 'fullname'),
+                controller: nameController,
+                style: GoogleFonts.arsenal(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
               ),
             ),
             const SizedBox(height: 10),
-            Text(
-              'BCA',
-              style: GoogleFonts.arsenal(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey,
-                fontSize: 18,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -100,45 +96,61 @@ class _updateprofileState extends State<updateprofile> {
                       context: context,
                       builder: (context) {
                         return Container(
+                          height: 120,
+                          width: 100,
                           color: Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
                               children: [
-                                IconButton(
-                                  onPressed: () async {
-                                    Navigator.pop(context);
-                                    final XFile? image =
-                                        await _picker.pickImage(
-                                      source: ImageSource.camera,
-                                      maxHeight: 500,
-                                      maxWidth: 500,
-                                      imageQuality: 50,
-                                    );
-                                    if (image != null) {
-                                      uploadProfile(image);
-                                    }
-                                    setState(() {});
-                                  },
-                                  icon: const Icon(Icons.camera),
+                                Row(
+                                  children: [
+                                    Text('FROM CAMERA',style: GoogleFonts.arsenal(
+                                      fontWeight: FontWeight.bold,
+
+                                    )),
+                                    IconButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        final XFile? image =
+                                            await _picker.pickImage(
+                                          source: ImageSource.camera,
+                                          maxHeight: 500,
+                                          maxWidth: 500,
+                                          imageQuality: 50,
+                                        );
+                                        if (image != null) {
+                                          uploadProfile(image);
+                                        }
+                                        setState(() {});
+                                      },
+                                      icon: const Icon(Icons.camera),
+                                    ),
+                                  ],
                                 ),
-                                IconButton(
-                                  onPressed: () async {
-                                    Navigator.pop(context);
-                                    final XFile? image =
-                                        await _picker.pickImage(
-                                      source: ImageSource.gallery,
-                                      maxHeight: 500,
-                                      maxWidth: 500,
-                                      imageQuality: 50,
-                                    );
-                                    if (image != null) {
-                                      uploadProfile(image);
-                                    }
-                                    setState(() {});
-                                  },
-                                  icon: const Icon(Icons.image),
+                                Row(
+                                  children: [
+                                    Text('FROM GALLERY',style: GoogleFonts.arsenal(
+                                      fontWeight: FontWeight.bold,
+                                    )),
+                                    IconButton(
+                                      onPressed: () async {
+                                        Navigator.pop(context);
+                                        final XFile? image =
+                                            await _picker.pickImage(
+                                          source: ImageSource.gallery,
+                                          maxHeight: 500,
+                                          maxWidth: 500,
+                                          imageQuality: 50,
+                                        );
+                                        if (image != null) {
+                                          uploadProfile(image);
+                                        }
+                                        setState(() {});
+                                      },
+                                      icon: const Icon(Icons.image),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
@@ -173,62 +185,7 @@ class _updateprofileState extends State<updateprofile> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onDoubleTap: () {},
-                  child: Container(
-                    width: 95,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: <Widget>[
-                          const Icon(Icons.work),
-                          const Text(
-                            'Add Work',
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onDoubleTap: () {},
-                  child: Container(
-                    width: 95,
-                    height: 50,
-                    decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(20))),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Column(
-                        children: <Widget>[
-                          const Icon(Icons.location_on_rounded),
-                          const Text(
-                            'Update Location',
-                            style: TextStyle(
-                                color: Colors.deepPurple,
-                                fontSize: 10,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+
               ],
             ),
             /*const SizedBox(

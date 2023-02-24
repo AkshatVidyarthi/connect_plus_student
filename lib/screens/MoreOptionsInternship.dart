@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class MoreOptionsInternship extends StatelessWidget {
   final Map<String, dynamic> data;
@@ -189,6 +190,31 @@ class MoreOptionsInternship extends StatelessWidget {
                   }
                 },
               ),
+              data["attachment"] != null ||
+                  data["attachment"].toString().toLowerCase() != "null"
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('DOWNLOAD INTERNSHIP DESCRIPTION',style: GoogleFonts.arsenal(
+                    fontWeight: FontWeight.bold,
+                  ),),
+                  SizedBox(width: 10,),
+                  CircleAvatar(
+                    child: IconButton(
+                        onPressed: () async {
+                          final url = data["attachment"];
+                          if (await canLaunchUrlString(url)) {
+                            launchUrlString(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          }
+                        },
+                        icon: Icon(Icons.download)),
+                  ),
+                ],
+              )
+                  : SizedBox(),
             ],
           ),
         ),

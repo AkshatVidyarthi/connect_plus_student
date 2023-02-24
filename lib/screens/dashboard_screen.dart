@@ -4,15 +4,11 @@ import 'package:connect_plus_student/screens/Messages.dart';
 import 'package:connect_plus_student/screens/Moreoptions.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-
 class DashBoardScreen extends StatefulWidget {
   const DashBoardScreen({Key? key}) : super(key: key);
-
   @override
   State<DashBoardScreen> createState() => _DashBoardScreenState();
 }
-
 class _DashBoardScreenState extends State<DashBoardScreen> {
   int _selectedIndex = 0;
   final List<Widget> _widgetOptions = <Widget>[
@@ -27,6 +23,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       _selectedIndex = index;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {

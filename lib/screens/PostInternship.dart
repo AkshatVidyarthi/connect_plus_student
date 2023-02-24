@@ -24,9 +24,7 @@ class _PostInternshipsState extends State<PostInternships> {
   String? _Location;
   String? _Email;
   String? _Describe;
-
   File? file;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -279,5 +277,11 @@ class _PostInternshipsState extends State<PostInternships> {
               ),
               (route) => false,
             ));
+
+
+
+
+
+
   }
 }
