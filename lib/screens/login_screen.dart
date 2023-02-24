@@ -187,11 +187,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (user.user != null) {
                     final widget = await checkUserVerification();
                     if (!mounted) return;
-                    Navigator.push(context, MaterialPageRoute(
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
                       builder: (context) {
                         return widget;
                       },
-                    ));
+                    ),(route) => false,);
                   }
                 },
                 child: Row(
