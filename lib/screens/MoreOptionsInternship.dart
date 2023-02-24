@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connect_plus_student/screens/single_communication_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -134,7 +135,13 @@ class MoreOptionsInternship extends StatelessWidget {
                       if (data != null) {
                         final userData = data;
                         return ListTile(
-                          onTap: () {},
+                            onTap: () async{
+                              await createOneToOneChatChannel(FirebaseAuth.instance.currentUser?.uid,data.id);
+                              Navigator.push(context, MaterialPageRoute(builder: (context){
+                                return SingleCommunicationPage(FirebaseAuth.instance.currentUser?.uid,data.id);
+                              }));
+                            },
+
                           leading: CircleAvatar(
                             radius: 30,
                             child: ClipRRect(
@@ -220,6 +227,44 @@ class MoreOptionsInternship extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> createOneToOneChatChannel(String? uid, String? otherUid) async {
+    final userCollectionRef = FirebaseFirestore.instance.collection("users");
+    final oneToOneChatChannelRef = FirebaseFirestore.instance.collection('myChatChannel');
+
+    userCollectionRef
+        .doc(uid)
+        .collection('engagedChatChannel')
+        .doc(otherUid)
+        .get()
+        .then((chatChannelDoc) {
+      if (chatChannelDoc.exists) {
+        return;
+      }
+      //if not exists
+      final chatChannelId = oneToOneChatChannelRef.doc().id;
+      var channelMap = {
+        "channelId": chatChannelId,
+        "channelType": "oneToOneChat",
+      };
+      oneToOneChatChannelRef.doc(chatChannelId).set(channelMap);
+
+      //currentUser
+      userCollectionRef
+          .doc(uid)
+          .collection("engagedChatChannel")
+          .doc(otherUid)
+          .set(channelMap);
+
+      //OtherUser
+      userCollectionRef
+          .doc(otherUid)
+          .collection("engagedChatChannel")
+          .doc(uid)
+          .set(channelMap);
+
+      return;
+    });
   }
 }
 

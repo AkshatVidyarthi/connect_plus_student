@@ -259,7 +259,7 @@ class _MainScreenState extends State<MainScreen> {
               ],
             ),
           ),
-          Padding(
+         /* Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
             child: Container(
               decoration: BoxDecoration(
@@ -267,32 +267,23 @@ class _MainScreenState extends State<MainScreen> {
                 borderRadius: const BorderRadius.all(Radius.circular(14)),
               ),
               width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text('FILTER BY:',
-                        style: GoogleFonts.cairo(fontWeight: FontWeight.bold)),
-                  ),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'DATE',
-                        style: GoogleFonts.cairo(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )),
-                  TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        'COURSE',
-                        style: GoogleFonts.cairo(fontWeight: FontWeight.bold),
-                      )),
-                  TextButton(onPressed: () {}, child: const Text('NATURE')),
-                ],
-              ),
             ),
+          ),*/
+          Row(
+            mainAxisAlignment:MainAxisAlignment.end,
+            children: [
+              Text('FILTER',style: GoogleFonts.cairo(
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+               child: IconButton(
+                 onPressed: (){},
+                 icon: Icon(Icons.filter_alt_sharp),
+               ),
+              ),
+            ],
           ),
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             builder: (context, snapShot2) {
@@ -414,136 +405,8 @@ class _MainScreenState extends State<MainScreen> {
             stream:
                 FirebaseFirestore.instance.collection("jobposted").snapshots(),
           ),
-          /*StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            builder: (context, snapShot1) {
-              if (snapShot1.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (snapShot1.hasError) {
-                return Center(
-                  child: Text("${snapShot1.error}"),
-                );
-              }
-              final document = snapShot1.data?.docs;
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  final List<dynamic> data =
-                      document?[index].get("data") as List<dynamic>;
-                  return Column(
-                    children: <Widget>[
-                      for (int i = 0; i < data.length; i++)
-                        data[i]["isVerified"]
-                            ? InkWell(
-                                onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                    builder: (context) {
-                                      return MoreJobsOptions(
-                                          data[i], document?[index].id);
-                                    },
-                                  ));
-                                },
-                                child: SizedBox(
-                                  child: ListView.builder(
-                                      shrinkWrap: true,
-                                      physics: const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        return Card(
-                                          elevation: 3.0,
-                                          color: Colors.white,
-                                          child: Container(
-                                              padding: const EdgeInsets.all(16.0),
-                                              child: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 20,
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "${data[i]["jobtitle"]}",
-                                                        style:
-                                                            GoogleFonts.arsenal(
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          fontSize: 20,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "${data[i]["Companyname"]}",
-                                                        style:
-                                                            GoogleFonts.arsenal(
-                                                          fontSize: 18,
-                                                          color: Colors.black,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                        "${data[i]["Location"]}",
-                                                        style:
-                                                            GoogleFonts.arsenal(
-                                                          color: Colors.grey,
-                                                          fontSize: 15,
-                                                          fontWeight:
-                                                              FontWeight.w900,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Row(
-                                                        children: [
-                                                          TextButton(
-                                                              style: TextButton
-                                                                  .styleFrom(),
-                                                              onPressed: () {},
-                                                              child: const Text(
-                                                                'View More',
-                                                                style: TextStyle(
-                                                                    color: Colors
-                                                                        .black),
-                                                              )),
-                                                          const Icon(Icons.login),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  )
-                                                ],
-                                              )),
-                                        );
-                                      }),
-                                ),
-                              )
-                            : const SizedBox(),
-                    ],
-                  );
-                },
-                itemCount: document?.length,
-              );
-            },
-            stream:
-                FirebaseFirestore.instance.collection("jobposted").snapshots(),
-          ),*/
+
         ],
-
-
-
-
       ),
     );
   }

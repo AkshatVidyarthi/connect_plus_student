@@ -1,10 +1,13 @@
 import 'dart:async';
-
+import 'dart:io';
 import 'package:bubble/bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-
 import '../entity/text_message_entity.dart';
 import '../model/text_message_model.dart';
 
@@ -34,6 +37,7 @@ class SingleCommunicationPage extends StatefulWidget {
 }
 
 class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
+  final ImagePicker _picker = ImagePicker();
   final TextEditingController _textMessageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
 
@@ -62,11 +66,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
       appBar: AppBar(
         title: const Text(""),
         automaticallyImplyLeading: false,
-        actions: [
-          IconButton(icon: const Icon(Icons.videocam), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.call), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.more_vert), onPressed: () {}),
-        ],
+
         flexibleSpace: Container(
           margin: const EdgeInsets.only(top: 30),
           child: Row(
@@ -129,10 +129,9 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
               itemCount: messages.length,
               itemBuilder: (_, index) {
                 final message = messages[index];
-
                 if (message.sederUID == widget.senderUID) {
                   return _messageLayout(
-                    color: Colors.lightGreen[400],
+                    color: Colors.white,
                     time: DateFormat('hh:mm a').format(message.time.toDate()),
                     align: TextAlign.left,
                     boxAlign: CrossAxisAlignment.start,
@@ -210,10 +209,6 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
                   const SizedBox(
                     width: 10,
                   ),
-                  Icon(
-                    Icons.insert_emoticon,
-                    color: Colors.grey[500],
-                  ),
                   const SizedBox(
                     width: 10,
                   ),
@@ -237,7 +232,76 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
                   ),
                   Row(
                     children: [
-                      const Icon(Icons.link),
+                       IconButton(onPressed: (){
+                           {
+                           showModalBottomSheet(
+                             context: context,
+                             builder: (context) {
+                               return Container(
+                                 height: 120,
+                                 width: 100,
+                                 color: Colors.white,
+                                 child: Padding(
+                                   padding: const EdgeInsets.all(8.0),
+                                   child: Column(
+                                     children: [
+                                       Row(
+                                         children: [
+                                           Text('FROM CAMERA',style: GoogleFonts.arsenal(
+                                             fontWeight: FontWeight.bold,
+
+                                           )),
+                                           IconButton(
+                                             onPressed: () async {
+                                               Navigator.pop(context);
+                                               final XFile? image =
+                                               await _picker.pickImage(
+                                                 source: ImageSource.camera,
+                                                 maxHeight: 500,
+                                                 maxWidth: 500,
+                                                 imageQuality: 50,
+                                               );
+                                               if (image != null) {
+                                                 uploadProfile(image);
+                                               }
+                                               setState(() {});
+                                             },
+                                             icon: const Icon(Icons.camera),
+                                           ),
+                                         ],
+                                       ),
+                                       Row(
+                                         children: [
+                                           Text('FROM GALLERY',style: GoogleFonts.arsenal(
+                                             fontWeight: FontWeight.bold,
+                                           )),
+                                           IconButton(
+                                             onPressed: () async {
+                                               Navigator.pop(context);
+                                               final XFile? image =
+                                               await _picker.pickImage(
+                                                 source: ImageSource.gallery,
+                                                 maxHeight: 500,
+                                                 maxWidth: 500,
+                                                 imageQuality: 50,
+                                               );
+                                               if (image != null) {
+                                                 uploadProfile(image);
+                                               }
+                                               setState(() {});
+                                             },
+                                             icon: const Icon(Icons.image),
+                                           ),
+                                         ],
+                                       ),
+                                     ],
+                                   ),
+                                 ),
+                               );
+                             },
+                           );
+                         };
+                       }, icon: Icon(Icons.link_outlined)),
                       const SizedBox(
                         width: 10,
                       ),
@@ -271,7 +335,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
                 ),
               ),
               child: Icon(
-                _textMessageController.text.isEmpty ? Icons.mic : Icons.send,
+               Icons.send,
               ),
             ),
           )
@@ -309,7 +373,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
                   Text(
                     text,
                     textAlign: align,
-                    style: const TextStyle(fontSize: 18),
+                    style: const TextStyle(fontSize: 14),
                   ),
                   Text(
                     time,
@@ -366,4 +430,43 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
 
     messageRef.doc(messageId).set(newMessage);
   }
+}
+void uploadProfile(XFile image) async {
+  final user = FirebaseAuth.instance.currentUser;
+  final ref = FirebaseStorage.instance.ref("profilePhotos/${user?.uid}");
+  final uploadTask = ref.putFile(File(image.path));
+  uploadTask.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
+    switch (taskSnapshot.state) {
+      case TaskState.running:
+        final progress =
+            100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
+        print("Upload is $progress% complete.");
+        break;
+      case TaskState.paused:
+        print("Upload is paused.");
+        break;
+      case TaskState.canceled:
+        print("Upload was canceled");
+        break;
+      case TaskState.error:
+        print("Upload was error");
+        // Handle unsuccessful uploads
+        break;
+      case TaskState.success:
+        final url = await ref.getDownloadURL();
+        print("Upload was success $url");
+        user?.updatePhotoURL(url);
+        await FirebaseFirestore.instance
+            .collection("users")
+            .doc(user?.uid)
+            .set({
+          "photo": url,
+        }, SetOptions(merge: true));
+
+        //ref.getDownloadURL();
+        // Handle successful uploads on complete
+        // ...
+        break;
+    }
+  });
 }
