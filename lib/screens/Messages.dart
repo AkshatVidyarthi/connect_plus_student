@@ -9,11 +9,6 @@ class _MessagesState extends State<Messages> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.deepPurple,
-        onPressed: (){},
-        child: Icon(Icons.messenger,color: Colors.black,size: 30),
-      ),
     );
   }
 }
