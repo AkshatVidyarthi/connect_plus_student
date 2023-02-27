@@ -151,6 +151,8 @@ class MoreOptionsInternship extends StatelessWidget {
                                 data.id,
                                 recipientName: "${userData.get("fullName")}",
                                 photo: photo,
+                                senderUID: FirebaseAuth.instance.currentUser?.uid,
+                                recipientUID:  data.id,
                               );
                             }));
                           },

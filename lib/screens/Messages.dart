@@ -38,6 +38,7 @@ class _MessagesState extends State<Messages> {
                   itemCount: myChat.length,
                   itemBuilder: (_, index) {
                     final chat = myChat[index];
+                    print("${FirebaseAuth.instance.currentUser?.uid } ${chat.recipientUID}");
                     return ListTile(
                       onTap: () async {
                         Navigator.push(context,
@@ -47,6 +48,9 @@ class _MessagesState extends State<Messages> {
                                 chat.recipientUID,
                                 recipientName: "${chat.recipientName}",
                                 photo: "${chat.profileURL}",
+                                senderUID: FirebaseAuth.instance.currentUser?.uid,
+                                recipientUID:  chat.recipientUID,
+
                               );
                             }));
                       },

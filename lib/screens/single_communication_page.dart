@@ -134,6 +134,8 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
               itemCount: messages.length,
               itemBuilder: (_, index) {
                 final message = messages[index];
+                /*print(message.sederUID);
+                print(widget.senderUID);*/
                 if (message.sederUID == widget.senderUID) {
                   return _messageLayout(
                     color: Colors.white,

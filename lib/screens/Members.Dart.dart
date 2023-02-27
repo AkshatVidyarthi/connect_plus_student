@@ -50,6 +50,9 @@ class Members extends StatelessWidget {
                           data.docs[index].id,
                           recipientName: "${userData.get("fullName")}",
                           photo: "${userData.get("photo")}",
+                          senderUID: FirebaseAuth.instance.currentUser?.uid,
+                          recipientUID:  data.docs[index].id,
+
                         );
                       }));
                     },

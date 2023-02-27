@@ -224,6 +224,8 @@ class MoreJobsOptions extends StatelessWidget {
                                 data.id,
                                 photo: photo,
                                 recipientName: "${userData.get("fullName")}",
+                                recipientUID: data.id,
+                                senderUID: FirebaseAuth.instance.currentUser?.uid,
                               );
                             }));
                           },
