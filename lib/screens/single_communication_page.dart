@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import '../entity/my_chat_entity.dart';
 import '../entity/text_message_entity.dart';
+import '../model/my_chat_model.dart';
 import '../model/text_message_model.dart';
 
 class SingleCommunicationPage extends StatefulWidget {
@@ -20,16 +22,20 @@ class SingleCommunicationPage extends StatefulWidget {
   final String? senderPhoneNumber;
   final String? uid;
   final String? otherUID;
+  final String photo;
 
-  const SingleCommunicationPage(this.uid, this.otherUID,
-      {Key? key,
-      this.senderUID,
-      this.recipientUID,
-      this.senderName,
-      this.recipientName,
-      this.recipientPhoneNumber,
-      this.senderPhoneNumber})
-      : super(key: key);
+  const SingleCommunicationPage(
+    this.uid,
+    this.otherUID, {
+    Key? key,
+    this.senderUID,
+    this.recipientUID,
+    this.senderName,
+    this.recipientName,
+    this.recipientPhoneNumber,
+    this.senderPhoneNumber,
+    required this.photo,
+  }) : super(key: key);
 
   @override
   _SingleCommunicationPageState createState() =>
@@ -66,7 +72,6 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
       appBar: AppBar(
         title: const Text(""),
         automaticallyImplyLeading: false,
-
         flexibleSpace: Container(
           margin: const EdgeInsets.only(top: 30),
           child: Row(
@@ -77,7 +82,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
               SizedBox(
                 height: 40,
                 width: 40,
-                child: Image.asset('assets/profile_default.png'),
+                child: Image.network('${widget.photo}'),
               ),
               const SizedBox(
                 width: 10,
@@ -232,76 +237,80 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
                   ),
                   Row(
                     children: [
-                       IconButton(onPressed: (){
-                           {
-                           showModalBottomSheet(
-                             context: context,
-                             builder: (context) {
-                               return Container(
-                                 height: 120,
-                                 width: 100,
-                                 color: Colors.white,
-                                 child: Padding(
-                                   padding: const EdgeInsets.all(8.0),
-                                   child: Column(
-                                     children: [
-                                       Row(
-                                         children: [
-                                           Text('FROM CAMERA',style: GoogleFonts.arsenal(
-                                             fontWeight: FontWeight.bold,
-
-                                           )),
-                                           IconButton(
-                                             onPressed: () async {
-                                               Navigator.pop(context);
-                                               final XFile? image =
-                                               await _picker.pickImage(
-                                                 source: ImageSource.camera,
-                                                 maxHeight: 500,
-                                                 maxWidth: 500,
-                                                 imageQuality: 50,
-                                               );
-                                               if (image != null) {
-                                                 uploadProfile(image);
-                                               }
-                                               setState(() {});
-                                             },
-                                             icon: const Icon(Icons.camera),
-                                           ),
-                                         ],
-                                       ),
-                                       Row(
-                                         children: [
-                                           Text('FROM GALLERY',style: GoogleFonts.arsenal(
-                                             fontWeight: FontWeight.bold,
-                                           )),
-                                           IconButton(
-                                             onPressed: () async {
-                                               Navigator.pop(context);
-                                               final XFile? image =
-                                               await _picker.pickImage(
-                                                 source: ImageSource.gallery,
-                                                 maxHeight: 500,
-                                                 maxWidth: 500,
-                                                 imageQuality: 50,
-                                               );
-                                               if (image != null) {
-                                                 uploadProfile(image);
-                                               }
-                                               setState(() {});
-                                             },
-                                             icon: const Icon(Icons.image),
-                                           ),
-                                         ],
-                                       ),
-                                     ],
-                                   ),
-                                 ),
-                               );
-                             },
-                           );
-                         };
-                       }, icon: Icon(Icons.link_outlined)),
+                      IconButton(
+                          onPressed: () {
+                            {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                  return Container(
+                                    height: 120,
+                                    width: 100,
+                                    color: Colors.white,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text('FROM CAMERA',
+                                                  style: GoogleFonts.arsenal(
+                                                    fontWeight: FontWeight.bold,
+                                                  )),
+                                              IconButton(
+                                                onPressed: () async {
+                                                  Navigator.pop(context);
+                                                  final XFile? image =
+                                                      await _picker.pickImage(
+                                                    source: ImageSource.camera,
+                                                    maxHeight: 500,
+                                                    maxWidth: 500,
+                                                    imageQuality: 50,
+                                                  );
+                                                  if (image != null) {
+                                                    uploadProfile(image);
+                                                  }
+                                                  setState(() {});
+                                                },
+                                                icon: const Icon(Icons.camera),
+                                              ),
+                                            ],
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text('FROM GALLERY',
+                                                  style: GoogleFonts.arsenal(
+                                                    fontWeight: FontWeight.bold,
+                                                  )),
+                                              IconButton(
+                                                onPressed: () async {
+                                                  Navigator.pop(context);
+                                                  final XFile? image =
+                                                      await _picker.pickImage(
+                                                    source: ImageSource.gallery,
+                                                    maxHeight: 500,
+                                                    maxWidth: 500,
+                                                    imageQuality: 50,
+                                                  );
+                                                  if (image != null) {
+                                                    uploadProfile(image);
+                                                  }
+                                                  setState(() {});
+                                                },
+                                                icon: const Icon(Icons.image),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+                            ;
+                          },
+                          icon: Icon(Icons.link_outlined)),
                       const SizedBox(
                         width: 10,
                       ),
@@ -335,7 +344,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
                 ),
               ),
               child: Icon(
-               Icons.send,
+                Icons.send,
               ),
             ),
           )
@@ -394,22 +403,90 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
     );
   }
 
-  void _sendTextMessage() async{
+  void _sendTextMessage() async {
     final channelId =
-    await getOneToOneSingleUserChannelId(widget.uid, widget.otherUID);
+        await getOneToOneSingleUserChannelId(widget.uid, widget.otherUID);
     if (_textMessageController.text.isNotEmpty) {
       sendTextMessage(
-        TextMessageEntity(messsageType: "TEXT", message: _textMessageController.text, messageId: "", time: Timestamp.now()),
-          channelId
-      );
+          TextMessageEntity(
+              messsageType: "TEXT",
+              message: _textMessageController.text,
+              messageId: "",
+              time: Timestamp.now()),
+          channelId);
+      await addToMyChat(MyChatEntity(
+        channelId: channelId,
+        recentTextMessage: _textMessageController.text,
+        recipientName: widget.recipientName,
+        senderUID: widget.uid,
+        recipientUID: widget.otherUID,
+        time: Timestamp.now(),
+        profileURL: widget.photo,
+      ));
       _textMessageController.clear();
     }
+
+  }
+
+  Future<void> addToMyChat(MyChatEntity myChatEntity) async {
+    final myChatRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(myChatEntity.senderUID)
+        .collection('myChat');
+
+    final otherChatRef = FirebaseFirestore.instance
+        .collection('users')
+        .doc(myChatEntity.recipientUID)
+        .collection('myChat');
+
+    final myNewChat = MyChatModel(
+      time: myChatEntity.time,
+      senderName: myChatEntity.senderName,
+      senderUID: myChatEntity.senderPhoneNumber,
+      recipientUID: myChatEntity.recipientUID,
+      recipientName: myChatEntity.recipientName,
+      channelId: myChatEntity.channelId,
+      isArchived: myChatEntity.isArchived,
+      isRead: myChatEntity.isRead,
+      profileURL: myChatEntity.profileURL,
+      recentTextMessage: myChatEntity.recentTextMessage,
+      recipientPhoneNumber: myChatEntity.recipientPhoneNumber,
+      senderPhoneNumber: myChatEntity.senderPhoneNumber,
+    ).toDocument();
+    final otherNewChat = MyChatModel(
+      time: myChatEntity.time,
+      senderName: myChatEntity.recipientName,
+      senderUID: myChatEntity.recipientUID,
+      recipientUID: myChatEntity.senderUID,
+      recipientName: myChatEntity.senderName,
+      channelId: myChatEntity.channelId,
+      isArchived: myChatEntity.isArchived,
+      isRead: myChatEntity.isRead,
+      profileURL: myChatEntity.profileURL,
+      recentTextMessage: myChatEntity.recentTextMessage,
+      recipientPhoneNumber: myChatEntity.senderPhoneNumber,
+      senderPhoneNumber: myChatEntity.recipientPhoneNumber,
+    ).toDocument();
+
+    myChatRef.doc(myChatEntity.recipientUID).get().then((myChatDoc) {
+      if (!myChatDoc.exists) {
+        //Create
+        myChatRef.doc(myChatEntity.recipientUID).set(myNewChat);
+        otherChatRef.doc(myChatEntity.senderUID).set(otherNewChat);
+        return;
+      } else {
+        //Update
+        myChatRef.doc(myChatEntity.recipientUID).update(myNewChat);
+        otherChatRef.doc(myChatEntity.senderUID).update(otherNewChat);
+        return;
+      }
+    });
   }
 
   Future<void> sendTextMessage(
-      TextMessageEntity textMessageEntity,
-      String? channelId,
-      ) async {
+    TextMessageEntity textMessageEntity,
+    String? channelId,
+  ) async {
     final messageRef = FirebaseFirestore.instance
         .collection('myChatChannel')
         .doc(channelId)
@@ -431,6 +508,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
     messageRef.doc(messageId).set(newMessage);
   }
 }
+
 void uploadProfile(XFile image) async {
   final user = FirebaseAuth.instance.currentUser;
   final ref = FirebaseStorage.instance.ref("profilePhotos/${user?.uid}");

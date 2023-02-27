@@ -21,8 +21,7 @@ class Members extends StatelessWidget {
           .where("type", isEqualTo: "alumni")
           .snapshots(),
       builder: (BuildContext context,
-          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>>
-          snapshot) {
+          AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -39,10 +38,18 @@ class Members extends StatelessWidget {
                 itemBuilder: (context, index) {
                   final userData = data.docs[index];
                   return ListTile(
-                    onTap: () async{
-                      await createOneToOneChatChannel(FirebaseAuth.instance.currentUser?.uid,data.docs[index].id);
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                        return SingleCommunicationPage(FirebaseAuth.instance.currentUser?.uid,data.docs[index].id);
+                    onTap: () async {
+                      await createOneToOneChatChannel(
+                          FirebaseAuth.instance.currentUser?.uid,
+                          data.docs[index].id);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return SingleCommunicationPage(
+                          FirebaseAuth.instance.currentUser?.uid,
+                          data.docs[index].id,
+                          recipientName: "${userData.get("fullName")}",
+                          photo: "${userData.get("photo")}",
+                        );
                       }));
                     },
                     leading: CircleAvatar(
@@ -58,14 +65,11 @@ class Members extends StatelessWidget {
                             errorWidget: (context, error, stack) {
                               return Icon(
                                 Icons.person,
-                                size: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.20,
+                                size: MediaQuery.of(context).size.width * 0.20,
                               );
                             },
                             placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
+                                const CircularProgressIndicator(),
                           ),
                         ),
                       ),
@@ -100,7 +104,8 @@ class Members extends StatelessWidget {
 
   Future<void> createOneToOneChatChannel(String? uid, String? otherUid) async {
     final userCollectionRef = FirebaseFirestore.instance.collection("users");
-    final oneToOneChatChannelRef = FirebaseFirestore.instance.collection('myChatChannel');
+    final oneToOneChatChannelRef =
+        FirebaseFirestore.instance.collection('myChatChannel');
 
     userCollectionRef
         .doc(uid)
@@ -136,5 +141,4 @@ class Members extends StatelessWidget {
       return;
     });
   }
-
 }

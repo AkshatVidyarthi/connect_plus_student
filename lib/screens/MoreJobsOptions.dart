@@ -118,9 +118,10 @@ class MoreJobsOptions extends StatelessWidget {
                 color: Colors.grey,
                 thickness: 0.5,
               ),
-              Text('Job Description',style: GoogleFonts.arsenal(
-                fontWeight: FontWeight.w400,
-              )),
+              Text('Job Description',
+                  style: GoogleFonts.arsenal(
+                    fontWeight: FontWeight.w400,
+                  )),
               SizedBox(
                 height: 5,
               ),
@@ -139,40 +140,47 @@ class MoreJobsOptions extends StatelessWidget {
               SizedBox(
                 height: 8,
               ),
-
-
               data["attachment"] != null ||
-                  data["attachment"].toString().toLowerCase() != "null"
+                      data["attachment"].toString().toLowerCase() != "null"
                   ? Row(
-
-                children: [
-                  Text('DOWNLOAD JOB DESCRIPTION',style: GoogleFonts.arsenal(
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(width: 10,),
-                  CircleAvatar(
-                    backgroundColor: Colors.transparent,
-                    child: IconButton(
-                        onPressed: () async {
-                          final url = data["attachment"];
-                          if (await canLaunchUrlString(url)) {
-                            launchUrlString(
-                              url,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          }
-                        },
-                        icon: Icon(Icons.download,color: Colors.black,
-                          size: 30,)),
-                  ),
-                ],
-              )
+                      children: [
+                        Text(
+                          'DOWNLOAD JOB DESCRIPTION',
+                          style: GoogleFonts.arsenal(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircleAvatar(
+                          backgroundColor: Colors.transparent,
+                          child: IconButton(
+                              onPressed: () async {
+                                final url = data["attachment"];
+                                if (await canLaunchUrlString(url)) {
+                                  launchUrlString(
+                                    url,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                }
+                              },
+                              icon: Icon(
+                                Icons.download,
+                                color: Colors.black,
+                                size: 30,
+                              )),
+                        ),
+                      ],
+                    )
                   : SizedBox(),
               Divider(
                 color: Colors.grey,
                 height: 0.5,
               ),
-              SizedBox(height: 5,),
+              SizedBox(
+                height: 5,
+              ),
               Text(
                 'Posted By:',
                 style: GoogleFonts.arsenal(
@@ -201,13 +209,24 @@ class MoreJobsOptions extends StatelessWidget {
                       if (data != null) {
                         final userData = data;
                         return ListTile(
-
-                            onTap: () async{
-                              await createOneToOneChatChannel(FirebaseAuth.instance.currentUser?.uid,data.id);
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return SingleCommunicationPage(FirebaseAuth.instance.currentUser?.uid,data.id);
-                              }));
-                            },
+                          onTap: () async {
+                            await createOneToOneChatChannel(
+                                FirebaseAuth.instance.currentUser?.uid,
+                                data.id);
+                            final photo = await FirebaseStorage.instance
+                                .ref("profilePhotos")
+                                .child("$id")
+                                .getDownloadURL();
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return SingleCommunicationPage(
+                                FirebaseAuth.instance.currentUser?.uid,
+                                data.id,
+                                photo: photo,
+                                recipientName: "${userData.get("fullName")}",
+                              );
+                            }));
+                          },
                           leading: CircleAvatar(
                             radius: 30,
                             child: ClipRRect(
@@ -263,16 +282,17 @@ class MoreJobsOptions extends StatelessWidget {
                   }
                 },
               ),
-
             ],
           ),
         ),
       ),
     );
   }
+
   Future<void> createOneToOneChatChannel(String? uid, String? otherUid) async {
     final userCollectionRef = FirebaseFirestore.instance.collection("users");
-    final oneToOneChatChannelRef = FirebaseFirestore.instance.collection('myChatChannel');
+    final oneToOneChatChannelRef =
+        FirebaseFirestore.instance.collection('myChatChannel');
 
     userCollectionRef
         .doc(uid)

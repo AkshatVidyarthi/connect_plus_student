@@ -135,13 +135,25 @@ class MoreOptionsInternship extends StatelessWidget {
                       if (data != null) {
                         final userData = data;
                         return ListTile(
-                            onTap: () async{
-                              await createOneToOneChatChannel(FirebaseAuth.instance.currentUser?.uid,data.id);
-                              Navigator.push(context, MaterialPageRoute(builder: (context){
-                                return SingleCommunicationPage(FirebaseAuth.instance.currentUser?.uid,data.id);
-                              }));
-                            },
+                          onTap: () async {
+                            await createOneToOneChatChannel(
+                                FirebaseAuth.instance.currentUser?.uid,
+                                data.id);
+                            final photo = await FirebaseStorage.instance
+                                .ref("profilePhotos")
+                                .child("$id")
+                                .getDownloadURL();
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
 
+                              return SingleCommunicationPage(
+                                FirebaseAuth.instance.currentUser?.uid,
+                                data.id,
+                                recipientName: "${userData.get("fullName")}",
+                                photo: photo,
+                              );
+                            }));
+                          },
                           leading: CircleAvatar(
                             radius: 30,
                             child: ClipRRect(
@@ -198,29 +210,34 @@ class MoreOptionsInternship extends StatelessWidget {
                 },
               ),
               data["attachment"] != null ||
-                  data["attachment"].toString().toLowerCase() != "null"
+                      data["attachment"].toString().toLowerCase() != "null"
                   ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('DOWNLOAD INTERNSHIP DESCRIPTION',style: GoogleFonts.arsenal(
-                    fontWeight: FontWeight.bold,
-                  ),),
-                  SizedBox(width: 10,),
-                  CircleAvatar(
-                    child: IconButton(
-                        onPressed: () async {
-                          final url = data["attachment"];
-                          if (await canLaunchUrlString(url)) {
-                            launchUrlString(
-                              url,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          }
-                        },
-                        icon: Icon(Icons.download)),
-                  ),
-                ],
-              )
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'DOWNLOAD INTERNSHIP DESCRIPTION',
+                          style: GoogleFonts.arsenal(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircleAvatar(
+                          child: IconButton(
+                              onPressed: () async {
+                                final url = data["attachment"];
+                                if (await canLaunchUrlString(url)) {
+                                  launchUrlString(
+                                    url,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                }
+                              },
+                              icon: Icon(Icons.download)),
+                        ),
+                      ],
+                    )
                   : SizedBox(),
             ],
           ),
@@ -228,9 +245,11 @@ class MoreOptionsInternship extends StatelessWidget {
       ),
     );
   }
+
   Future<void> createOneToOneChatChannel(String? uid, String? otherUid) async {
     final userCollectionRef = FirebaseFirestore.instance.collection("users");
-    final oneToOneChatChannelRef = FirebaseFirestore.instance.collection('myChatChannel');
+    final oneToOneChatChannelRef =
+        FirebaseFirestore.instance.collection('myChatChannel');
 
     userCollectionRef
         .doc(uid)
@@ -267,5 +286,3 @@ class MoreOptionsInternship extends StatelessWidget {
     });
   }
 }
-
-
