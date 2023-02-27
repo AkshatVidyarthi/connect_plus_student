@@ -56,6 +56,11 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
     _textMessageController.addListener(() {
       setState(() {});
     });
+    /*_scrollController.animateTo(
+      _scrollController.position.maxScrollExtent,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInQuad,
+    );*/
     super.initState();
   }
 
@@ -409,7 +414,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
     final channelId =
         await getOneToOneSingleUserChannelId(widget.uid, widget.otherUID);
     if (_textMessageController.text.isNotEmpty) {
-      sendTextMessage(
+      await sendTextMessage(
           TextMessageEntity(
             messsageType: "TEXT",
             message: _textMessageController.text,
@@ -432,6 +437,13 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
         senderName: FirebaseAuth.instance.currentUser?.displayName,
       ));
       _textMessageController.clear();
+      Timer(const Duration(milliseconds: 500), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInQuad,
+        );
+      });
     }
   }
 
