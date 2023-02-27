@@ -40,7 +40,15 @@ class _MessagesState extends State<Messages> {
                     final chat = myChat[index];
                     return ListTile(
                       onTap: () async {
-
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                              return SingleCommunicationPage(
+                                FirebaseAuth.instance.currentUser?.uid,
+                                chat.recipientUID,
+                                recipientName: "${chat.recipientName}",
+                                photo: "${chat.profileURL}",
+                              );
+                            }));
                       },
                       leading: CircleAvatar(
                         radius: 30,

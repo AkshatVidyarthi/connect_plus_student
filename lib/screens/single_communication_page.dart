@@ -409,10 +409,15 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
     if (_textMessageController.text.isNotEmpty) {
       sendTextMessage(
           TextMessageEntity(
-              messsageType: "TEXT",
-              message: _textMessageController.text,
-              messageId: "",
-              time: Timestamp.now()),
+            messsageType: "TEXT",
+            message: _textMessageController.text,
+            messageId: "",
+            time: Timestamp.now(),
+            senderName: FirebaseAuth.instance.currentUser?.displayName,
+            sederUID: widget.uid,
+            recipientUID: widget.otherUID,
+            recipientName: widget.recipientName,
+          ),
           channelId);
       await addToMyChat(MyChatEntity(
         channelId: channelId,
@@ -422,10 +427,10 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
         recipientUID: widget.otherUID,
         time: Timestamp.now(),
         profileURL: widget.photo,
+        senderName: FirebaseAuth.instance.currentUser?.displayName,
       ));
       _textMessageController.clear();
     }
-
   }
 
   Future<void> addToMyChat(MyChatEntity myChatEntity) async {
