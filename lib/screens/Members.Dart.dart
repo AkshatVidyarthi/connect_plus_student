@@ -37,7 +37,8 @@ class Members extends StatelessWidget {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final userData = data.docs[index];
-                  return ListTile(
+
+                  return  FirebaseAuth.instance.currentUser?.uid != userData.id ? ListTile(
                     onTap: () async {
                       await createOneToOneChatChannel(
                           FirebaseAuth.instance.currentUser?.uid,
@@ -87,7 +88,7 @@ class Members extends StatelessWidget {
                         )),
                     trailing: const Icon(Icons.message_rounded,
                         size: 30, color: Colors.black),
-                  );
+                  ):SizedBox();
                 },
                 itemCount: data.docs.length,
               );
