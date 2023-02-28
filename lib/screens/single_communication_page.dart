@@ -176,11 +176,25 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
         .doc(channelId)
         .collection('messages');
 
-    yield* messagesRef.orderBy('time').snapshots().map(
+
+
+    final sub = messagesRef.orderBy('time').snapshots().map(
           (querySnap) => querySnap.docs
-              .map((doc) => TextMessageModel.fromSnapShot(doc))
-              .toList(),
+          .map((doc) => TextMessageModel.fromSnapShot(doc))
+          .toList(),
+    );
+
+    sub.listen((event) {
+      Timer(const Duration(milliseconds: 1000), () {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInQuad,
         );
+      });
+    });
+
+    yield* sub;
   }
 
   Future<String?> getOneToOneSingleUserChannelId(
@@ -437,13 +451,13 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
         senderName: FirebaseAuth.instance.currentUser?.displayName,
       ));
       _textMessageController.clear();
-      Timer(const Duration(milliseconds: 500), () {
+      /*Timer(const Duration(milliseconds: 1000), () {
         _scrollController.animateTo(
           _scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInQuad,
         );
-      });
+      });*/
     }
   }
 
