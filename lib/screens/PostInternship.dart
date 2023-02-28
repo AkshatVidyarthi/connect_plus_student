@@ -256,7 +256,7 @@ class _PostInternshipsState extends State<PostInternships> {
           "isVerified": false,
           "attachment": url,
           "postedBy": FirebaseAuth.instance.currentUser?.uid,
-          "time": DateTime.now().millisecond,
+          "time": DateTime.now().toUtc(),
         })
         .onError(
             (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(

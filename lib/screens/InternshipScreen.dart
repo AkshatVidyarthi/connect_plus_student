@@ -149,8 +149,8 @@ class _InternshipScreenState extends State<InternshipScreen> {
         stream: FirebaseFirestore.instance
             .collection("PostedInternships")
             .where("isVerified", isEqualTo: true)
-            .where("time", isGreaterThanOrEqualTo: selectedDate?.start.millisecond)
-            .where("time", isLessThanOrEqualTo: selectedDate?.end.millisecond)
+            .where("time", isGreaterThanOrEqualTo: selectedDate?.start.toUtc())
+            .where("time", isLessThanOrEqualTo: selectedDate?.end.toUtc())
             .snapshots(),
       ),
     );
