@@ -25,6 +25,7 @@ class _PostInternshipsState extends State<PostInternships> {
   String? _Email;
   String? _Describe;
   File? file;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -144,7 +145,6 @@ class _PostInternshipsState extends State<PostInternships> {
                   },
                 ),
               ),
-
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepPurpleAccent),
@@ -158,8 +158,7 @@ class _PostInternshipsState extends State<PostInternships> {
                   },
                   child: Text(
                     'Upload File',
-                    style: GoogleFonts.arsenal(
-                        fontWeight: FontWeight.bold),
+                    style: GoogleFonts.arsenal(fontWeight: FontWeight.bold),
                   )),
               file != null
                   ? Row(
@@ -246,22 +245,20 @@ class _PostInternshipsState extends State<PostInternships> {
 
   void saveData(String id, String url, String userId) async {
     await FirebaseFirestore.instance
-        .collection("InternshipsPosted")
-        .doc(userId)
+        .collection("PostedInternships")
+        .doc()
         .set({
-          "data": FieldValue.arrayUnion([
-            {
-              "id": id,
-              "Companyname": _CompanyName,
-              "jobtitle": _Title,
-              "Location": _Location,
-              "email": _Email,
-              "jobdescription": _Describe,
-              "isVerified": false,
-              "attachment": url,
-            }
-          ])
-        }, SetOptions(merge: true))
+          "id": id,
+          "Companyname": _CompanyName,
+          "jobtitle": _Title,
+          "Location": _Location,
+          "email": _Email,
+          "jobdescription": _Describe,
+          "isVerified": false,
+          "attachment": url,
+          "postedBy": FirebaseAuth.instance.currentUser?.uid,
+          "time": DateTime.now(),
+        })
         .onError(
             (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -277,11 +274,5 @@ class _PostInternshipsState extends State<PostInternships> {
               ),
               (route) => false,
             ));
-
-
-
-
-
-
   }
 }
