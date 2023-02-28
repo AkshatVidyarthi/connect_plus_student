@@ -403,7 +403,7 @@ class _MainScreenState extends State<MainScreen> {
               );
             },
             stream:
-                FirebaseFirestore.instance.collection("jobposted").snapshots(),
+                FirebaseFirestore.instance.collection("jobposted").where("time",).snapshots(),
           ),
 
         ],
