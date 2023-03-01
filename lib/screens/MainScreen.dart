@@ -5,9 +5,12 @@ import 'package:connect_plus_student/screens/MoreOptionsInternship.dart';
 import 'package:connect_plus_student/screens/PostInternship.dart';
 import 'package:connect_plus_student/screens/PostJob.dart';
 import 'package:connect_plus_student/screens/UpdateProfile.dart';
+import 'package:connect_plus_student/screens/payment_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 //import 'package:connect_plus_student/InternshipScreen';
 import 'InternshipScreen.dart';
@@ -57,8 +60,7 @@ class _MainScreenState extends State<MainScreen> {
                             builder: (context) {
                               return const PostJob();
                             },
-                          )
-                          );
+                          ));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -222,10 +224,68 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                isStudent
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) {
+                        return const PaymentScreen();
+                      },
+                    ));
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 90,
+                      height: 70,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.grey,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(14))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          children: const <Widget>[
+                            Icon(Icons.payment_outlined),
+                            SizedBox(
+                              height: 7,
+                            ),
+                            Text(
+                              'Payments',
+                              style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                /* isStudent
                     ? const SizedBox()
                     : InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          Razorpay razorpay = Razorpay();
+                          var options = {
+                            'key': 'rzp_live_ILgsfZCZoFIKMb',
+                            'amount': 100,
+                            'name': 'Acme Corp.',
+                            'description': 'Fine T-Shirt',
+                            'retry': {'enabled': true, 'max_count': 1},
+                            'send_sms_hash': true,
+                            'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
+                            'external': {
+                              'wallets': ['paytm']
+                            }
+                          };
+                          razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                          razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
+                          razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
+                          razorpay.open(options);
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
@@ -257,11 +317,11 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                           ),
                         ),
-                      ),
+                      ),*/
               ],
             ),
           ),
-         /* Padding(
+          /* Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0,vertical: 8),
             child: Container(
               decoration: BoxDecoration(
@@ -272,44 +332,44 @@ class _MainScreenState extends State<MainScreen> {
             ),
           ),*/
           Row(
-            mainAxisAlignment:MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text('FILTER',style: GoogleFonts.cairo(
-                fontSize: 12,
-                fontWeight: FontWeight.bold,
-              ),),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-              child: selectedDate == null
-                  ? IconButton(
-                  onPressed: () async {
-                    final date = await showDateRangePicker(
-                      context: context,
-                      firstDate: DateTime(2000),
-                      lastDate: DateTime(3000),
-                    );
-
-                    selectedDate = date;
-                    print(date?.start);
-                    print(date?.end);
-                    setState(() {});
-                  },
-                  icon: Icon(Icons.filter_alt))
-                  : IconButton(
-                  onPressed: () {
-                    selectedDate = null;
-                    setState(() {
-
-                    });
-                  },
-                  icon: Icon(Icons.close))
+              Text(
+                'FILTER',
+                style: GoogleFonts.cairo(
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
+              Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: selectedDate == null
+                      ? IconButton(
+                          onPressed: () async {
+                            final date = await showDateRangePicker(
+                              context: context,
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(3000),
+                            );
+
+                            selectedDate = date;
+                            print(date?.start);
+                            print(date?.end);
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.filter_alt))
+                      : IconButton(
+                          onPressed: () {
+                            selectedDate = null;
+                            setState(() {});
+                          },
+                          icon: const Icon(Icons.close))),
             ],
           ),
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             builder: (context, snapShot2) {
               if (snapShot2.connectionState == ConnectionState.waiting) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapShot2.hasError) {
@@ -320,7 +380,7 @@ class _MainScreenState extends State<MainScreen> {
               final document = snapShot2.data?.docs;
               return ListView.builder(
                 shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
+                physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
                   final data = document?[index].data();
                   return InkWell(
@@ -334,15 +394,15 @@ class _MainScreenState extends State<MainScreen> {
                     child: Card(
                       elevation: 3.0,
                       color: Colors.white,
-                      margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14)),
                       child: Container(
-                          padding: EdgeInsets.all(16.0),
+                          padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Row(
@@ -389,11 +449,12 @@ class _MainScreenState extends State<MainScreen> {
                                       TextButton(
                                           style: TextButton.styleFrom(),
                                           onPressed: () {},
-                                          child: Text(
+                                          child: const Text(
                                             'View More',
-                                            style: TextStyle(color: Colors.black),
+                                            style:
+                                                TextStyle(color: Colors.black),
                                           )),
-                                      Icon(Icons.login),
+                                      const Icon(Icons.login),
                                     ],
                                   ),
                                 ],
@@ -409,7 +470,8 @@ class _MainScreenState extends State<MainScreen> {
             stream: FirebaseFirestore.instance
                 .collection("PostedJobs")
                 .where("isVerified", isEqualTo: true)
-                .where("time", isGreaterThanOrEqualTo: selectedDate?.start.toUtc())
+                .where("time",
+                    isGreaterThanOrEqualTo: selectedDate?.start.toUtc())
                 .where("time", isLessThanOrEqualTo: selectedDate?.end.toUtc())
                 .snapshots(),
           ),
