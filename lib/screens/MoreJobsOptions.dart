@@ -84,41 +84,7 @@ class MoreJobsOptions extends StatelessWidget {
                 color: Colors.grey,
                 thickness: 0.5,
               ),
-              Text('Minimum Experience:',
-                  style: GoogleFonts.arsenal(
-                    fontWeight: FontWeight.w400,
-                  )),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                "${data["maxexp"]}",
-                style: GoogleFonts.arsenal(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text('Minimum Experience',
-                  style: GoogleFonts.arsenal(
-                    fontWeight: FontWeight.w400,
-                  )),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                "${data["minexp"]}",
-                style: GoogleFonts.arsenal(
-                  color: Colors.black,
-                  fontSize: 15,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Divider(
-                color: Colors.grey,
-                thickness: 0.5,
-              ),
-              Text('Job Description',
+              Text('Job Description:',
                   style: GoogleFonts.arsenal(
                     fontWeight: FontWeight.w400,
                   )),
@@ -138,48 +104,7 @@ class MoreJobsOptions extends StatelessWidget {
                 thickness: 0.5,
               ),
               SizedBox(
-                height: 8,
-              ),
-              data["attachment"] != null ||
-                      data["attachment"].toString().toLowerCase() != "null"
-                  ? Row(
-                      children: [
-                        Text(
-                          'DOWNLOAD JOB DESCRIPTION',
-                          style: GoogleFonts.arsenal(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        CircleAvatar(
-                          backgroundColor: Colors.transparent,
-                          child: IconButton(
-                              onPressed: () async {
-                                final url = data["attachment"];
-                                if (await canLaunchUrlString(url)) {
-                                  launchUrlString(
-                                    url,
-                                    mode: LaunchMode.externalApplication,
-                                  );
-                                }
-                              },
-                              icon: Icon(
-                                Icons.download,
-                                color: Colors.black,
-                                size: 30,
-                              )),
-                        ),
-                      ],
-                    )
-                  : SizedBox(),
-              Divider(
-                color: Colors.grey,
-                height: 0.5,
-              ),
-              SizedBox(
-                height: 5,
+                height: 10,
               ),
               Text(
                 'Posted By:',
@@ -194,7 +119,7 @@ class MoreJobsOptions extends StatelessWidget {
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                        snapshot) {
+                    snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -219,15 +144,16 @@ class MoreJobsOptions extends StatelessWidget {
                                 .getDownloadURL();
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                              return SingleCommunicationPage(
-                                FirebaseAuth.instance.currentUser?.uid,
-                                data.id,
-                                photo: photo,
-                                recipientName: "${userData.get("fullName")}",
-                                recipientUID: data.id,
-                                senderUID: FirebaseAuth.instance.currentUser?.uid,
-                              );
-                            }));
+
+                                  return SingleCommunicationPage(
+                                    FirebaseAuth.instance.currentUser?.uid,
+                                    data.id,
+                                    recipientName: "${userData.get("fullName")}",
+                                    photo: photo,
+                                    senderUID: FirebaseAuth.instance.currentUser?.uid,
+                                    recipientUID:  data.id,
+                                  );
+                                }));
                           },
                           leading: CircleAvatar(
                             radius: 30,
@@ -249,8 +175,8 @@ class MoreJobsOptions extends StatelessWidget {
                                           return Icon(
                                             Icons.person,
                                             size: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.20,
                                           );
                                         },
@@ -284,6 +210,36 @@ class MoreJobsOptions extends StatelessWidget {
                   }
                 },
               ),
+              data["attachment"] != null ||
+                  data["attachment"].toString().toLowerCase() != "null"
+                  ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'DOWNLOAD JOB DESCRIPTION',
+                    style: GoogleFonts.arsenal(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  CircleAvatar(
+                    child: IconButton(
+                        onPressed: () async {
+                          final url = data["attachment"];
+                          if (await canLaunchUrlString(url)) {
+                            launchUrlString(
+                              url,
+                              mode: LaunchMode.externalApplication,
+                            );
+                          }
+                        },
+                        icon: Icon(Icons.download)),
+                  ),
+                ],
+              )
+                  : SizedBox(),
             ],
           ),
         ),

@@ -20,6 +20,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  DateTimeRange? selectedDate;
+
   //final ViewInterns = data.docs;
   @override
   Widget build(BuildContext context) {
@@ -278,17 +280,36 @@ class _MainScreenState extends State<MainScreen> {
               ),),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-               child: IconButton(
-                 onPressed: (){},
-                 icon: Icon(Icons.filter_alt_sharp),
-               ),
+              child: selectedDate == null
+                  ? IconButton(
+                  onPressed: () async {
+                    final date = await showDateRangePicker(
+                      context: context,
+                      firstDate: DateTime(2000),
+                      lastDate: DateTime(3000),
+                    );
+
+                    selectedDate = date;
+                    print(date?.start);
+                    print(date?.end);
+                    setState(() {});
+                  },
+                  icon: Icon(Icons.filter_alt))
+                  : IconButton(
+                  onPressed: () {
+                    selectedDate = null;
+                    setState(() {
+
+                    });
+                  },
+                  icon: Icon(Icons.close))
               ),
             ],
           ),
           StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
             builder: (context, snapShot2) {
               if (snapShot2.connectionState == ConnectionState.waiting) {
-                return const Center(
+                return Center(
                   child: CircularProgressIndicator(),
                 );
               } else if (snapShot2.hasError) {
@@ -299,113 +320,99 @@ class _MainScreenState extends State<MainScreen> {
               final document = snapShot2.data?.docs;
               return ListView.builder(
                 shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  final List<dynamic> data =
-                      document?[index].get("data") as List<dynamic>;
-                  return Column(
-                    children: <Widget>[
-                      for (int i = 0; i < data.length; i++)
-                        data[i]["isVerified"]
-                            ? InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return MoreJobsOptions(
-                                            data[i], document?[index].id);
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  elevation: 3.0,
-                                  color: Colors.white,
-                                  margin: const EdgeInsets.symmetric(horizontal: 16,vertical: 8),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(14)
-                                  ),
-                                  child: Container(
-                                    padding: const EdgeInsets.all(16.0),
-                                    child: Column(
-                                      children: [
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "${data[i]["jobtitle"]}",
-                                              style: GoogleFonts.arsenal(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 20,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "${data[i]["Companyname"]}",
-                                              style: GoogleFonts.arsenal(
-                                                fontSize: 18,
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            Text(
-                                              "${data[i]["Location"]}",
-                                              style: GoogleFonts.arsenal(
-                                                color: Colors.grey,
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w900,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Row(
-                                              children: [
-                                                TextButton(
-                                                  style: TextButton.styleFrom(),
-                                                  onPressed: () {},
-                                                  child:  Text(
-                                                    'View More',style: GoogleFonts.cairo(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14,
-                                                  ),
-                                                  ),
-                                                ),
-                                                const Icon(Icons.login,color: Colors.black,size: 15),
-                                              ],
-                                            ),
-                                          ],
-                                        )
-                                      ],
+                  final data = document?[index].data();
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(context, MaterialPageRoute(
+                        builder: (context) {
+                          return MoreJobsOptions(data!, data["postedBy"]);
+                        },
+                      ));
+                    },
+                    child: Card(
+                      elevation: 3.0,
+                      color: Colors.white,
+                      margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14)),
+                      child: Container(
+                          padding: EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${data?["jobtitle"]}",
+                                    style: GoogleFonts.arsenal(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20,
                                     ),
                                   ),
-                                ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${data?["Companyname"]}",
+                                    style: GoogleFonts.arsenal(
+                                      fontSize: 18,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Text(
+                                    "${data?["Location"]}",
+                                    style: GoogleFonts.arsenal(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w900,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Row(
+                                    children: [
+                                      TextButton(
+                                          style: TextButton.styleFrom(),
+                                          onPressed: () {},
+                                          child: Text(
+                                            'View More',
+                                            style: TextStyle(color: Colors.black),
+                                          )),
+                                      Icon(Icons.login),
+                                    ],
+                                  ),
+                                ],
                               )
-                            : const SizedBox(),
-                    ],
+                            ],
+                          )),
+                    ),
                   );
                 },
                 itemCount: document?.length,
               );
             },
-            stream:
-                FirebaseFirestore.instance.collection("jobposted").where("time",).snapshots(),
+            stream: FirebaseFirestore.instance
+                .collection("PostedJobs")
+                .where("isVerified", isEqualTo: true)
+                .where("time", isGreaterThanOrEqualTo: selectedDate?.start.toUtc())
+                .where("time", isLessThanOrEqualTo: selectedDate?.end.toUtc())
+                .snapshots(),
           ),
-
         ],
       ),
     );

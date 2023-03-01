@@ -27,9 +27,6 @@ class _PostJobState extends State<PostJob> {
     'B.COM(H)',
     'BBA(MS)'
   ];
-  final _nature=['public','private'];
-  String? _selectedNature;
-  String? _selectedCourse;
   String? _CompanyName;
   String? _Title;
   String? _MinEx;
@@ -321,40 +318,35 @@ class _PostJobState extends State<PostJob> {
 
   void saveData(String id, String url, String userId) async {
     await FirebaseFirestore.instance
-        .collection("jobposted")
-        .doc(userId)
+        .collection("PostedJobs")
+        .doc()
         .set({
-      "data": FieldValue.arrayUnion([
-        {
-          "id": id,
-          "Companyname": _CompanyName,
-          "jobtitle": _Title,
-          "Location": _Location,
-          "email": _Email,
-          "jobdescription": _Describe,
-          "isVerified": false,
-          "attachment": url,
-          "minexp":_MinEx,
-          "maxexp":_MaxEx,
-        }
-      ])
-    }, SetOptions(merge: true))
+      "Companyname": _CompanyName,
+      "jobtitle": _Title,
+      "Location": _Location,
+      "email": _Email,
+      "jobdescription": _Describe,
+      "isVerified": false,
+      "attachment": url,
+      "postedBy": FirebaseAuth.instance.currentUser?.uid,
+      "time": DateTime.now().toUtc(),
+      "maxexp": _MinEx,
+      "minexp":_MaxEx,
+    })
         .onError(
-            (error, stackTrace) =>
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text("$error"),
-              ),
-            ))
-        .then((value) =>
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              return DashBoardScreen();
-            },
+            (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("$error"),
           ),
-              (route) => false,
-        ));
+        ))
+        .then((value) => Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return DashBoardScreen();
+        },
+      ),
+          (route) => false,
+    ));
   }
 }

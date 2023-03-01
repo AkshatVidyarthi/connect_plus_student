@@ -103,8 +103,7 @@ class _SingleCommunicationPageState extends State<SingleCommunicationPage> {
           ),
         ),
       ),
-      body:
-          _bodyWidget() /*BlocBuilder<CommunicationCubit, CommunicationState>(
+      body:  _bodyWidget() /*BlocBuilder<CommunicationCubit, CommunicationState>(
         builder: (_, communicationState) {
           if (communicationState is CommunicationLoaded) {
             return _bodyWidget(communicationState);
@@ -580,4 +579,21 @@ void uploadProfile(XFile image) async {
         break;
     }
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
