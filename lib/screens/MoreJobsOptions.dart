@@ -15,6 +15,7 @@ class MoreJobsOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("a${data["attachment"].toString() != ""}b");
     return Scaffold(
       appBar: AppBar(
         title: Text('VIEW JOBS'),
@@ -119,7 +120,7 @@ class MoreJobsOptions extends StatelessWidget {
                     .snapshots(),
                 builder: (BuildContext context,
                     AsyncSnapshot<DocumentSnapshot<Map<String, dynamic>>>
-                    snapshot) {
+                        snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -144,16 +145,16 @@ class MoreJobsOptions extends StatelessWidget {
                                 .getDownloadURL();
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-
-                                  return SingleCommunicationPage(
+                              return SingleCommunicationPage(
+                                FirebaseAuth.instance.currentUser?.uid,
+                                data.id,
+                                recipientName: "${userData.get("fullName")}",
+                                photo: photo,
+                                senderUID:
                                     FirebaseAuth.instance.currentUser?.uid,
-                                    data.id,
-                                    recipientName: "${userData.get("fullName")}",
-                                    photo: photo,
-                                    senderUID: FirebaseAuth.instance.currentUser?.uid,
-                                    recipientUID:  data.id,
-                                  );
-                                }));
+                                recipientUID: data.id,
+                              );
+                            }));
                           },
                           leading: CircleAvatar(
                             radius: 30,
@@ -175,8 +176,8 @@ class MoreJobsOptions extends StatelessWidget {
                                           return Icon(
                                             Icons.person,
                                             size: MediaQuery.of(context)
-                                                .size
-                                                .width *
+                                                    .size
+                                                    .width *
                                                 0.20,
                                           );
                                         },
@@ -210,35 +211,34 @@ class MoreJobsOptions extends StatelessWidget {
                   }
                 },
               ),
-              data["attachment"] != null ||
-                  data["attachment"].toString().toLowerCase() != "null"
+              data["attachment"] != null
                   ? Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'DOWNLOAD JOB DESCRIPTION',
-                    style: GoogleFonts.arsenal(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  CircleAvatar(
-                    child: IconButton(
-                        onPressed: () async {
-                          final url = data["attachment"];
-                          if (await canLaunchUrlString(url)) {
-                            launchUrlString(
-                              url,
-                              mode: LaunchMode.externalApplication,
-                            );
-                          }
-                        },
-                        icon: Icon(Icons.download)),
-                  ),
-                ],
-              )
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'DOWNLOAD JOB DESCRIPTION',
+                          style: GoogleFonts.arsenal(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        CircleAvatar(
+                          child: IconButton(
+                              onPressed: () async {
+                                final url = data["attachment"];
+                                if (await canLaunchUrlString(url)) {
+                                  launchUrlString(
+                                    url,
+                                    mode: LaunchMode.externalApplication,
+                                  );
+                                }
+                              },
+                              icon: Icon(Icons.download)),
+                        ),
+                      ],
+                    )
                   : SizedBox(),
             ],
           ),

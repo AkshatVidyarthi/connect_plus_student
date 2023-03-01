@@ -263,7 +263,7 @@ class _PostJobState extends State<PostJob> {
                           if (file != null) {
                             uploadProfile(jobId, userId);
                           } else {
-                            saveData(jobId, "", userId);
+                            saveData(jobId, null, userId);
                           }
                         }
                       }
@@ -316,7 +316,7 @@ class _PostJobState extends State<PostJob> {
     });
   }
 
-  void saveData(String id, String url, String userId) async {
+  void saveData(String id, String? url, String userId) async {
     await FirebaseFirestore.instance
         .collection("PostedJobs")
         .doc()
