@@ -139,7 +139,8 @@ class _InternshipScreenState extends State<InternshipScreen> {
                             ],
                           )
                         ],
-                      )),
+                      )
+                  ),
                 ),
               );
             },

@@ -46,6 +46,44 @@ class MoreJobsOptions extends StatelessWidget {
                 color: Colors.grey,
                 thickness: 0.5,
               ),
+              Row(
+                children: [
+                  Text('Qualification: ',style: GoogleFonts.arsenal(
+                    fontWeight: FontWeight.w400,
+                  )),
+                  Text(
+                    "${data["qualification"]}",
+                    style: GoogleFonts.arsenal(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.grey,
+                thickness: 0.5,
+              ),
+              Row(
+                children: [
+                  Text('PACKAGE: ',style: GoogleFonts.arsenal(
+                    fontWeight: FontWeight.w400,
+                  )),
+                  Text(
+                    "${data["selectedsalary"]}",
+                    style: GoogleFonts.arsenal(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.grey,
+                thickness: 0.5,
+              ),
               RichText(
                 text: TextSpan(
                     text: "Company Name: ",

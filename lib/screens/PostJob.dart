@@ -17,16 +17,16 @@ class PostJob extends StatefulWidget {
 }
 
 class _PostJobState extends State<PostJob> {
-  final _coursesList = [
-    'B.COM',
-    'BBA',
-    'BA',
-    'BCA',
-    'BVOC',
-    'MVOC',
-    'B.COM(H)',
-    'BBA(MS)'
-  ];
+
+ var selectedsalary=[
+   "below 100,000",
+   "100,000-200,000",
+   "200,000-300,000",
+   "300,000-400,000",
+   "400,000-500,000",
+   "Above 500,000",
+ ];
+  String? selectsal;
   String? _CompanyName;
   String? _Title;
   String? _MinEx;
@@ -34,6 +34,7 @@ class _PostJobState extends State<PostJob> {
   String? _Location;
   String? _Email;
   String? _Describe;
+  String? _Qualify;
   File? file;
 
   final _formKey = GlobalKey<FormState>();
@@ -207,6 +208,50 @@ class _PostJobState extends State<PostJob> {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  onSaved: (value) {
+                    _Qualify = value;
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Job Qualification',
+                    hintText: 'Enter Job Qualification',
+                  ),
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Information About the Qualification";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
+
+             Padding(padding: EdgeInsets.all(16.0),
+               child: DropdownButtonFormField
+                 (
+                 decoration: InputDecoration(
+                   border: OutlineInputBorder(),
+                 ),
+                   items: selectedsalary
+                       .map((e) => DropdownMenuItem(
+                     child: Text(e),
+                     value: e,
+                   ))
+                       .toList(),
+                   onChanged: (val) {
+                     setState(() {
+                       selectsal = val;
+                     });
+                   },
+                 value: selectsal,
+                 hint: Text("select package"),
+               ),
+               ),
+
 
 
               ElevatedButton(
@@ -227,9 +272,9 @@ class _PostJobState extends State<PostJob> {
                   )),
               file != null
                   ? Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Row(
-                children: [
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
                     Expanded(child: Text("${file?.path
                         .split("/")
                         .last}")),
@@ -240,9 +285,9 @@ class _PostJobState extends State<PostJob> {
                         setState(() {});
                       },
                     ),
-                ],
-              ),
-                  )
+                  ],
+                ),
+              )
                   : SizedBox(),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -263,7 +308,7 @@ class _PostJobState extends State<PostJob> {
                           if (file != null) {
                             uploadProfile(jobId, userId);
                           } else {
-                            saveData(jobId, "", userId);
+                            saveData(jobId, null, userId);
                           }
                         }
                       }
@@ -316,7 +361,7 @@ class _PostJobState extends State<PostJob> {
     });
   }
 
-  void saveData(String id, String url, String userId) async {
+  void saveData(String id, String? url, String userId) async {
     await FirebaseFirestore.instance
         .collection("PostedJobs")
         .doc()
@@ -330,8 +375,10 @@ class _PostJobState extends State<PostJob> {
       "attachment": url,
       "postedBy": FirebaseAuth.instance.currentUser?.uid,
       "time": DateTime.now().toUtc(),
-      "maxexp": _MinEx,
-      "minexp":_MaxEx,
+      "maxexp": _MaxEx,
+      "minexp":_MinEx,
+      "qualification":_Qualify,
+      "selectedsalary":selectsal,
     })
         .onError(
             (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(

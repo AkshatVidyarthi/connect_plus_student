@@ -24,6 +24,7 @@ class _StudentDetailsState extends State<StudentDetails> {
     'B.COM(H)',
     'BBA(MS)'
   ];
+
   String? _selectedCourse;
   String? _fullName;
   String? _id;
