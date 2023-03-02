@@ -25,6 +25,7 @@ class _PostJobState extends State<PostJob> {
    "300,000-400,000",
    "400,000-500,000",
    "Above 500,000",
+   "not defined",
  ];
   String? selectsal;
   String? _CompanyName;

@@ -47,6 +47,29 @@ class MoreOptionsInternship extends StatelessWidget {
                 color: Colors.grey,
                 thickness: 0.5,
               ),
+              Row(
+                children: [
+                  Text('Stipend:',
+                      style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.w400,
+                      )),
+                  Text(
+                    "${data["stipend"]}",
+                    style: GoogleFonts.arsenal(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+              Divider(
+                color: Colors.grey,
+                thickness: 0.5,
+              ),
+
+
+
               RichText(
                 text: TextSpan(
                     text: "Company Name: ",
@@ -65,6 +88,7 @@ class MoreOptionsInternship extends StatelessWidget {
                       )
                     ]),
               ),
+              SizedBox(height: 5,),
               Row(
                 children: [
                   Text('Location: ',
@@ -81,6 +105,24 @@ class MoreOptionsInternship extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 5,),
+              Row(
+                children: [
+                  Text('Duration Of Internship:',
+                      style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.w400,
+                      )),
+                  Text(
+                    "${data["duration"]}",
+                    style: GoogleFonts.arsenal(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 5,),
               Divider(
                 color: Colors.grey,
                 thickness: 0.5,

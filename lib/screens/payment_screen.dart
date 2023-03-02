@@ -155,6 +155,10 @@ class _PaymentScreenState extends State<PaymentScreen> {
       "message": message,
       "error": error,
       "userId": FirebaseAuth.instance.currentUser?.uid,
+      "name": FirebaseAuth.instance.currentUser?.displayName,
+      "mail":FirebaseAuth.instance.currentUser?.email,
+      "number":FirebaseAuth.instance.currentUser?.phoneNumber,
+
     });
   }
 

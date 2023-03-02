@@ -264,60 +264,7 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                 ),
-                /* isStudent
-                    ? const SizedBox()
-                    : InkWell(
-                        onTap: () {
-                          Razorpay razorpay = Razorpay();
-                          var options = {
-                            'key': 'rzp_live_ILgsfZCZoFIKMb',
-                            'amount': 100,
-                            'name': 'Acme Corp.',
-                            'description': 'Fine T-Shirt',
-                            'retry': {'enabled': true, 'max_count': 1},
-                            'send_sms_hash': true,
-                            'prefill': {'contact': '8888888888', 'email': 'test@razorpay.com'},
-                            'external': {
-                              'wallets': ['paytm']
-                            }
-                          };
-                          razorpay.on(Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-                          razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS, handlePaymentSuccessResponse);
-                          razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET, handleExternalWalletSelected);
-                          razorpay.open(options);
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            width: 90,
-                            height: 70,
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.grey,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(14))),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: const <Widget>[
-                                  Icon(Icons.payment_outlined),
-                                  SizedBox(
-                                    height: 7,
-                                  ),
-                                  Text(
-                                    'Payments',
-                                    style: TextStyle(
-                                        color: Colors.deepPurple,
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),*/
+
               ],
             ),
           ),

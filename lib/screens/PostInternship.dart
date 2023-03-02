@@ -20,11 +20,37 @@ class _PostInternshipsState extends State<PostInternships> {
   final _formKey = GlobalKey<FormState>();
   String? _CompanyName;
   String? _Title;
-  String? _Duration;
   String? _Location;
   String? _Email;
   String? _Describe;
   File? file;
+  String? selectstipend;
+  String? duration;
+  var selectedstipend=[
+    "1000-3000",
+    "3000-5000",
+    "5000-8000",
+    "Above 8000",
+    "Not Defined",
+  ];
+  var time=[
+         "1 week",
+         "45 days",
+         "2 week",
+         "3 week",
+        "1 month",
+        "2 month",
+        "3 month",
+        "4 month",
+        "5 month",
+        "6 month",
+        "7 month",
+        "8 month",
+        "9 month",
+        "10 month",
+        "11 month",
+        "12 month",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +127,7 @@ class _PostInternshipsState extends State<PostInternships> {
                   },
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
@@ -122,6 +149,48 @@ class _PostInternshipsState extends State<PostInternships> {
                       return null;
                     }
                   },
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(16.0),
+                child: DropdownButtonFormField
+                  (
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  items: selectedstipend
+                      .map((e) => DropdownMenuItem(
+                    child: Text(e),
+                    value: e,
+                  ))
+                      .toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      selectstipend = val;
+                    });
+                  },
+                  value: selectstipend,
+                  hint: Text("select package"),
+                ),
+              ),
+              Padding(padding: EdgeInsets.all(16.0),
+                child: DropdownButtonFormField
+                  (
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  items: time
+                      .map((e) => DropdownMenuItem(
+                    child: Text(e),
+                    value: e,
+                  ))
+                      .toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      duration = val;
+                    });
+                  },
+                  value: duration,
+                  hint: Text("select time duration"),
                 ),
               ),
               Padding(
@@ -190,7 +259,7 @@ class _PostInternshipsState extends State<PostInternships> {
                           if (file != null) {
                             uploadProfile(internshipId, userId);
                           } else {
-                            saveData(internshipId, "", userId);
+                            saveData(internshipId, null, userId);
                           }
                         }
                       }
@@ -222,28 +291,28 @@ class _PostInternshipsState extends State<PostInternships> {
         case TaskState.running:
           final progress =
               100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
-          print("Upload is $progress% complete.");
+          Text("Upload is $progress% complete.");
           break;
         case TaskState.paused:
-          print("Upload is paused.");
+          Text("Upload is paused.");
           break;
         case TaskState.canceled:
-          print("Upload was canceled");
+          Text("Upload was canceled");
           break;
         case TaskState.error:
-          print("Upload was error");
+          Text("Upload was error");
           // Handle unsuccessful uploads
           break;
         case TaskState.success:
           final url = await ref.getDownloadURL();
-          print("Upload was success $url");
+          Text("Upload was success $url");
           saveData(id, url, userId);
           break;
       }
     });
   }
 
-  void saveData(String id, String url, String userId) async {
+  void saveData(String id, String? url, String userId) async {
     await FirebaseFirestore.instance
         .collection("PostedInternships")
         .doc()
@@ -257,6 +326,8 @@ class _PostInternshipsState extends State<PostInternships> {
           "attachment": url,
           "postedBy": FirebaseAuth.instance.currentUser?.uid,
           "time": DateTime.now().toUtc(),
+          "stipend":selectstipend,
+           "duration":duration,
         })
         .onError(
             (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
