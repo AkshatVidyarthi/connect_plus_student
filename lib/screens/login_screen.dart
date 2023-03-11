@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'Confirmation_Screen.dart';
 import 'dashboard_screen.dart';
 

@@ -40,7 +40,7 @@ class _ConfirmationScreenState extends State<ConfirmationScreen> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                  'Click On Get Started to explore the features of the App and how to Stay Connected.',
+                  'Get Started to explore the features of the App and how to Stay Connected.',
                   style: GoogleFonts.alegreyaSans(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,

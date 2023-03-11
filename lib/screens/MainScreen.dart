@@ -338,6 +338,7 @@ class _MainScreenState extends State<MainScreen> {
                         },
                       ));
                     },
+
                     child: Card(
                       elevation: 3.0,
                       color: Colors.white,
@@ -364,6 +365,7 @@ class _MainScreenState extends State<MainScreen> {
                                   ),
                                 ],
                               ),
+
                               Row(
                                 children: [
                                   Text(
@@ -426,4 +428,5 @@ class _MainScreenState extends State<MainScreen> {
       ),
     );
   }
+
 }

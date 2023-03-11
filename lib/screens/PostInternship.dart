@@ -34,23 +34,23 @@ class _PostInternshipsState extends State<PostInternships> {
     "Not Defined",
   ];
   var time=[
-         "1 week",
-         "45 days",
-         "2 week",
-         "3 week",
-        "1 month",
-        "2 month",
-        "3 month",
-        "4 month",
-        "5 month",
-        "6 month",
-        "7 month",
-        "8 month",
-        "9 month",
-        "10 month",
-        "11 month",
-        "12 month",
-  ];
+    "1 Week",
+    "2 Weeks",
+    "3 Weeks",
+    "45 Days",
+    "1 Months",
+    "2 Months",
+    "3 Months",
+    "4 Months",
+    "5 Months",
+    "6 Months",
+    "7 Months",
+    "8 Months",
+    "9 Months",
+    "10 Months",
+    "11 Months",
+    "12 Months",
+          ];
 
   @override
   Widget build(BuildContext context) {
@@ -264,6 +264,7 @@ class _PostInternshipsState extends State<PostInternships> {
                         }
                       }
                     },
+
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
