@@ -31,6 +31,7 @@ class _DashBoardScreenState extends State<DashBoardScreen> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         title:  Text('Connect+ Student',style: GoogleFonts.arsenal(
+          fontWeight: FontWeight.bold,
           //fontWeight: FontWeight.bold,
           //color: Colors.black,
         )),

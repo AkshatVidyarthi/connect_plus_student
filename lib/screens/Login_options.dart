@@ -21,7 +21,7 @@ class _Login_optionsState extends State<Login_options> {
           children: [
             AspectRatio(
               aspectRatio: 1.08,
-              child: Image.asset("Assets/login.png"),
+              child: Image.asset('Assets/login.png'),
             ),
             CircleAvatar(
               backgroundColor: Colors.transparent,

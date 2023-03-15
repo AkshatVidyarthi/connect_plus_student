@@ -33,14 +33,18 @@ class MoreOptionsInternship extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text(
-                    "${data["jobtitle"]}",
-                    style: GoogleFonts.arsenal(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20,
-                    ),
+                  Text('Position/Role: ',style: GoogleFonts.arsenal(
+                    fontWeight: FontWeight.w400,
+
+                  )),
+                Expanded(child:Text(
+                  "${data["jobtitle"]}",
+                  style: GoogleFonts.arsenal(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20,
                   ),
+                ), ) ,
                 ],
               ),
               Divider(
@@ -98,7 +102,7 @@ class MoreOptionsInternship extends StatelessWidget {
                   Text(
                     "${data["Location"]}",
                     style: GoogleFonts.arsenal(
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),

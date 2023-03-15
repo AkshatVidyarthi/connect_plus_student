@@ -33,6 +33,10 @@ class MoreJobsOptions extends StatelessWidget {
               ),
               Row(
                 children: [
+                  Text('Position: ',style: GoogleFonts.arsenal(
+                    color: Colors.black,
+                    fontSize: 15,
+                  )),
                   Text(
                     "${data["jobtitle"]}",
                     style: GoogleFonts.arsenal(
@@ -49,7 +53,7 @@ class MoreJobsOptions extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text('Qualification: ',style: GoogleFonts.arsenal(
+                  Text('Qualification Required: ',style: GoogleFonts.arsenal(
                     fontWeight: FontWeight.w400,
                   )),
                   Text(
@@ -57,7 +61,7 @@ class MoreJobsOptions extends StatelessWidget {
                     style: GoogleFonts.arsenal(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -68,7 +72,7 @@ class MoreJobsOptions extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text('PACKAGE: ',style: GoogleFonts.arsenal(
+                  Text('Package: ',style: GoogleFonts.arsenal(
                     fontWeight: FontWeight.w400,
                   )),
                   Text(
@@ -76,7 +80,7 @@ class MoreJobsOptions extends StatelessWidget {
                     style: GoogleFonts.arsenal(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20,
+                      fontSize: 15
                     ),
                   ),
                 ],
@@ -105,6 +109,7 @@ class MoreJobsOptions extends StatelessWidget {
               ),
               Row(
                 children: [
+                  SizedBox(height: 5),
                   Text('Location: ',
                       style: GoogleFonts.arsenal(
                         fontWeight: FontWeight.w400,
@@ -112,7 +117,7 @@ class MoreJobsOptions extends StatelessWidget {
                   Text(
                     "${data["Location"]}",
                     style: GoogleFonts.arsenal(
-                      color: Colors.grey,
+                      color: Colors.black,
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
                     ),
@@ -123,7 +128,7 @@ class MoreJobsOptions extends StatelessWidget {
                 color: Colors.grey,
                 thickness: 0.5,
               ),
-              Text('Job Description:',
+              Text('Job Description/Role:',
                   style: GoogleFonts.arsenal(
                     fontWeight: FontWeight.w400,
                   )),
@@ -151,6 +156,7 @@ class MoreJobsOptions extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
+              SizedBox(height: 10,),
               StreamBuilder(
                 stream: FirebaseFirestore.instance
                     .collection('users')

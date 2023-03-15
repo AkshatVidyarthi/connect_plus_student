@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class PaymentScreen extends StatefulWidget {
@@ -17,12 +18,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Donates Us"),
+        title:  Text("Donate Us",style: GoogleFonts.arsenal(
+          fontWeight: FontWeight.bold,
+        )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+           Image.asset('Assets/connect-student-logo-removebg-preview.png'),
             TextField(
               controller: paymentController,
               keyboardType: TextInputType.number,
@@ -44,10 +48,11 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         var options = {
                           'key': 'rzp_live_ILgsfZCZoFIKMb',
                           'amount': (int.parse(paymentController.text) * 100),
-                          'name': 'National PG Collage',
+                          'name': 'National PG College',
                           'description': 'Donation for National PG Collage',
                           'retry': {'enabled': true, 'max_count': 1},
                           'send_sms_hash': true,
+
                           'prefill': {
                             'contact':
                                 '${FirebaseAuth.instance.currentUser?.phoneNumber}',
@@ -73,7 +78,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                         );
                       }
                     },
-                    child: const Text("Donate"),
+                    child: const Text("Proceed to Payment"),
                   ),
                 ),
               ),

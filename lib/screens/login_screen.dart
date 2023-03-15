@@ -24,15 +24,21 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController otpController = TextEditingController();
   bool isOTPSend = false;
   String verificationID = "";
+  Duration time= Duration(minutes: 2);
+  String _countryCode = "91";
 
-  String _countryCode = "1";
+  Stream<Duration>? stream;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.deepPurple,
-        title: const Text('Login Screen'),
+        title: Text('Welcome to Connect+ Student',
+            style: GoogleFonts.arsenal(
+              fontWeight: FontWeight.bold,
+            )),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -48,7 +54,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   errorWidget: (context, error, stack) {
                     return const Icon(Icons.error);
                   },
-                  placeholder: (context, url) => const CircularProgressIndicator(),
+                  placeholder: (context, url) =>
+                      const CircularProgressIndicator(),
                 )),
             const Text(
               'PRESENTS',
@@ -175,6 +182,33 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text('Verify OTP')),
             ),
+
+            Visibility(
+              visible: isOTPSend,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    PhoneAuthCredential credential =
+                        PhoneAuthProvider.credential(
+                            verificationId: verificationID,
+                            smsCode: otpController.text);
+                    // Sign the user in (or link) with the credential
+                    final userCred = await FirebaseAuth.instance
+                        .signInWithCredential(credential);
+
+                    if (userCred.user != null) {
+                      final widget = await checkUserVerification();
+                      if (!mounted) return;
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return widget;
+                        }),
+                        (route) => false,
+                      );
+                    }
+                  },
+                  child: const Text('Resend OTP')),
+            ),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: ElevatedButton(
@@ -186,11 +220,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   if (user.user != null) {
                     final widget = await checkUserVerification();
                     if (!mounted) return;
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
-                      builder: (context) {
-                        return widget;
-                      },
-                    ),(route) => false,);
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return widget;
+                        },
+                      ),
+                      (route) => false,
+                    );
                   }
                 },
                 child: Row(
@@ -228,7 +266,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
-
   Future<Widget> checkUserVerification() async {
     final data = await FirebaseFirestore.instance
         .collection("users")
@@ -249,5 +286,6 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
+
 
 }

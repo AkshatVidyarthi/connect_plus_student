@@ -18,15 +18,15 @@ class PostJob extends StatefulWidget {
 
 class _PostJobState extends State<PostJob> {
 
- var selectedsalary=[
-   "below 100,000",
-   "100,000-200,000",
-   "200,000-300,000",
-   "300,000-400,000",
-   "400,000-500,000",
-   "Above 500,000",
-   "not defined",
- ];
+  var selectedsalary = [
+    "below 100,000",
+    "100,000-200,000",
+    "200,000-300,000",
+    "300,000-400,000",
+    "400,000-500,000",
+    "Above 500,000",
+    "not defined",
+  ];
   String? selectsal;
   String? _CompanyName;
   String? _Title;
@@ -45,8 +45,10 @@ class _PostJobState extends State<PostJob> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        backgroundColor: Colors.deepPurpleAccent,
-        title: Text('POST JOB'),
+        backgroundColor: Colors.deepPurpleAccent[100],
+        title: Text('POST JOB', style: GoogleFonts.arsenal(
+          fontWeight: FontWeight.bold,
+        )),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -231,28 +233,28 @@ class _PostJobState extends State<PostJob> {
                 ),
               ),
 
-             Padding(padding: EdgeInsets.all(16.0),
-               child: DropdownButtonFormField
-                 (
-                 decoration: InputDecoration(
-                   border: OutlineInputBorder(),
-                 ),
-                   items: selectedsalary
-                       .map((e) => DropdownMenuItem(
-                     child: Text(e),
-                     value: e,
-                   ))
-                       .toList(),
-                   onChanged: (val) {
-                     setState(() {
-                       selectsal = val;
-                     });
-                   },
-                 value: selectsal,
-                 hint: Text("select package"),
-               ),
-               ),
-
+              Padding(padding: EdgeInsets.all(16.0),
+                child: DropdownButtonFormField
+                  (
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(),
+                  ),
+                  items: selectedsalary
+                      .map((e) =>
+                      DropdownMenuItem(
+                        child: Text(e),
+                        value: e,
+                      ))
+                      .toList(),
+                  onChanged: (val) {
+                    setState(() {
+                      selectsal = val;
+                    });
+                  },
+                  value: selectsal,
+                  hint: Text("select package"),
+                ),
+              ),
 
 
               ElevatedButton(
@@ -267,7 +269,7 @@ class _PostJobState extends State<PostJob> {
                     }
                   },
                   child: Text(
-                    'Upload File',
+                    'Upload Job Description',
                     style: GoogleFonts.arsenal(
                         fontWeight: FontWeight.bold),
                   )),
@@ -341,21 +343,21 @@ class _PostJobState extends State<PostJob> {
         case TaskState.running:
           final progress =
               100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
-          print("Upload is $progress% complete.");
+          Text("Upload is $progress% complete.");
           break;
         case TaskState.paused:
-          print("Upload is paused.");
+          Text("Upload is paused.");
           break;
         case TaskState.canceled:
-          print("Upload was canceled");
+          Text("Upload was canceled");
           break;
         case TaskState.error:
-          print("Upload was error");
+          Text("Upload was error");
           // Handle unsuccessful uploads
           break;
         case TaskState.success:
           final url = await ref.getDownloadURL();
-          print("Upload was success $url");
+          Text("Upload was success $url");
           saveData(id, url, userId);
           break;
       }
@@ -377,24 +379,32 @@ class _PostJobState extends State<PostJob> {
       "postedBy": FirebaseAuth.instance.currentUser?.uid,
       "time": DateTime.now().toUtc(),
       "maxexp": _MaxEx,
-      "minexp":_MinEx,
-      "qualification":_Qualify,
-      "selectedsalary":selectsal,
+      "minexp": _MinEx,
+      "qualification": _Qualify,
+      "selectedsalary": selectsal,
     })
         .onError(
-            (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text("$error"),
-          ),
-        ))
-        .then((value) => Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return DashBoardScreen();
-        },
-      ),
-          (route) => false,
-    ));
+            (error, stackTrace) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("$error"),
+              ),
+            ))
+        .then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Job posted Successfully"),
+        ),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return DashBoardScreen();
+          },
+        ),
+            (route) => false,
+      );
+    });
   }
 }

@@ -350,46 +350,61 @@ class _MainScreenState extends State<MainScreen> {
                           padding: const EdgeInsets.all(16.0),
                           child: Column(
                             children: [
-                              const SizedBox(
-                                height: 20,
-                              ),
                               Row(
                                 children: [
+                                  Text('Position: ',style: GoogleFonts.arsenal(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  )),
                                   Text(
                                     "${data?["jobtitle"]}",
                                     style: GoogleFonts.arsenal(
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 20,
+                                      fontSize: 16,
                                     ),
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 5,),
 
                               Row(
                                 children: [
+                                  Text('Company: ',style: GoogleFonts.arsenal(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  )),
                                   Text(
                                     "${data?["Companyname"]}",
                                     style: GoogleFonts.arsenal(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
                               ),
+                              SizedBox(height: 5,),
                               Row(
                                 children: [
+                                  Text('Location: ',style: GoogleFonts.arsenal(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                  )),
                                   Text(
                                     "${data?["Location"]}",
                                     style: GoogleFonts.arsenal(
-                                      color: Colors.grey,
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w900,
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ],
                               ),
+
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -398,12 +413,18 @@ class _MainScreenState extends State<MainScreen> {
                                       TextButton(
                                           style: TextButton.styleFrom(),
                                           onPressed: () {},
-                                          child: const Text(
+                                          child:  Text(
                                             'View More',
-                                            style:
-                                                TextStyle(color: Colors.black),
-                                          )),
-                                      const Icon(Icons.login),
+
+                                            style: GoogleFonts.cairo(
+                                              fontSize: 16,
+                                              letterSpacing: 1.0,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )
+                                      ),
+                                       Icon(Icons.login,color: Colors.deepPurple),
                                     ],
                                   ),
                                 ],

@@ -19,10 +19,13 @@ class _StudentDetailsState extends State<StudentDetails> {
     'BBA',
     'BA',
     'BCA',
-    'BVOC',
-    'MVOC',
+    'BVOC(SDEG)',
+    'MVOC(SDEG)',
     'B.COM(H)',
-    'BBA(MS)'
+    'BBA(MS)',
+    'BVOC(B&F)',
+    'MVOC(B&F)',
+
   ];
 
   String? _selectedCourse;
@@ -31,6 +34,8 @@ class _StudentDetailsState extends State<StudentDetails> {
   String? _passingYear;
 
   final _formKey = GlobalKey<FormState>();
+
+  var nameController = TextEditingController(text: FirebaseAuth.instance.currentUser?.displayName);
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +63,7 @@ class _StudentDetailsState extends State<StudentDetails> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(
+                  controller: nameController,
                   onSaved: (value) {
                     _fullName = value;
                   },
@@ -181,15 +187,18 @@ class _StudentDetailsState extends State<StudentDetails> {
                                       content: Text("${error}"),
                                     ),
                                   ))
-                              .then((value) => Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return const ConfirmationScreen();
-                                      },
-                                    ),
-                                    (route) => false,
-                                  ));
+                              .then((value) {
+                                FirebaseAuth.instance.currentUser?.updateDisplayName(_fullName);
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return const ConfirmationScreen();
+                                },
+                              ),
+                                  (route) => false,
+                            );
+                          });
                         }
                       }
                     },

@@ -11,14 +11,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class Moreoptions extends StatefulWidget {
   const Moreoptions({Key? key}) : super(key: key);
-
   @override
   State<Moreoptions> createState() => _MoreoptionsState();
 }
-
 class _MoreoptionsState extends State<Moreoptions> {
-
-
   final TextEditingController _controller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -139,7 +135,7 @@ class _MoreoptionsState extends State<Moreoptions> {
             padding: const EdgeInsets.all(16.0),
             child: Material(
               elevation: 2.0,
-              color: Colors.white54,
+              color: Colors.white,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
                 side: const BorderSide(color: Colors.black, width: 1),
@@ -149,11 +145,9 @@ class _MoreoptionsState extends State<Moreoptions> {
                 width: 360,
                 child: Column(
                   children: [
-
                     const SizedBox(
                       height: 20,
                     ),
-
                     /*ListTile(
                       title: Text("fullName"),
                       leading: SizedBox(
@@ -181,7 +175,6 @@ class _MoreoptionsState extends State<Moreoptions> {
                           )),
                       onTap: () {},
                     ),*/
-
                     ListTile(
                       onTap: () {
                         showAlertDialog();
@@ -278,6 +271,7 @@ class _FeedbackDialogState extends State<FeedbackDialog> {
                 } catch (e) {
                   message = 'Error when sending feedback';
                 }
+
 
                 // Show a snackbar with the result
                 ScaffoldMessenger.of(context)

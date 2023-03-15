@@ -170,12 +170,18 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                                   Text("${error}"),
                                 ),
                               ))
-                              .then((value) =>
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(
+                              .then((value) {
+                            FirebaseAuth.instance.currentUser?.updateDisplayName(_fullName);
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
                                 builder: (context) {
-                                  return ConfirmationScreen();
+                                  return const ConfirmationScreen();
                                 },
-                              ),(route) => false,));
+                              ),
+                                  (route) => false,
+                            );
+                          });
                         }
                       }
                     },

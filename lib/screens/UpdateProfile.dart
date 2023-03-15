@@ -9,13 +9,11 @@ import 'package:image_picker/image_picker.dart';
 
 class updateprofile extends StatefulWidget {
   const updateprofile({Key? key}) : super(key: key);
-
   @override
   State<updateprofile> createState() => _updateprofileState();
 }
 class _updateprofileState extends State<updateprofile> {
   final ImagePicker _picker = ImagePicker();
-
   final emailController =
       TextEditingController(text: FirebaseAuth.instance.currentUser?.email);
   final mobileController = TextEditingController(
@@ -77,7 +75,7 @@ class _updateprofileState extends State<updateprofile> {
               child: TextField(
                 textAlign: TextAlign.center,
                 enabled: false,
-                decoration: InputDecoration.collapsed(hintText: 'fullname'),
+                decoration: InputDecoration.collapsed(hintText: 'Your Name'),
                 controller: nameController,
                 style: GoogleFonts.arsenal(
                   fontWeight: FontWeight.bold,
@@ -93,22 +91,27 @@ class _updateprofileState extends State<updateprofile> {
                 InkWell(
                   onTap: () {
                     showModalBottomSheet(
+
                       context: context,
                       builder: (context) {
                         return Container(
                           height: 120,
-                          width: 100,
+                          width: 120,
                           color: Colors.white,
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+
                                 Row(
                                   children: [
-                                    Text('FROM CAMERA',style: GoogleFonts.arsenal(
-                                      fontWeight: FontWeight.bold,
+                                    Center(
+                                      child:  Text('FROM CAMERA',style: GoogleFonts.arsenal(
+                                        fontWeight: FontWeight.bold,
 
-                                    )),
+                                      )),
+                                    ),
                                     IconButton(
                                       onPressed: () async {
                                         Navigator.pop(context);
@@ -130,9 +133,12 @@ class _updateprofileState extends State<updateprofile> {
                                 ),
                                 Row(
                                   children: [
-                                    Text('FROM GALLERY',style: GoogleFonts.arsenal(
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                                    Center(
+                                      child: Text('FROM GALLERY',style: GoogleFonts.arsenal(
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                    ),
+
                                     IconButton(
                                       onPressed: () async {
                                         Navigator.pop(context);
