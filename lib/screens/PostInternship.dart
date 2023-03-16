@@ -318,32 +318,41 @@ class _PostInternshipsState extends State<PostInternships> {
         .collection("PostedInternships")
         .doc()
         .set({
-          "Companyname": _CompanyName,
-          "jobtitle": _Title,
-          "Location": _Location,
-          "email": _Email,
-          "jobdescription": _Describe,
-          "isVerified": false,
-          "attachment": url,
-          "postedBy": FirebaseAuth.instance.currentUser?.uid,
-          "time": DateTime.now().toUtc(),
-          "stipend":selectstipend,
-           "duration":duration,
-        })
+      "Companyname": _CompanyName,
+      "jobtitle": _Title,
+      "Location": _Location,
+      "email": _Email,
+      "jobdescription": _Describe,
+      "isVerified": false,
+      "attachment": url,
+      "postedBy": FirebaseAuth.instance.currentUser?.uid,
+      "time": DateTime.now().toUtc(),
+      "stipend": selectstipend,
+      "duration": duration,
+    })
         .onError(
-            (error, stackTrace) => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text("$error"),
-                  ),
-                ))
-        .then((value) => Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) {
-                  return DashBoardScreen();
-                },
+            (error, stackTrace) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("$error"),
               ),
-              (route) => false,
-            ));
+            ))
+
+        .then((value) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Job posted Successfully"),
+        ),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return DashBoardScreen();
+          },
+        ),
+            (route) => false,
+      );
+    });
   }
 }
