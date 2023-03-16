@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/main.dart';
@@ -24,10 +26,38 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController otpController = TextEditingController();
   bool isOTPSend = false;
   String verificationID = "";
-  Duration time= Duration(minutes: 2);
   String _countryCode = "91";
 
-  Stream<Duration>? stream;
+  Timer? countdownTimer;
+  late Duration myDuration = const Duration(minutes: 2);
+
+  int? resendOTPToken;
+
+  void startTimer() {
+    countdownTimer =
+        Timer.periodic(const Duration(seconds: 1), (_) => setCountDown());
+  }
+
+  void stopTimer() {
+    setState(() => countdownTimer!.cancel());
+  }
+
+  void setCountDown() {
+    const reduceSecondsBy = 1;
+    setState(() {
+      final seconds = myDuration.inSeconds - reduceSecondsBy;
+      if (seconds < 0) {
+        countdownTimer!.cancel();
+      } else {
+        myDuration = Duration(seconds: seconds);
+      }
+    });
+  }
+
+  void restartTimer() {
+    myDuration = const Duration(minutes: 2);
+    startTimer();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -147,9 +177,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       verificationFailed: (FirebaseAuthException e) {},
                       codeSent: (String verificationId, int? resendToken) {
                         verificationID = verificationId;
+                        resendOTPToken = resendToken;
                         setState(() {
                           isOTPSend = true;
                         });
+                        startTimer();
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
                     );
@@ -182,32 +214,34 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   child: const Text('Verify OTP')),
             ),
-
             Visibility(
               visible: isOTPSend,
+              child: Text(
+                "${myDuration.inMinutes.remainder(60).toString().padLeft(2, "0")}:${myDuration.inSeconds.remainder(60).toString().padLeft(2, "0")}",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+            ),
+            Visibility(
+              visible: myDuration.inSeconds == 0,
               child: ElevatedButton(
-                  onPressed: () async {
-                    PhoneAuthCredential credential =
-                        PhoneAuthProvider.credential(
-                            verificationId: verificationID,
-                            smsCode: otpController.text);
-                    // Sign the user in (or link) with the credential
-                    final userCred = await FirebaseAuth.instance
-                        .signInWithCredential(credential);
-
-                    if (userCred.user != null) {
-                      final widget = await checkUserVerification();
-                      if (!mounted) return;
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return widget;
-                        }),
-                        (route) => false,
-                      );
-                    }
-                  },
-                  child: const Text('Resend OTP')),
+                onPressed: () async {
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    phoneNumber: "+$_countryCode ${mycontroller.text}",
+                    verificationCompleted: (PhoneAuthCredential credential) {},
+                    verificationFailed: (FirebaseAuthException e) {},
+                    codeSent: (String verificationId, int? resendToken) {
+                      verificationID = verificationId;
+                      setState(() {
+                        isOTPSend = true;
+                      });
+                      restartTimer();
+                    },
+                    codeAutoRetrievalTimeout: (String verificationId) {},
+                    forceResendingToken: resendOTPToken,
+                  );
+                },
+                child: const Text('Resend OTP'),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
@@ -286,6 +320,4 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }
   }
-
-
 }
