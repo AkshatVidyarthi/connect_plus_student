@@ -20,6 +20,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
   String? _passingYear;
   String? _course;
   String? _stream;
+  String? _id;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -87,6 +88,31 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+
+                  onSaved: (value) {
+                    _id = value;
+                  },
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                    ),
+                    labelText: 'ID',
+                    hintText: 'Enter your ID',
+                  ),
+                  keyboardType: TextInputType.number,
+                  maxLength: 6,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Your ID";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
+
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: TextFormField(

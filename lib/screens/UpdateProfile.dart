@@ -31,11 +31,9 @@ class _updateprofileState extends State<updateprofile> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        title: Text('Update Profile',
+        title: Text('UPDATE PROFILE',
             style: GoogleFonts.arsenal(
-              color: Colors.black,
               fontWeight: FontWeight.bold,
-              wordSpacing: 1.0,
             )),
         backgroundColor: Colors.deepPurpleAccent,
       ),

@@ -21,7 +21,9 @@ class _InternshipScreenState extends State<InternshipScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
-        title: Text('VIEW INTERNSHIPS'),
+        title: Text('VIEW INTERNSHIPS',style: GoogleFonts.arsenal(
+          fontWeight: FontWeight.bold,
+        )),
       ),
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,

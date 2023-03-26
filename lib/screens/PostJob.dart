@@ -45,7 +45,7 @@ class _PostJobState extends State<PostJob> {
     return Scaffold(
       appBar: AppBar(
         elevation: 2.0,
-        backgroundColor: Colors.deepPurpleAccent[100],
+        backgroundColor: Colors.deepPurpleAccent,
         title: Text('POST JOB', style: GoogleFonts.arsenal(
           fontWeight: FontWeight.bold,
         )),

@@ -57,7 +57,9 @@ class _PostInternshipsState extends State<PostInternships> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
-        title: Text('POST INTERNSHIPS'),
+        title: Text('POST INTERNSHIPS',style: GoogleFonts.arsenal(
+          fontWeight: FontWeight.bold,
+        )),
       ),
 //body
       body: SingleChildScrollView(

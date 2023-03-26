@@ -32,6 +32,7 @@ class _StudentDetailsState extends State<StudentDetails> {
   String? _fullName;
   String? _id;
   String? _passingYear;
+  String? stream;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -128,6 +129,30 @@ class _StudentDetailsState extends State<StudentDetails> {
                   },
                 ),
               ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: TextFormField(
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+
+                  onSaved: (value) {
+                    stream = value;
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'Stream',
+                    hintText: 'Enter Your Stream',
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return "Please Enter Your Stream";
+                    } else {
+                      return null;
+                    }
+                  },
+                ),
+              ),
               Text('Enter Your Course',
                   style: GoogleFonts.arsenal(
                       fontWeight: FontWeight.bold, fontSize: 20)),
@@ -149,6 +174,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                   },
                 ),
               ),
+
               Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: ElevatedButton(
@@ -177,6 +203,7 @@ class _StudentDetailsState extends State<StudentDetails> {
                                 "course": _selectedCourse,
                                 "isVerified": false,
                                 "type": "student",
+                                "stream":stream,
                                 "photo":"${user.photoURL}",
                                 "email":"${user.email}",
                                 "phone":"${user.phoneNumber}",
