@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connect_plus_student/screens/Confirmation_Screen.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +25,7 @@ class _AluminidetailsState  extends State<Aluminidetails> {
   String? _course;
   String? _stream;
   String? _id;
+  File? file;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -145,17 +150,13 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                     border: OutlineInputBorder(),
                     labelText: 'Passing Year',
                     hintText: 'Year of Passing',
-
                   ),
-
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     FilteringTextInputFormatter.digitsOnly
 
                   ],
                   maxLength: 4,
-
-
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return "Please Enter Your Passing Year";
@@ -166,7 +167,80 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                   },
                 ),
               ),
+
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepPurpleAccent),
+                  onPressed: () async {
+                    FilePickerResult? result =
+                    await FilePicker.platform.pickFiles();
+                    if (result != null) {
+                      file = File("${result.files.single.path}");
+                      setState(() {});
+                    }
+                  },
+                  child: Text(
+                    'Upload Job Description',
+                    style: GoogleFonts.arsenal(
+                        fontWeight: FontWeight.bold),
+                  )),
+              file != null
+                  ? Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  children: [
+                    Expanded(child: Text("${file?.path
+                        .split("/")
+                        .last}")),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        file = null;
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+              )
+                  : SizedBox(),
               Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepPurpleAccent),
+                    onPressed: () async {
+                      _formKey.currentState?.save();
+                      if (_formKey.currentState?.validate() ?? false) {
+                        final user = FirebaseAuth.instance.currentUser;
+                        if (user != null) {
+                          final jobId =
+                          DateTime
+                              .now()
+                              .millisecond
+                              .toString();
+                          final userId = user.uid;
+                          if (file != null) {
+                            uploadProfile(jobId, userId);
+                          } else {
+                            saveData(jobId, null, userId);
+                          }
+                        }
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                          width: double.infinity,
+                          child: Center(
+                              child: Text(
+                                'Submit',
+                                style: GoogleFonts.arsenal(
+                                    fontWeight: FontWeight.bold),
+                              ))),
+                    )),
+              ),
+
+              /*Padding(
                 padding: const EdgeInsets.all(24.0),
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -181,9 +255,10 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                               .doc(user.uid)
                               .set({
                             "fullName": _fullName,
-                             "stream":_stream,
+                            "stream":_stream,
                             "passingYear": _passingYear,
                             "course": _course,
+                            "id":_id,
                             "isVerified":false,
                             "type": "alumni",
                             "photo":"${user.photoURL}",
@@ -225,12 +300,81 @@ class _AluminidetailsState  extends State<Aluminidetails> {
                       ),
                     )
                 ),
-              ),
+              ),*/
             ],
           ),
         ),
       ),
     );
   }
+  void uploadProfile(String id, String userId) async {
+    final ref = FirebaseStorage.instance.ref("Marksheets/$id");
+    final uploadTask = ref.putFile(file!);
+    uploadTask.snapshotEvents.listen((TaskSnapshot taskSnapshot) async {
+      switch (taskSnapshot.state) {
+        case TaskState.running:
+          final progress =
+              100.0 * (taskSnapshot.bytesTransferred / taskSnapshot.totalBytes);
+          Text("Upload is $progress% complete.");
+          break;
+        case TaskState.paused:
+          Text("Upload is paused.");
+          break;
+        case TaskState.canceled:
+          Text("Upload was canceled");
+          break;
+        case TaskState.error:
+          Text("Upload was error");
+          // Handle unsuccessful uploads
+          break;
+        case TaskState.success:
+          final url = await ref.getDownloadURL();
+          Text("Upload was success $url");
+          saveData(id, url, userId);
+          break;
+      }
+    });
+  }
+  void saveData(String id, String? url, String userId) async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .doc()
+        .set({
+      "fullName": _fullName,
+      "stream":_stream,
+      "passingYear": _passingYear,
+      "course": _course,
+      "id":_id,
+      "isVerified":false,
+      "type": "alumni",
+      "attachment":url,
+      "time": DateTime.now().toUtc(),
+    })
+        .onError(
+            (error, stackTrace) =>
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                content: Text("$error"),
+              ),
+            ))
+        .then((value) {
+      FirebaseAuth.instance.currentUser?.updateDisplayName(_fullName);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("User posted Successfully"),
+        ),
+      );
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return ConfirmationScreen();
+          },
+        ),
+            (route) => false,
+      );
+    });
+  }
 }
+
 

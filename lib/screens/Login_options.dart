@@ -65,7 +65,7 @@ class _Login_optionsState extends State<Login_options> {
                       child: Text('Alumini?',
                           style: GoogleFonts.poppins(fontSize: 20))),
                   leading: Image.network(
-                      'https://media.istockphoto.com/id/871028402/vector/bachelor-cap-icon.jpg?s=612x612&w=0&k=20&c=Q65yCIOlUsIonlNMh2uam9n0wrBldcMcOAETFvjR4Rw='),
+                      'https://pic.onlinewebfonts.com/svg/img_319579.png'),
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
